@@ -1,11 +1,13 @@
 package org.devgateway.geocoder.service;
 
 import org.devgateway.geocoder.iati.ActivitiesReader;
+import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,20 +19,19 @@ import java.io.FileNotFoundException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class Reader {
+public class ImportTest {
 
-    @Autowired XmlImport xmlImport;
+    @Autowired
+    XmlImport xmlImport;
+    @Autowired
+    ActivityRepository activityRepository;
 
     @Test
-    public void testReader( ){
-
-
-        File in =new File("C:\\projects\\spring-boot-sample-data-jpa\\src\\main\\resources\\example.xml");
-
-        ActivitiesReader reader= null;
+    public void testFileImport() {
+        File in = new File(this.getClass().getClassLoader().getResource("example.xml").getPath());
         try {
-            //reader = new ActivitiesReader();
-            xmlImport.process(new FileInputStream(in),"en");
+            xmlImport.process(new FileInputStream(in), "en");
+            Assert.isTrue(activityRepository.count() > 0, "There are no activities");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

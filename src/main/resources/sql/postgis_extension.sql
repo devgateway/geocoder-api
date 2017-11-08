@@ -1,0 +1,3 @@
+CREATE EXTENSION postgis
+  SCHEMA public
+  VERSION "2.4.1";

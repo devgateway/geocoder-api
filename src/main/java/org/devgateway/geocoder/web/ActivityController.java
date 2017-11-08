@@ -18,6 +18,7 @@ package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.iati.model.IatiActivity;
+import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,24 +46,35 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
+    @Autowired
+    ActivityRepository activityServicRepository;
+
     @RequestMapping(value = "/import", method = RequestMethod.POST)
     public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile) {
         log.info(uploadfile.getName());
         try {
-            xmlImport.process(uploadfile.getInputStream(),"en");
+            xmlImport.process(uploadfile.getInputStream(), "en");
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            log.log(Level.SEVERE,"Error while imporing file");
+            log.log(Level.SEVERE, "Error while imporing file");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while importing file");
         }
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public Page<IatiActivity> getActivityLists(@RequestParam(value = "", required = false) String t, @RequestParam(required = false) Integer page) {
-        if (page == null) {
-            page = 0;
+    public List<Activity> getActivityLists(@RequestParam(value = "", required = false) String t, @RequestParam(required = false) Integer page) {
+
+        //return activityServicRepository.findByText("%Solar%");
+        try {
+            return activityServicRepository.findByDate(
+                    new SimpleDateFormat("YYYY-MM-DD").parse("2004-01-01"),
+                    new SimpleDateFormat("YYYY-MM-DD").parse("2010-01-01")
+            );
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
         }
-        return activityService.findActivities(t, page);
+
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
-@Component
+//@Component
 public class Runner implements ApplicationRunner {
 
     @Autowired

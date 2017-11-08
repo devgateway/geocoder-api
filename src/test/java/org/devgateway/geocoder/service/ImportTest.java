@@ -1,6 +1,5 @@
 package org.devgateway.geocoder.service;
 
-import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,7 @@ public class ImportTest {
 
     @Test
     public void testFileImport() {
-        File in = new File(this.getClass().getClassLoader().getResource("example.xml").getPath());
+        File in = new File(this.getClass().getClassLoader().getResource("example_afdb.xml").getPath());
         try {
             xmlImport.process(new FileInputStream(in), "en");
             Assert.isTrue(activityRepository.count() > 0, "There are no activities");

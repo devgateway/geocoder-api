@@ -1,7 +1,10 @@
 package org.devgateway.geocoder.domain;
 
 
+import org.devgateway.geocoder.iati.model.IatiActivity;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,6 +12,23 @@ import java.util.List;
  */
 
 @Entity
+
+@NamedNativeQueries({@NamedNativeQuery(
+        resultClass = Activity.class,
+        name = "Activity.findByText",
+        query = "select *  " +
+                "  from activity where " +
+                " cast( xpath('//narrative/text()',xml) as text) ilike :text")
+
+        , @NamedNativeQuery(
+        resultClass = Activity.class,
+        name = "Activity.findByDate",
+        query = "select  * from activity  where  to_date(cast(((xpath('//activity-date[@type=1]/@iso-date',xml))[1]) as varchar),'YYYY-MM-DD') between :d1 and :d2")
+
+}
+
+)
+
 public class Activity {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,11 +36,11 @@ public class Activity {
     Long id;
     String identifier;
 
-    @OneToMany(targetEntity = Location.class,cascade = CascadeType.ALL, mappedBy = "activity")
+    @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "activity")
     List<Location> locations;
 
-
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "xml")
+    @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     String xml;
 
     public String getXml() {

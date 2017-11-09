@@ -15,6 +15,16 @@ public class Country {
     private String iso2;
     private String iso3;
     private String name;
+    private String lan;
+
+    public Country(String iso2, String name, String lan) {
+        this.iso2 = iso2;
+        this.name = name;
+        this.lan = lan;
+    }
+
+    public Country() {
+    }
 
     public Long getId() {
         return id;

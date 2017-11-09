@@ -17,8 +17,7 @@
 package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
-import org.devgateway.geocoder.iati.model.IatiActivity;
-import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.responses.ActivityResponse;
 import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +27,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.Parameter;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,8 +43,6 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @Autowired
-    ActivityRepository activityServicRepository;
 
     @RequestMapping(value = "/import", method = RequestMethod.POST)
     public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile) {
@@ -62,18 +57,18 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public List<Activity> getActivityLists(@RequestParam(value = "", required = false) String t, @RequestParam(required = false) Integer page) {
+    public Page<ActivityResponse> getActivityLists(@RequestParam(value = "", required = false) String t, @RequestParam(required = false) Integer page) {
 
         //return activityServicRepository.findByText("%Solar%");
-        try {
-            return activityServicRepository.findByDate(
-                    new SimpleDateFormat("YYYY-MM-DD").parse("2004-01-01"),
-                    new SimpleDateFormat("YYYY-MM-DD").parse("2010-01-01")
-            );
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+        //return activityServicRepository.findByDate(
+        //        new SimpleDateFormat("YYYY-MM-DD").parse("2004-01-01"),
+        //        new SimpleDateFormat("YYYY-MM-DD").parse("2010-01-01")
+
+        //);
+
+        HashMap<String, Object> params = new HashMap<>();
+
+        return activityService.findActivities(params, page, "fr");
 
     }
 

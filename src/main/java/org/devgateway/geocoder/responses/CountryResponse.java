@@ -22,4 +22,9 @@ public class CountryResponse {
     public void setName(String name) {
         this.name = name;
     }
+
+    public CountryResponse(String iso2, String name) {
+        this.iso2 = iso2;
+        this.name = name;
+    }
 }

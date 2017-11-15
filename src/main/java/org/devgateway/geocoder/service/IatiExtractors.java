@@ -1,11 +1,13 @@
 package org.devgateway.geocoder.service;
 
-import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.iati.model.ActivityDate;
 import org.devgateway.geocoder.iati.model.IatiActivity;
 import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
+import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.responses.CountryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,8 +27,10 @@ public class IatiExtractors {
     static Logger log = Logger.getLogger(IatiExtractors.class.getName());
 
     @Autowired
-    CountryRepository countryRepository;
+    private CountryRepository countryRepository;
 
+    @Autowired
+    private GeographicVocabularyRepository geographicVocabularyRepository;
 
     public String getTitle(TextRequiredType textRequiredType, String lan) {
         String retValue = null;
@@ -92,5 +96,45 @@ public class IatiExtractors {
                 .collect(Collectors.toList());
 
     }
+
+
+    /*
+    * Extracts all location identifier
+    * */
+    public List<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
+        List<LocationIdentifier> list = null;
+        if (iatiIdentifiers != null && iatiIdentifiers.size() > 0) {
+            list = iatiIdentifiers.stream().map(locationId -> new LocationIdentifier(geographicVocabularyRepository.findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toList());
+        }
+
+        return list;
+    }
+
+    /*
+    * Extracts all location names
+    * */
+    public List<org.devgateway.geocoder.domain.Narrative> getTexts(TextRequiredType textRequiredType) {
+        List<org.devgateway.geocoder.domain.Narrative> value = null;
+        if (textRequiredType != null) {
+            value = textRequiredType.getNarrative().stream().map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang(), narrative.getValue())).collect(Collectors.toList());
+
+        }
+        return value;
+    }
+
+    /*
+    * Extracts all location admin levels
+    * */
+    public List<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
+        List<Administrative> value = null;
+
+        if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
+            value = iatiAdministratives.stream().map(administrative -> new Administrative(administrative.getLevel().intValue(), administrative.getCode(), geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()))).collect(Collectors.toList());
+
+        }
+
+        return value;
+    }
+
 
 }

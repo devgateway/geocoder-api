@@ -8,13 +8,13 @@ import org.devgateway.geocoder.domain.*;
 import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
-import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,21 +26,26 @@ import java.util.stream.Collectors;
 @Transactional
 public class XmlImport {
     @Autowired
-    ActivityRepository activityRepository;
+    private ActivityRepository activityRepository;
 
     @Autowired
-    GazetteerAgencyRepository gazetteerAgencyRepository;
-    @Autowired
-    GeographicalPrecisionRepository geographicalPrecisionRepository;
-    @Autowired
-    GeographicExactnessRepository geographicExactnessRepository;
-    @Autowired
-    GeographicLocationClassRepository geographicLocationClassRepository;
-    @Autowired
-    GeographicLocationReachRepository geographicLocationReachRepository;
-    @Autowired
-    GeographicVocabularyRepository geographicVocabularyRepository;
+    private IatiExtractors extractors;
 
+    @Autowired
+    private GeographicExactnessRepository geographicExactnessRepository;
+
+    @Autowired
+    private GeographicLocationClassRepository geographicLocationClassRepository;
+
+    @Autowired
+    private GeographicLocationReachRepository geographicLocationReachRepository;
+
+    @Autowired
+    private GeographicVocabularyRepository geographicVocabularyRepository;
+
+
+    @Autowired
+    private GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
 
     public void process(final InputStream in, final String lan) {
         ActivitiesReader reader = new ActivitiesReader(in);
@@ -71,24 +76,19 @@ public class XmlImport {
         Location acLocation = new Location();
 
         //"name",
-        acLocation.setNames(getTexts(location.getName()));
+        acLocation.setNames(extractors.getTexts(location.getName()));
 
 
         //"locationId",
 
-        List<LocationIdentifier> identifiers = getIdentifier(location.getLocationId());
+        List<LocationIdentifier> identifiers = extractors.getIdentifier(location.getLocationId());
         identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(acLocation));
         acLocation.setLocationIdentifiers(identifiers);
 
         //"administrative",
-        List<Administrative> administratives = getAdministratives(location.getAdministrative());
+        List<Administrative> administratives = extractors.getAdministratives(location.getAdministrative());
         administratives.forEach(administrative -> administrative.setLocation(acLocation));
         acLocation.setAdministratives(administratives);
-
-
-
-        //"featureDesignation",
-        //"any"
 
 
         //"point",
@@ -98,50 +98,32 @@ public class XmlImport {
 
 
         //"activityDescription",
-        acLocation.setActivityDescriptions(getTexts(location.getActivityDescription()));
+        acLocation.setActivityDescriptions(extractors.getTexts(location.getActivityDescription()));
 
         //"description",
-        acLocation.setDescriptions(getTexts(location.getDescription()));
+        acLocation.setDescriptions(extractors.getTexts(location.getDescription()));
 
         //"locationClass",
-        acLocation.setGeographicLocationClass(geographicLocationClassRepository.findOneByCode(location.getLocationClass().getCode()));
+        acLocation.setLocationClass(this.geographicLocationClassRepository.findOneByCode(location.getLocationClass().getCode()));
 
         //"exactness",
-        acLocation.setGeographicExactness(geographicExactnessRepository.findOneByCode(location.getExactness().getCode()));
+        acLocation.setExactness(this.geographicExactnessRepository.findOneByCode(location.getExactness().getCode()));
 
         //"locationReach",
-        acLocation.setGeographicLocationReach(geographicLocationReachRepository.findOneByCode(location.getLocationClass().getCode()));
+        acLocation.setLocationReach(this.geographicLocationReachRepository.findOneByCode(location.getLocationClass().getCode()));
+
+        acLocation.setLocationStatus(LocationStatus.EXISTING);
+
+        //In some cases they put the name instead of code
+        String fDesignation=location.getFeatureDesignation().getCode();
+        if (fDesignation!=null && fDesignation.length() > 6){
+            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByName(fDesignation));
+        }else{
+            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+        }
+
 
         return acLocation;
-    }
-
-    public List<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
-        List<LocationIdentifier> list = null;
-        if (iatiIdentifiers != null && iatiIdentifiers.size() > 0) {
-            list = iatiIdentifiers.stream().map(locationId -> new LocationIdentifier(geographicVocabularyRepository.findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toList());
-        }
-
-        return list;
-    }
-
-    public List<Narrative> getTexts(TextRequiredType textRequiredType) {
-        List<Narrative> value = null;
-        if (textRequiredType != null) {
-            value = textRequiredType.getNarrative().stream().map(narrative -> new Narrative(narrative.getLang(), narrative.getValue())).collect(Collectors.toList());
-
-        }
-        return value;
-    }
-
-    public List<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
-        List<Administrative> value = null;
-
-        if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
-            value = iatiAdministratives.stream().map(administrative -> new Administrative(administrative.getLevel().intValue(), administrative.getCode(), geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()))).collect(Collectors.toList());
-
-        }
-
-        return value;
     }
 
 

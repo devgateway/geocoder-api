@@ -1,5 +1,7 @@
 package org.devgateway.geocoder.responses;
 
+import org.devgateway.geocoder.iati.model.Location;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class ActivityResponse {
     private String title;
     private String description;
     private List<CountryResponse> countries;
+    private List<LocationResponse> locations;
     private Date date;
 
     public List<CountryResponse> getCountries() {
@@ -62,5 +65,13 @@ public class ActivityResponse {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<LocationResponse> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<LocationResponse> locations) {
+        this.locations = locations;
     }
 }

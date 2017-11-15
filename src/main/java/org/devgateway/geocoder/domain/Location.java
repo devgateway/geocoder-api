@@ -13,18 +13,18 @@ public class Location {
     private Long id;
 
     @ManyToOne(targetEntity = Activity.class, cascade = CascadeType.PERSIST)
-    @JoinColumn(name="activity_id", nullable=false)
+    @JoinColumn(name = "activity_id", nullable = false)
     private Activity activity;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Narrative> names;
 
     private Point point;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Narrative> activityDescriptions;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Narrative> descriptions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
@@ -34,26 +34,39 @@ public class Location {
     List<Administrative> administratives;
 
     @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.ALL)
-    GeographicLocationClass geographicLocationClass;
+    GeographicLocationClass locationClass;
 
     @ManyToOne(targetEntity = GeographicExactness.class, cascade = CascadeType.ALL)
-    GeographicExactness geographicExactness;
+    GeographicExactness exactness;
 
     @ManyToOne(targetEntity = GeographicLocationReach.class, cascade = CascadeType.ALL)
-    GeographicLocationReach geographicLocationReach;
+    GeographicLocationReach locationReach;
 
+    @ManyToOne(targetEntity = GeographicFeatureDesignation.class, cascade = CascadeType.ALL)
+    GeographicFeatureDesignation featuresDesignation;
 
     @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.ALL)
-    GeographicalPrecision geographicalPrecision;
+    GeographicalPrecision precision;
 
 
     @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
-    GeographicVocabulary geographicVocabulary;
+    GeographicVocabulary vocabulary;
 
 
     @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.ALL)
     GazetteerAgency gazetteerAgency;
 
+    private LocationStatus locationStatus;
+
+
+    @Enumerated(EnumType.STRING)
+    public LocationStatus getLocationStatus() {
+        return locationStatus;
+    }
+
+    public void setLocationStatus(LocationStatus locationStatus) {
+        this.locationStatus = locationStatus;
+    }
 
     public Long getId() {
         return id;
@@ -119,44 +132,52 @@ public class Location {
         this.administratives = administratives;
     }
 
-    public GeographicLocationClass getGeographicLocationClass() {
-        return geographicLocationClass;
+    public GeographicLocationClass getLocationClass() {
+        return locationClass;
     }
 
-    public void setGeographicLocationClass(GeographicLocationClass geographicLocationClass) {
-        this.geographicLocationClass = geographicLocationClass;
+    public void setLocationClass(GeographicLocationClass locationClass) {
+        this.locationClass = locationClass;
     }
 
-    public GeographicExactness getGeographicExactness() {
-        return geographicExactness;
+    public GeographicExactness getExactness() {
+        return exactness;
     }
 
-    public void setGeographicExactness(GeographicExactness geographicExactness) {
-        this.geographicExactness = geographicExactness;
+    public void setExactness(GeographicExactness exactness) {
+        this.exactness = exactness;
     }
 
-    public GeographicLocationReach getGeographicLocationReach() {
-        return geographicLocationReach;
+    public GeographicLocationReach getLocationReach() {
+        return locationReach;
     }
 
-    public void setGeographicLocationReach(GeographicLocationReach geographicLocationReach) {
-        this.geographicLocationReach = geographicLocationReach;
+    public void setLocationReach(GeographicLocationReach locationReach) {
+        this.locationReach = locationReach;
     }
 
-    public GeographicalPrecision getGeographicalPrecision() {
-        return geographicalPrecision;
+    public GeographicFeatureDesignation getFeaturesDesignation() {
+        return featuresDesignation;
     }
 
-    public void setGeographicalPrecision(GeographicalPrecision geographicalPrecision) {
-        this.geographicalPrecision = geographicalPrecision;
+    public void setFeaturesDesignation(GeographicFeatureDesignation featuresDesignation) {
+        this.featuresDesignation = featuresDesignation;
     }
 
-    public GeographicVocabulary getGeographicVocabulary() {
-        return geographicVocabulary;
+    public GeographicalPrecision getPrecision() {
+        return precision;
     }
 
-    public void setGeographicVocabulary(GeographicVocabulary geographicVocabulary) {
-        this.geographicVocabulary = geographicVocabulary;
+    public void setPrecision(GeographicalPrecision precision) {
+        this.precision = precision;
+    }
+
+    public GeographicVocabulary getVocabulary() {
+        return vocabulary;
+    }
+
+    public void setVocabulary(GeographicVocabulary vocabulary) {
+        this.vocabulary = vocabulary;
     }
 
     public GazetteerAgency getGazetteerAgency() {

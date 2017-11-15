@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.repositories;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ public class ActivitySearchRepositoryImp implements ActivitySearchRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public Page<Activity> findByXml(HashMap<String, Object> params, Pageable pageable) {
+    public Page<Activity> findByXml(SearchRequest request, Pageable pageable) {
         String sqlSelect = "select * from activity ";
         String sqlCount = "select count(*) from activity ";
         String sqlWhere = "where 1=1 ";
@@ -30,33 +31,40 @@ public class ActivitySearchRepositoryImp implements ActivitySearchRepository {
 
         Query selectQuery = null;
         Query countQuery = null;
-        if (params.containsKey("text")) {
+        if (request.getText() != null && !request.getText().isEmpty()) {
             sqlWhere = sqlWhere.concat("and cast( xpath('//narrative/text()',xml) as text) ilike :text");
         }
 
-        if (params.containsKey("date")) {
+        if (request.getDate() != null) {
             sqlWhere = sqlWhere.concat("where to_date(cast(((xpath('//activity-date[@type=1]/@iso-date',xml))[1]) as varchar),'YYYY-MM-DD') between :d1 and :d2 ");
         }
 
-        if (params.containsKey("country")) {
+        if (request.getCountries() != null && request.getCountries().size() > 0) {
             sqlWhere = sqlWhere.concat("(cast(xpath('//recipient-country/@code ',xml) as varchar[])) @> cast( :codes  as varchar[])");
+        }
+        if (request.hasLocation() != null && request.hasLocation() == true) {
+            sqlWhere = sqlWhere.concat(" and activity.id in ( select activity_id from location l where l.activity_id=activity.id) ");
+        }
+        if (request.hasLocation() != null && request.hasLocation() == false) {
+            sqlWhere = sqlWhere.concat(" and activity.id not in ( select activity_id from location l where l.activity_id=activity.id) ");
         }
 
         selectQuery = em.createNativeQuery(sqlSelect + sqlWhere + sqlPage, Activity.class);
         countQuery = em.createNativeQuery(sqlCount + sqlWhere);
 
-        if (params.containsKey("text")) {
-            selectQuery.setParameter("text", params.get("text"));
-            countQuery.setParameter("text", params.get("text"));
+        if (request.getText() != null && !request.getText().isEmpty()) {
+            selectQuery.setParameter("text", request.getText());
+            countQuery.setParameter("text", request.getText());
         }
-        if (params.containsKey("date")) {
-            selectQuery.setParameter("text", params.get("text"));
-            countQuery.setParameter("text", params.get("text"));
+        if (request.getDate() != null) {
+            selectQuery.setParameter("text", request.getText());
+            countQuery.setParameter("text", request.getText());
         }
-        if (params.containsKey("country")) {
-            selectQuery.setParameter("text", params.get("text"));
-            countQuery.setParameter("text", params.get("text"));
+        if (request.getCountries() != null && request.getCountries().size() > 0) {
+            selectQuery.setParameter("text", request.getText());
+            countQuery.setParameter("text", request.getText());
         }
+
 
         selectQuery.setParameter("limit", pageable.getPageSize());
         selectQuery.setParameter("offset", pageable.getOffset());

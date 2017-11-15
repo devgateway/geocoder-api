@@ -17,6 +17,7 @@
 package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.request.SearchRequest;
 import org.devgateway.geocoder.responses.ActivityResponse;
 import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.XmlImport;
@@ -57,24 +58,14 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public Page<ActivityResponse> getActivityLists(@RequestParam(value = "", required = false) String t, @RequestParam(required = false) Integer page) {
-
-        //return activityServicRepository.findByText("%Solar%");
-        //return activityServicRepository.findByDate(
-        //        new SimpleDateFormat("YYYY-MM-DD").parse("2004-01-01"),
-        //        new SimpleDateFormat("YYYY-MM-DD").parse("2010-01-01")
-
-        //);
-
-        HashMap<String, Object> params = new HashMap<>();
-
-        return activityService.findActivities(params, page, "fr");
+    public Page<ActivityResponse> getActivityLists(SearchRequest params) {
+        return activityService.findActivities(params);
 
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public Activity getActivityById(@PathVariable Long id) {
-        return activityService.getActivityById(id);
+    public ActivityResponse getActivityById(@PathVariable Long id, @RequestParam String lan) {
+          return activityService.getActivityById(id, lan);
     }
 
 }

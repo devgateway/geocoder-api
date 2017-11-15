@@ -15,6 +15,9 @@ public class Narrative {
     private String lan;
     private String description;
 
+    public Narrative() {
+    }
+
     public Narrative(String lan, String description) {
         this.lan = lan;
         this.description = description;

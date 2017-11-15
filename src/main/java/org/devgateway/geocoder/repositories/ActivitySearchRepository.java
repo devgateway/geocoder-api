@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.repositories;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,5 @@ import java.util.HashMap;
 @Repository
 public interface ActivitySearchRepository {
 
-    Page<Activity> findByXml(HashMap<String, Object> params, Pageable pageable);
+    Page<Activity> findByXml(SearchRequest params, Pageable pageable);
 }

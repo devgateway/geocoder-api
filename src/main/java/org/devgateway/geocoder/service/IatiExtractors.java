@@ -9,6 +9,10 @@ import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.responses.CountryResponse;
+import org.geonames.Toponym;
+import org.geonames.ToponymSearchCriteria;
+import org.geonames.ToponymSearchResult;
+import org.geonames.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -128,10 +132,31 @@ public class IatiExtractors {
     public List<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
         List<Administrative> value = null;
 
-        if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
-            value = iatiAdministratives.stream().map(administrative -> new Administrative(administrative.getLevel().intValue(), administrative.getCode(), geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()))).collect(Collectors.toList());
 
-        }
+        WebService.setUserName("sdimunzio"); // add your username here
+
+
+        if (iatiAdministratives != null && iatiAdministratives.size() > 0)
+            value = iatiAdministratives.stream().map(administrative -> {
+                        String adminName = "";
+                        try {
+                            if (!administrative.getCode().equalsIgnoreCase("0.0") &&
+                                    administrative.getVocabulary().equalsIgnoreCase("G1")) {
+                                Double code = Double.parseDouble(administrative.getCode());
+                                Toponym toponym = WebService.get(code.intValue(), "en", "full");
+                                adminName = toponym.getName();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        return new Administrative(administrative.getLevel().intValue(), administrative.getCode(), adminName,
+                                geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()));
+
+                    }
+
+
+            ).collect(Collectors.toList());
 
         return value;
     }

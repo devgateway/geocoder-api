@@ -14,6 +14,6 @@ import java.util.List;
 public interface IatiCodesRepository<T> extends JpaRepository<T, Long> {
 
     public T findOneByCode(String code);
-    public T findOneByName(String name);
+    public T findOneByNameIgnoreCase(String name);
 
 }

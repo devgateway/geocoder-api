@@ -29,7 +29,7 @@ public class LocationResponse {
 
     private GeographicLocationClass locationClass;
 
-    private GeographicFeatureDesignation featuresDesignation;
+    private GeographicFeatureDesignation featureDesignation;
 
     private GeographicExactness exactness;
 
@@ -70,7 +70,7 @@ public class LocationResponse {
 
         this.gazetteerAgency = location.getGazetteerAgency();
 
-        this.featuresDesignation = location.getFeaturesDesignation();
+        this.featureDesignation = location.getFeaturesDesignation();
 
         this.status = location.getLocationStatus().name();
 
@@ -199,12 +199,12 @@ public class LocationResponse {
         this.y = y;
     }
 
-    public GeographicFeatureDesignation getFeaturesDesignation() {
-        return featuresDesignation;
+    public GeographicFeatureDesignation getFeatureDesignation() {
+        return featureDesignation;
     }
 
-    public void setFeaturesDesignation(GeographicFeatureDesignation featuresDesignation) {
-        this.featuresDesignation = featuresDesignation;
+    public void setFeatureDesignation(GeographicFeatureDesignation featureDesignation) {
+        this.featureDesignation = featureDesignation;
     }
 
     public String getStatus() {

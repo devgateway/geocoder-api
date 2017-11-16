@@ -46,10 +46,15 @@ public class ActivityController {
 
 
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile) {
+    public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile, @RequestParam Boolean autocode) {
         log.info(uploadfile.getName());
         try {
-            xmlImport.process(uploadfile.getInputStream(), "en");
+            if (autocode == null) {
+                autocode = false;
+            }
+
+            xmlImport.process(uploadfile.getInputStream(), "en", autocode);
+
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error while imporing file");
@@ -65,7 +70,7 @@ public class ActivityController {
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
     public ActivityResponse getActivityById(@PathVariable Long id, @RequestParam String lan) {
-          return activityService.getActivityById(id, lan);
+        return activityService.getActivityById(id, lan);
     }
 
 }

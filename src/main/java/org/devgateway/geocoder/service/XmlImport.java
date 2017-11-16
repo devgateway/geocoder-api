@@ -47,7 +47,7 @@ public class XmlImport {
     @Autowired
     private GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
 
-    public void process(final InputStream in, final String lan) {
+    public void process(final InputStream in, final String lan, Boolean autocode) {
         ActivitiesReader reader = new ActivitiesReader(in);
         IatiActivities activities = reader.read();
 
@@ -78,7 +78,6 @@ public class XmlImport {
         //"name",
         acLocation.setNames(extractors.getTexts(location.getName()));
 
-
         //"locationId",
 
         List<LocationIdentifier> identifiers = extractors.getIdentifier(location.getLocationId());
@@ -93,7 +92,7 @@ public class XmlImport {
 
         //"point",
         String[] latLong = location.getPoint().getPos().split(" ");
-        Point pos = new GeometryFactory(new PrecisionModel(), 4326).createPoint(new Coordinate(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])));
+        Point pos = new GeometryFactory(new PrecisionModel(), 4326).createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
         acLocation.setPoint(pos);
 
 
@@ -117,7 +116,7 @@ public class XmlImport {
         //In some cases they put the name instead of code
         String fDesignation=location.getFeatureDesignation().getCode();
         if (fDesignation!=null && fDesignation.length() > 6){
-            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByName(fDesignation));
+            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
         }else{
             acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
         }

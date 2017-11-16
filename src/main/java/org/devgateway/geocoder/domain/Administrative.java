@@ -20,16 +20,27 @@ public class Administrative {
 
     String code;
 
+    String name;
+
     @ManyToOne(targetEntity = GeographicVocabulary.class)
     GeographicVocabulary vocabulary;
 
     public Administrative() {
     }
 
-    public Administrative(Integer level, String code, GeographicVocabulary vocabulary) {
+    public Administrative(Integer level, String code, String name, GeographicVocabulary vocabulary) {
         this.level = level;
         this.code = code;
         this.vocabulary = vocabulary;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {

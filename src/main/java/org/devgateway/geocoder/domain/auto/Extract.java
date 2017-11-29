@@ -1,9 +1,6 @@
 package org.devgateway.geocoder.domain.auto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by Sebastian Dimunzio on 11/16/2017.
@@ -13,6 +10,7 @@ public class Extract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
+    @Column(columnDefinition = "text")
     private String text;
     private String entities;
 

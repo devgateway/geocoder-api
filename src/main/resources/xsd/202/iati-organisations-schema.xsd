@@ -11,11 +11,11 @@
       NOTE: the xml.xsd and iati-common.xsd schemas must be in the
       same directory as this one.
 
-      This W3C XML Schema defines an XML document type for information
+      This W3C XML Schema defines an XML document fileType for information
       about an aid organisation, following the standard published at
       http://iatistandard.org
 
-      This document type may be extended with additional elements and
+      This document fileType may be extended with additional elements and
       attributes, but they must belong to an explicit XML namespace.
     </xsd:documentation>
   </xsd:annotation>
@@ -36,7 +36,7 @@
         <xsd:element ref="iati-organisation" minOccurs="1" maxOccurs="unbounded"/>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="version" type="xsd:string" use="required">
+      <xsd:attribute name="version" fileType="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A number indicating the IATI specification version in use.
@@ -44,7 +44,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="generated-datetime" type="xsd:dateTime" use="optional">
+      <xsd:attribute name="generated-datetime" fileType="xsd:dateTime" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A date/time stamp for when this file was generated. This
@@ -89,7 +89,7 @@
         <xsd:element ref="document-link" minOccurs="0" maxOccurs="unbounded"/>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="last-updated-datetime" type="xsd:dateTime" use="optional">
+      <xsd:attribute name="last-updated-datetime" fileType="xsd:dateTime" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The last date/time that the data for this specific
@@ -108,7 +108,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="default-currency" type="xsd:string" use="optional">
+      <xsd:attribute name="default-currency" fileType="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             Default ISO 4217 currency code for all financial values in
@@ -161,7 +161,7 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -175,11 +175,11 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
-        <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+        <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
             <xsd:documentation xml:lang="en">
               The total value of the organisation's aid budget for
@@ -200,7 +200,7 @@
           </xsd:annotation>
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+              <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                   <xsd:documentation xml:lang="en">
                     The budget sub-total. The definition of the
@@ -212,7 +212,7 @@
               <xsd:element ref="narrative" minOccurs="1" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An internal reference for this budget line taken
@@ -226,7 +226,7 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="status" use="optional" type="xsd:string">
+      <xsd:attribute name="status" use="optional" fileType="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The status explains whether the budget being reported is indicative or has 
@@ -277,7 +277,7 @@
               </xsd:element>
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   Machine-readable identification string for the
@@ -302,7 +302,7 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -316,11 +316,11 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
-        <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+        <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
             <xsd:documentation xml:lang="en">
               The total value of the money budgeted to be disbursed to
@@ -343,7 +343,7 @@
           </xsd:annotation>
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+              <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                   <xsd:documentation xml:lang="en">
                     The budget sub-total. The definition of the
@@ -355,7 +355,7 @@
               <xsd:element ref="narrative" minOccurs="1" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An internal reference for this budget line taken
@@ -369,7 +369,7 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="status" use="optional" type="xsd:string">
+      <xsd:attribute name="status" use="optional" fileType="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The status explains whether the budget being reported is indicative or has 
@@ -413,7 +413,7 @@
               <xsd:element ref="narrative" minOccurs="0" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="vocabulary" type="xsd:string" use="optional">
+            <xsd:attribute name="vocabulary" fileType="xsd:string" use="optional">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An IATI code for the vocabulary from which the region code is 
@@ -421,7 +421,7 @@
                 </xsd:documentation>
               </xsd:annotation>
             </xsd:attribute>
-            <xsd:attribute name="vocabulary-uri" type="xsd:anyURI" use="optional">
+            <xsd:attribute name="vocabulary-uri" fileType="xsd:anyURI" use="optional">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   If the vocabulary is 99 (reporting organisation), the URI 
@@ -429,7 +429,7 @@
                 </xsd:documentation>
               </xsd:annotation>
             </xsd:attribute>
-            <xsd:attribute name="code" type="xsd:string" use="optional">
+            <xsd:attribute name="code" fileType="xsd:string" use="optional">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   Either an OECD DAC, UN region code or (if code ‘99’ Reporting 
@@ -454,7 +454,7 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -468,11 +468,11 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
-        <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+        <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
             <xsd:documentation xml:lang="en">
               The total value of the money budgeted to be disbursed to
@@ -493,7 +493,7 @@
           </xsd:annotation>
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+              <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                   <xsd:documentation xml:lang="en">
                     The budget sub-total. The definition of the
@@ -505,7 +505,7 @@
               <xsd:element ref="narrative" minOccurs="1" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An internal reference for this budget line taken
@@ -519,7 +519,7 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="status" use="optional" type="xsd:string">
+      <xsd:attribute name="status" use="optional" fileType="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The status explains whether the budget being reported is indicative or has 
@@ -563,7 +563,7 @@
               <xsd:element ref="narrative" minOccurs="0" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="code" type="xsd:string"  use="required">
+            <xsd:attribute name="code" fileType="xsd:string"  use="required">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   ISO 3166-1 alpha-2 code for the country.
@@ -583,7 +583,7 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -597,11 +597,11 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
-        <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+        <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
             <xsd:documentation xml:lang="en">
               The total value of the money budgeted to be disbursed to
@@ -624,7 +624,7 @@
           </xsd:annotation>
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+              <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                   <xsd:documentation xml:lang="en">
                     The budget sub-total. The definition of the
@@ -636,7 +636,7 @@
               <xsd:element ref="narrative" minOccurs="1" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An internal reference for this budget line taken
@@ -650,7 +650,7 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="status" use="optional" type="xsd:string">
+      <xsd:attribute name="status" use="optional" fileType="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The status explains whether the budget being reported is indicative or has 
@@ -686,7 +686,7 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -700,11 +700,11 @@
             <xsd:sequence>
               <xsd:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" type="xsd:date" use="required"/>
+            <xsd:attribute name="iso-date" fileType="xsd:date" use="required"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
-        <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+        <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
             <xsd:documentation xml:lang="en">
               The total value of the organisation's aid expenditure for
@@ -726,7 +726,7 @@
           </xsd:annotation>
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="value" type="currencyType" minOccurs="1" maxOccurs="1">
+              <xsd:element name="value" fileType="currencyType" minOccurs="1" maxOccurs="1">
                 <xsd:annotation>
                   <xsd:documentation xml:lang="en">
                     The expenditure sub-total. The definition of the
@@ -738,7 +738,7 @@
               <xsd:element ref="narrative" minOccurs="1" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="ref" use="optional" type="xsd:string">
+            <xsd:attribute name="ref" use="optional" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An internal reference for this expenditure line taken 
@@ -775,7 +775,7 @@
             <xsd:sequence>
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="code" use="required" type="xsd:string">
+            <xsd:attribute name="code" use="required" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   An IATI code defining the category of the document.
@@ -797,7 +797,7 @@
             <xsd:sequence>
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="code" use="required" type="xsd:string">
+            <xsd:attribute name="code" use="required" fileType="xsd:string">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   ISO 639-1 language code
@@ -817,7 +817,7 @@
             <xsd:sequence>
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="iso-date" use="required" type="xsd:date"/>
+            <xsd:attribute name="iso-date" use="required" fileType="xsd:date"/>
             <xsd:anyAttribute processContents="lax" namespace="##other"/>
           </xsd:complexType>
         </xsd:element>
@@ -833,7 +833,7 @@
               <xsd:element ref="narrative" minOccurs="0" maxOccurs="unbounded" />
               <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="code" type="xsd:string"  use="required">
+            <xsd:attribute name="code" fileType="xsd:string"  use="required">
               <xsd:annotation>
                 <xsd:documentation xml:lang="en">
                   ISO 3166-1 alpha-2 code for the country.
@@ -845,17 +845,17 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="url" type="xsd:anyURI" use="required">
+      <xsd:attribute name="url" fileType="xsd:anyURI" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The target URL of the external document, e.g. "http://www.example.org/doc.odt".
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="format" type="xsd:string" use="required">
+      <xsd:attribute name="format" fileType="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
-            An IANA code for the MIME type of the document being
+            An IANA code for the MIME fileType of the document being
             referenced, e.g. "application/pdf". 
           </xsd:documentation>
         </xsd:annotation>
@@ -868,7 +868,7 @@
   <xsd:complexType name="currencyType">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
-        Data type for an element containing a currency value.
+        Data fileType for an element containing a currency value.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:simpleContent>
@@ -880,7 +880,7 @@
     </xsd:simpleContent>
   </xsd:complexType>
 
-  <xsd:attribute name="currency" type="xsd:string">
+  <xsd:attribute name="currency" fileType="xsd:string">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
         A three letter ISO 4217 code for the original currency of the

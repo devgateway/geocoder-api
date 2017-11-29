@@ -24,7 +24,16 @@ public class Queue {
     private Date createDate;
     private Date processedDate;
 
+    @Column(length = 500)
+    private String message;
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Long getId() {
         return id;

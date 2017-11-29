@@ -35,6 +35,9 @@ public class Geocoding {
     private String adminCode4;
     private String adminName4;
 
+    @ManyToOne(targetEntity = Queue.class)
+    private Queue queue;
+
     @ManyToOne(targetEntity = Document.class)
     private Document document;
 
@@ -220,12 +223,12 @@ public class Geocoding {
         this.adminName4 = adminName4;
     }
 
-    public Document getDocument() {
-        return document;
+    public Queue getQueue() {
+        return queue;
     }
 
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 
     public Long getActivity_id() {
@@ -242,5 +245,13 @@ public class Geocoding {
 
     public void setExtracts(List<Extract> extracts) {
         this.extracts = extracts;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
     }
 }

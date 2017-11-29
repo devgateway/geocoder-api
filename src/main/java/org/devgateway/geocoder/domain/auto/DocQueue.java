@@ -1,10 +1,8 @@
 package org.devgateway.geocoder.domain.auto;
 
 import org.devgateway.geocoder.domain.Country;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +12,7 @@ import java.util.List;
 @DiscriminatorValue("DOC_QUEUE")
 public class DocQueue extends Queue {
     private String fileName;
-    private String type;
+    private String fileType;
     @OneToMany(targetEntity = Country.class)
     private List<Country> countries;
 
@@ -26,12 +24,12 @@ public class DocQueue extends Queue {
         this.fileName = fileName;
     }
 
-    public String getType() {
-        return type;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public List<Country> getCountries() {

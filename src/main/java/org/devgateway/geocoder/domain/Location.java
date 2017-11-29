@@ -21,10 +21,10 @@ public class Location {
 
     private Point point;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Narrative> activityDescriptions;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Narrative> descriptions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")

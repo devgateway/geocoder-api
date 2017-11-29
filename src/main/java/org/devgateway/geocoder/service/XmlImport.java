@@ -4,7 +4,9 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
+import org.devgateway.geocoder.constants.Constants;
 import org.devgateway.geocoder.domain.*;
+import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,24 +50,43 @@ public class XmlImport {
     @Autowired
     private GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
 
+    @Autowired
+    private ActivityQueueRepository activityQueueRepository;
+
     public void process(final InputStream in, final String lan, Boolean autocode) {
+
         ActivitiesReader reader = new ActivitiesReader(in);
+
         IatiActivities activities = reader.read();
 
         for (IatiActivity activity : activities.getIatiActivity()) {
+
             Activity a = new Activity();
+
             a.setIdentifier(activity.getIatiIdentifier().getValue());
 
             if (activity.getLocation().size() > 0) {
-                List<Location> activityLocations = activity.getLocation().stream().map(location -> toActivityLocation(location, lan)).collect(Collectors.toList());
+                List<Location> activityLocations = activity.getLocation()
+                                .stream().map(location -> toActivityLocation(location, lan))
+                                 .collect(Collectors.toList());
+
                 activityLocations.forEach(location -> location.setActivity(a));
+
                 a.setLocations(activityLocations);
             }
 
             StringWriter writer = new StringWriter();
             reader.toXML(activity, writer);
             a.setXml(writer.toString());
+
             activityRepository.save(a);
+            if (autocode) {
+                ActivityQueue activityQueue = new ActivityQueue();
+                activityQueue.setActivity(a);
+                activityQueue.setCreateDate(new Date());
+                activityQueue.setState(Constants.ST_PENDING);
+                activityQueueRepository.save(activityQueue);
+            }
             System.out.print("...............");
         }
     }
@@ -114,10 +136,10 @@ public class XmlImport {
         acLocation.setLocationStatus(LocationStatus.EXISTING);
 
         //In some cases they put the name instead of code
-        String fDesignation=location.getFeatureDesignation().getCode();
-        if (fDesignation!=null && fDesignation.length() > 6){
+        String fDesignation = location.getFeatureDesignation().getCode();
+        if (fDesignation != null && fDesignation.length() > 6) {
             acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
-        }else{
+        } else {
             acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
         }
 

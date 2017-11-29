@@ -5,5 +5,5 @@ package org.devgateway.geocoder.domain;
  */
 public enum LocationStatus {
 
-    EXISTING, NEW, UPDATED, DELETED
+    NEW_AUTO_CODE, EXISTING, NEW, UPDATED, DELETED
 }

@@ -46,7 +46,7 @@ public class ActivityController {
 
 
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile, @RequestParam Boolean autocode) {
+    public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile, @RequestParam(required = false) Boolean autocode) {
         log.info(uploadfile.getName());
         try {
             if (autocode == null) {

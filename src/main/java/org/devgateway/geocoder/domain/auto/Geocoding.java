@@ -38,9 +38,6 @@ public class Geocoding {
     @ManyToOne(targetEntity = Queue.class)
     private Queue queue;
 
-    @ManyToOne(targetEntity = Document.class)
-    private Document document;
-
 
     private Long activity_id;
 
@@ -247,11 +244,5 @@ public class Geocoding {
         this.extracts = extracts;
     }
 
-    public Document getDocument() {
-        return document;
-    }
 
-    public void setDocument(Document document) {
-        this.document = document;
-    }
 }

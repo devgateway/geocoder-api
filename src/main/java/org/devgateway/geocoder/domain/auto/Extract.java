@@ -13,6 +13,15 @@ public class Extract {
     @Column(columnDefinition = "text")
     private String text;
     private String entities;
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     @ManyToOne()
     private Geocoding geocoding;

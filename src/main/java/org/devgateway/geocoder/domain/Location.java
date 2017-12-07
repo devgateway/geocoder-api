@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.domain;
 
 import com.vividsolutions.jts.geom.Point;
+import org.devgateway.geocoder.domain.auto.DocQueue;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +14,14 @@ public class Location {
     private Long id;
 
     @ManyToOne(targetEntity = Activity.class, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "activity_id", nullable = false)
+    @JoinColumn(name = "activity_id", nullable = true)
     private Activity activity;
+
+
+    @ManyToOne(targetEntity = DocQueue.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "queue_id", nullable = true)
+    private DocQueue queue;
+
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Narrative> names;
@@ -186,5 +193,13 @@ public class Location {
 
     public void setGazetteerAgency(GazetteerAgency gazetteerAgency) {
         this.gazetteerAgency = gazetteerAgency;
+    }
+
+    public DocQueue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(DocQueue queue) {
+        this.queue = queue;
     }
 }

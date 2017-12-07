@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.domain.auto;
 
 import org.devgateway.geocoder.domain.Country;
+import org.devgateway.geocoder.domain.Location;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +14,12 @@ import java.util.List;
 public class DocQueue extends Queue {
     private String fileName;
     private String fileType;
-    @OneToMany(targetEntity = Country.class)
-    private List<Country> countries;
+    private String countryIso;
+
+
+    @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "queue")
+    List<Location> locations;
+
 
     public String getFileName() {
         return fileName;
@@ -32,11 +37,19 @@ public class DocQueue extends Queue {
         this.fileType = fileType;
     }
 
-    public List<Country> getCountries() {
-        return countries;
+    public String getCountryIso() {
+        return countryIso;
     }
 
-    public void setCountries(List<Country> countries) {
-        this.countries = countries;
+    public void setCountryIso(String countryIso) {
+        this.countryIso = countryIso;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 }

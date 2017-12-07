@@ -1,10 +1,6 @@
 package org.devgateway.geocoder.domain;
 
-
-import org.devgateway.geocoder.iati.model.IatiActivity;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +44,7 @@ public class Activity {
     @Column(columnDefinition = "xml")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     String xml;
+
 
     public String getXml() {
         return xml;

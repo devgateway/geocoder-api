@@ -85,7 +85,7 @@ public class XmlImport {
             newActivity.setXml(writer.toString());
             activityRepository.save(newActivity);
 
-            if (autocode || !newActivity.getLocations().isEmpty()) {
+            if (autocode || (newActivity.getLocations() != null && !newActivity.getLocations().isEmpty())) {
                 final ActivityQueue activityQueue = new ActivityQueue();
                 activityQueue.setActivity(newActivity);
                 activityQueue.setCreateDate(new Date());

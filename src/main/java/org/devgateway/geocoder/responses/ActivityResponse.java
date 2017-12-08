@@ -1,7 +1,5 @@
 package org.devgateway.geocoder.responses;
 
-import org.devgateway.geocoder.iati.model.Location;
-
 import java.util.Date;
 import java.util.List;
 
@@ -9,14 +7,18 @@ import java.util.List;
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
 public class ActivityResponse {
-
-
     private Long id;
+
     private String identifier;
+
     private String title;
+
     private String description;
+
     private List<CountryResponse> countries;
+
     private List<LocationResponse> locations;
+
     private Date date;
 
     public List<CountryResponse> getCountries() {

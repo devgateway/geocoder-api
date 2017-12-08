@@ -8,14 +8,15 @@ import org.devgateway.geocoder.request.SearchRequest;
 import org.devgateway.geocoder.responses.ActivityResponse;
 import org.devgateway.geocoder.responses.LocationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-
-
 import java.io.StringReader;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -25,7 +26,6 @@ import java.util.stream.Collectors;
  */
 @Component
 public class ActivityService {
-
     Logger log = Logger.getLogger(this.getClass().getName());
 
     @Autowired
@@ -37,7 +37,7 @@ public class ActivityService {
     @Autowired
     IatiExtractors extractors;
 
-    Unmarshaller jaxbUnmarshaller = null;
+    Unmarshaller jaxbUnmarshaller;
 
     public ActivityService() {
 
@@ -51,9 +51,11 @@ public class ActivityService {
 
 
     public Page<ActivityResponse> findActivities(SearchRequest request) {
-        Pageable pageRequest = createPageRequest(request.getPage());
-        Page<Activity> activities = activitySearchRepository.findByXml(request, pageRequest);
-        Page<ActivityResponse> activityResponses = activities.map(activity -> toResponse(activity, fromXML(activity.getXml()), request.getLan()));
+        final Pageable pageRequest = new PageRequest(request.getPage(), 10, Sort.Direction.ASC, "id");
+        final Page<Activity> activities = activitySearchRepository.findByXml(request, pageRequest);
+        final Page<ActivityResponse> activityResponses = activities
+                .map(activity -> toResponse(activity, fromXML(activity.getXml()), request.getLan()));
+
         return activityResponses;
     }
 
@@ -93,16 +95,13 @@ public class ActivityService {
 
         }
 
-
         response.setLocations(activity.getLocations().stream().map(location -> new LocationResponse(location, lan)).collect(Collectors.toList()));
-
 
         return response;
     }
 
 
     public IatiActivity fromXML(String xml) {
-
         try {
 
             IatiActivity activity = (IatiActivity) jaxbUnmarshaller.unmarshal(new StringReader(xml));
@@ -123,9 +122,5 @@ public class ActivityService {
         Activity activity = activityRepository.findOne(id);
         return toResponse(activity, fromXML(activity.getXml()), lan);
 
-    }
-
-    private Pageable createPageRequest(Integer page) {
-        return new PageRequest(page, 10, Sort.Direction.ASC, "id");
     }
 }

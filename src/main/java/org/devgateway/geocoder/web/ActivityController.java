@@ -58,7 +58,7 @@ public class ActivityController {
 
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Error while imporing file");
+            log.log(Level.SEVERE, "Error while importing file", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while importing file");
         }
     }

@@ -10,6 +10,7 @@
 
     <artifactId>geocoder</artifactId>
     <name>Manual GeoCoder API</name>
+    <version>1.0</version>
     <description>Manual Geocoder API</description>
     <properties>
         <main.basedir>${basedir}/../..</main.basedir>

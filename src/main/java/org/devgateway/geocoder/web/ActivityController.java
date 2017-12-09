@@ -16,7 +16,6 @@
 
 package org.devgateway.geocoder.web;
 
-import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.devgateway.geocoder.responses.ActivityResponse;
 import org.devgateway.geocoder.service.ActivityService;
@@ -25,11 +24,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.lang.reflect.Parameter;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,19 +48,17 @@ public class ActivityController {
     ActivityService activityService;
 
 
-    @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public ResponseEntity importXmlFile(@RequestParam("file") MultipartFile uploadfile, @RequestParam(required = false) Boolean autocode) {
-        log.info(uploadfile.getName());
-        try {
-            if (autocode == null) {
-                autocode = false;
-            }
+    @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
+                                        @RequestPart(name = "autoGeocode", required = false) final String autoGeocode) {
+        final Boolean auto = Boolean.valueOf(autoGeocode);
 
-            xmlImport.process(uploadfile.getInputStream(), "en", autocode);
+        try {
+            xmlImport.process(uploadfile.getInputStream(), "en", auto);
 
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Error while imporing file");
+            log.log(Level.SEVERE, "Error while importing file", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while importing file");
         }
     }

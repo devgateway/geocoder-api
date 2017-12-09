@@ -1,5 +1,8 @@
 package org.devgateway.geocoder.domain.auto;
 
+
+import org.devgateway.geocoder.domain.Location;
+
 import javax.persistence.*;
 
 /**
@@ -15,6 +18,9 @@ public class Extract {
     private String entities;
     private String fileName;
 
+    @ManyToOne()
+    private Queue queue;
+
     public String getFileName() {
         return fileName;
     }
@@ -26,6 +32,8 @@ public class Extract {
     @ManyToOne()
     private Geocoding geocoding;
 
+    @ManyToOne()
+    private Location location;
 
     public Long getId() {
         return id;
@@ -57,5 +65,21 @@ public class Extract {
 
     public void setGeocoding(Geocoding geocoding) {
         this.geocoding = geocoding;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 }

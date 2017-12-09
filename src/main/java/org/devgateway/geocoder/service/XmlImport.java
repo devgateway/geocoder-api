@@ -5,12 +5,22 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import org.devgateway.geocoder.constants.Constants;
-import org.devgateway.geocoder.domain.*;
+import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.Location;
+import org.devgateway.geocoder.domain.LocationIdentifier;
+import org.devgateway.geocoder.domain.LocationStatus;
 import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
-import org.devgateway.geocoder.repositories.*;
+import org.devgateway.geocoder.repositories.ActivityQueueRepository;
+import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
+import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
+import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
+import org.devgateway.geocoder.repositories.GeographicLocationReachRepository;
+import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,41 +63,35 @@ public class XmlImport {
     @Autowired
     private ActivityQueueRepository activityQueueRepository;
 
-    public void process(final InputStream in, final String lan, Boolean autocode) {
-
-        ActivitiesReader reader = new ActivitiesReader(in);
-
-        IatiActivities activities = reader.read();
+    public void process(final InputStream in, final String lan, final Boolean autocode) {
+        final ActivitiesReader reader = new ActivitiesReader(in);
+        final IatiActivities activities = reader.read();
 
         for (IatiActivity activity : activities.getIatiActivity()) {
-
-            Activity a = new Activity();
-
-            a.setIdentifier(activity.getIatiIdentifier().getValue());
+            final Activity newActivity = new Activity();
+            newActivity.setIdentifier(activity.getIatiIdentifier().getValue());
 
             if (activity.getLocation().size() > 0) {
                 List<Location> activityLocations = activity.getLocation()
-                                .stream().map(location -> toActivityLocation(location, lan))
-                                 .collect(Collectors.toList());
+                        .stream().map(location -> toActivityLocation(location, lan))
+                        .collect(Collectors.toList());
 
-                activityLocations.forEach(location -> location.setActivity(a));
-
-                a.setLocations(activityLocations);
+                activityLocations.forEach(location -> location.setActivity(newActivity));
+                newActivity.setLocations(activityLocations);
             }
 
-            StringWriter writer = new StringWriter();
+            final StringWriter writer = new StringWriter();
             reader.toXML(activity, writer);
-            a.setXml(writer.toString());
+            newActivity.setXml(writer.toString());
+            activityRepository.save(newActivity);
 
-            activityRepository.save(a);
-            if (autocode) {
-                ActivityQueue activityQueue = new ActivityQueue();
-                activityQueue.setActivity(a);
+            if (autocode || (newActivity.getLocations() != null && !newActivity.getLocations().isEmpty())) {
+                final ActivityQueue activityQueue = new ActivityQueue();
+                activityQueue.setActivity(newActivity);
                 activityQueue.setCreateDate(new Date());
                 activityQueue.setState(Constants.ST_PENDING);
                 activityQueueRepository.save(activityQueue);
             }
-            System.out.print("...............");
         }
     }
 

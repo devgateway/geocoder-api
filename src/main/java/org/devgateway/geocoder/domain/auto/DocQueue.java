@@ -14,8 +14,17 @@ import java.util.List;
 public class DocQueue extends Queue {
     private String fileName;
     private String fileType;
-    private String countryIso;
 
+    public String getOutFile() {
+        return outFile;
+    }
+
+    public void setOutFile(String outFile) {
+        this.outFile = outFile;
+    }
+
+    private String countryIso;
+    private String outFile;
 
     @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "queue")
     List<Location> locations;

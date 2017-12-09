@@ -68,7 +68,7 @@
         <dependency>
             <groupId>bvmc</groupId>
             <artifactId>geonames</artifactId>
-            <scope>system</scope>
+            <scope>runtime</scope>
             <version>1.1.13</version>
             <systemPath>/opt/libs/geonames-1.1.13.jar</systemPath>
 

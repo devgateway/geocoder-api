@@ -18,6 +18,9 @@ public class Extract {
     private String entities;
     private String fileName;
 
+    @ManyToOne()
+    private Queue queue;
+
     public String getFileName() {
         return fileName;
     }
@@ -70,5 +73,13 @@ public class Extract {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 }

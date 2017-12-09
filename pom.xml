@@ -70,7 +70,8 @@
             <artifactId>geonames</artifactId>
             <scope>system</scope>
             <version>1.1.13</version>
-            <systemPath>${basedir}/libs/geonames-1.1.13.jar</systemPath>
+            <systemPath>/opt/libs/geonames-1.1.13.jar</systemPath>
+
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
@@ -92,13 +93,6 @@
             <version>RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.geonames</groupId>
-            <artifactId>geonames</artifactId>
-            <version>1.1.13</version>
-            <scope>system</scope>
-            <systemPath>/opt/libs/geonames-1.1.13.jar</systemPath>
-        </dependency>
 
     </dependencies>
 

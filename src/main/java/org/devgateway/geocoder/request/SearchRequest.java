@@ -1,10 +1,5 @@
 package org.devgateway.geocoder.request;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.devgateway.geocoder.constants.Constants;
-
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,10 +7,19 @@ import java.util.List;
  */
 public class SearchRequest {
     private String lan = "en";
-    private List<String> countries;
-    private String withLoc = null;
+
     private String text;
-    private Date date;
+
+    private List<String> countries;
+
+    private List<Integer> years;
+
+    private Boolean withNoLocation;
+
+    private Boolean pendingVerification;
+
+    private Boolean verifiedLocation;
+
     private Integer page = 0;
 
     public String getLan() {
@@ -26,7 +30,6 @@ public class SearchRequest {
         this.lan = lan;
     }
 
-
     public String getText() {
         return text;
     }
@@ -34,23 +37,6 @@ public class SearchRequest {
     public void setText(String text) {
         this.text = text;
     }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
 
     public List<String> getCountries() {
         return countries;
@@ -60,25 +46,43 @@ public class SearchRequest {
         this.countries = countries;
     }
 
-    public String getWithLoc() {
-        return withLoc;
+    public List<Integer> getYears() {
+        return years;
     }
 
-    public void setWithLoc(String withLoc) {
-        this.withLoc = withLoc;
+    public void setYears(List<Integer> years) {
+        this.years = years;
     }
 
-    public Boolean hasLocation() {
-        if (this.withLoc == null || this.withLoc.equalsIgnoreCase("none")) {
-            return null;
-        } else if (this.withLoc != null && this.withLoc.equalsIgnoreCase("yes")) {
-            return true;
-        } else {
-            return false;
-        }
+    public Boolean getWithNoLocation() {
+        return withNoLocation;
+    }
 
+    public void setWithNoLocation(Boolean withNoLocation) {
+        this.withNoLocation = withNoLocation;
+    }
 
+    public Boolean getPendingVerification() {
+        return pendingVerification;
+    }
+
+    public void setPendingVerification(Boolean pendingVerification) {
+        this.pendingVerification = pendingVerification;
+    }
+
+    public Boolean getVerifiedLocation() {
+        return verifiedLocation;
+    }
+
+    public void setVerifiedLocation(Boolean verifiedLocation) {
+        this.verifiedLocation = verifiedLocation;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }
-
-

@@ -1,6 +1,13 @@
 package org.devgateway.geocoder.domain;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -8,7 +15,6 @@ import java.util.List;
  */
 
 @Entity
-
 @NamedNativeQueries({@NamedNativeQuery(
         resultClass = Activity.class,
         name = "Activity.findByText",
@@ -19,23 +25,17 @@ import java.util.List;
                 resultClass = Activity.class,
                 name = "Activity.findByDate",
                 query = "select  * from activity  where  to_date(cast(((xpath('//activity-date[@type=1]/@iso-date',xml))[1]) as varchar),'YYYY-MM-DD') between :d1 and :d2"),
-
         @NamedNativeQuery(
                 resultClass = Activity.class,
                 name = "Activity.findByCountries",
                 query = "select  * from activity where " +
                         " (cast(xpath('//recipient-country/@code ',xml) as varchar[])) @> cast( :codes  as varchar[])")
-
-
-}
-
-)
-
+})
 public class Activity {
-
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     Long id;
+
     String identifier;
 
     @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "activity")
@@ -44,7 +44,6 @@ public class Activity {
     @Column(columnDefinition = "xml")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     String xml;
-
 
     public String getXml() {
         return xml;

@@ -26,12 +26,15 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
 @Component
 public class Runner implements ApplicationRunner {
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     GazetteerAgencyRepository gazetteerAgencyRepository;
@@ -1459,7 +1462,7 @@ public class Runner implements ApplicationRunner {
         try {
             xmlImport.process(new FileInputStream(in), "en", true);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "File not found", e);
         }
     }
 }

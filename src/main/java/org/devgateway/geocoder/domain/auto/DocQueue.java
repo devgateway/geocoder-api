@@ -1,9 +1,11 @@
 package org.devgateway.geocoder.domain.auto;
 
-import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.domain.Location;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -13,7 +15,15 @@ import java.util.List;
 @DiscriminatorValue("DOC_QUEUE")
 public class DocQueue extends Queue {
     private String fileName;
+
     private String fileType;
+
+    private String countryIso;
+
+    private String outFile;
+
+    @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "queue")
+    List<Location> locations;
 
     public String getOutFile() {
         return outFile;
@@ -22,13 +32,6 @@ public class DocQueue extends Queue {
     public void setOutFile(String outFile) {
         this.outFile = outFile;
     }
-
-    private String countryIso;
-    private String outFile;
-
-    @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "queue")
-    List<Location> locations;
-
 
     public String getFileName() {
         return fileName;

@@ -4,11 +4,16 @@ package org.devgateway.geocoder.domain.auto;
  * Created by Sebastian Dimunzio on 11/16/2017.
  */
 
-import org.devgateway.geocoder.domain.Country;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -21,7 +26,9 @@ public class Queue {
     private Long id;
 
     private String state;
+
     private Date createDate;
+
     private Date processedDate;
 
     @Column(length = 500)
@@ -42,7 +49,6 @@ public class Queue {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getState() {
         return state;
@@ -67,6 +73,4 @@ public class Queue {
     public void setProcessedDate(Date processedDate) {
         this.processedDate = processedDate;
     }
-
-
 }

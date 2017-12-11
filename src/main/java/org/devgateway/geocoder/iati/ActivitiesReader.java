@@ -7,9 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Writer;
 import java.util.logging.Logger;
 
@@ -18,8 +16,10 @@ import java.util.logging.Logger;
  */
 public class ActivitiesReader {
     Logger log = Logger.getLogger(this.getClass().getName());
-    private InputStream in = null;
-    private IatiActivities iatiActivities = null;
+
+    private InputStream in;
+
+    private IatiActivities iatiActivities;
 
     public ActivitiesReader(InputStream in) {
         this.in = in;

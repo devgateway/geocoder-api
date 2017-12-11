@@ -14,6 +14,8 @@
     <description>Manual Geocoder API</description>
     <properties>
         <main.basedir>${basedir}/../..</main.basedir>
+        <joda-time.version>2.9.9</joda-time.version>
+        <jadira.usertype.version>5.0.0.GA</jadira.usertype.version>
     </properties>
     <dependencies>
         <!-- Compile -->
@@ -45,6 +47,35 @@
                     <groupId>postgresql</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <groupId>org.hibernate</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>${jadira.usertype.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <groupId>org.hibernate</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
         </dependency>
 
         <dependency>

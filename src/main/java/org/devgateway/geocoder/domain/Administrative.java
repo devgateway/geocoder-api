@@ -1,5 +1,7 @@
 package org.devgateway.geocoder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -12,6 +14,7 @@ public class Administrative {
     @javax.persistence.Id
     Long id;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "location_id", nullable = false)
     Location location;

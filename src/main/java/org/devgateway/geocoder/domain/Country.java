@@ -12,9 +12,13 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
+
     private String iso2;
+
     private String iso3;
+
     private String name;
+
     private String lan;
 
     public Country(String iso2, String name, String lan) {
@@ -56,5 +60,13 @@ public class Country {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLan() {
+        return lan;
+    }
+
+    public void setLan(String lan) {
+        this.lan = lan;
     }
 }

@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -1458,11 +1459,7 @@ public class Runner implements ApplicationRunner {
         geographicFeatureDesignationRepository.save(new GeographicFeatureDesignation("ZOO", "zoo", "a zoological garden or park where wild animals are kept for exhibition", "en"));
 
 
-        File in = new File(this.getClass().getClassLoader().getResource("example_afdb_sudan.xml").getFile());
-        try {
-            xmlImport.process(new FileInputStream(in), "en", true);
-        } catch (FileNotFoundException e) {
-            logger.log(Level.SEVERE, "File not found", e);
-        }
+        final InputStream is = getClass().getResourceAsStream("/example_afdb_sudan.xml");
+        xmlImport.process(is, "en", true);
     }
 }

@@ -1,8 +1,10 @@
 package org.devgateway.geocoder.domain.auto;
 
-import org.devgateway.geocoder.domain.Activity;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
@@ -13,31 +15,51 @@ public class Geocoding {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
+
     private Integer geonameId;
+
     private String toponymName;
+
     private String name;
+
     private Double lat;
+
     private Double lng;
+
     private String countryCode;
+
     private String countryName;
+
     private String fcl;
+
     private String fcode;
+
     private String fclname;
+
     private String fcodename;
+
     private String population;
+
     private String continentcode;
+
     private String adminCode1;
+
     private String adminName1;
+
     private String adminCode2;
+
     private String adminName2;
+
     private String adminCode3;
+
     private String adminName3;
+
     private String adminCode4;
+
     private String adminName4;
 
     @ManyToOne(targetEntity = Queue.class)
     private Queue queue;
-
 
     private Long activity_id;
 

@@ -1,39 +1,60 @@
 package org.devgateway.geocoder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geocoder.domain.auto.DocQueue;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
+@Table(indexes = {@Index(columnList = "activity_id")})
 public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
 
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Activity.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "activity_id", nullable = true)
     private Activity activity;
 
-
+    // TODO - do we need this field?
+    @JsonIgnore
     @ManyToOne(targetEntity = DocQueue.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "queue_id", nullable = true)
     private DocQueue queue;
 
-
+    @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Narrative> names;
 
+    @JsonIgnore
     private Point point;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Narrative> activityDescriptions;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Narrative> descriptions;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<LocationIdentifier> locationIdentifiers;
 
@@ -55,16 +76,13 @@ public class Location {
     @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.ALL)
     GeographicalPrecision precision;
 
-
     @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
     GeographicVocabulary vocabulary;
-
 
     @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.ALL)
     GazetteerAgency gazetteerAgency;
 
     private LocationStatus locationStatus;
-
 
     @Enumerated(EnumType.STRING)
     public LocationStatus getLocationStatus() {
@@ -201,5 +219,35 @@ public class Location {
 
     public void setQueue(DocQueue queue) {
         this.queue = queue;
+    }
+
+    @JsonProperty("x")
+    public Double getPointXForAPI() {
+        return point.getCoordinate().x;
+    }
+
+    @JsonProperty("y")
+    public Double getPointYForAPI() {
+        return point.getCoordinate().y;
+    }
+
+    @JsonProperty("name")
+    public String getNameForAPI() {
+        return getNarrativeIfPrenset(this.names);
+    }
+
+    @JsonProperty("activityDescription")
+    public String getActivityDescriptionForAPI() {
+        return getNarrativeIfPrenset(this.activityDescriptions);
+    }
+
+    @JsonProperty("description")
+    public String getDescriptionForAPI() {
+        return getNarrativeIfPrenset(this.descriptions);
+    }
+
+    private String getNarrativeIfPrenset(final List<Narrative> narratives) {
+        final Optional<Narrative> value = narratives.stream().findFirst();
+        return value.isPresent() ? value.get().getDescription() : null;
     }
 }

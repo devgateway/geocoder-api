@@ -1,5 +1,7 @@
 package org.devgateway.geocoder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,12 +11,19 @@ import javax.persistence.GenerationType;
  */
 @Entity
 public class Country {
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
+
     private String iso2;
+
+    @JsonIgnore
     private String iso3;
+
     private String name;
+
+    @JsonIgnore
     private String lan;
 
     public Country(String iso2, String name, String lan) {
@@ -56,5 +65,13 @@ public class Country {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLan() {
+        return lan;
+    }
+
+    public void setLan(String lan) {
+        this.lan = lan;
     }
 }

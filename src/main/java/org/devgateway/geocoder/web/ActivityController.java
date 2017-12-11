@@ -16,8 +16,8 @@
 
 package org.devgateway.geocoder.web;
 
+import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.request.SearchRequest;
-import org.devgateway.geocoder.responses.ActivityResponse;
 import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,13 +64,13 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public Page<ActivityResponse> getActivityLists(SearchRequest params) {
+    public Page<Activity> getActivityLists(SearchRequest params) {
         return activityService.findActivities(params);
 
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public ActivityResponse getActivityById(@PathVariable Long id, @RequestParam String lan) {
+    public Activity getActivityById(@PathVariable Long id, @RequestParam String lan) {
         return activityService.getActivityById(id, lan);
     }
 

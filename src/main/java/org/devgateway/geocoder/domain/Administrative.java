@@ -1,17 +1,24 @@
 package org.devgateway.geocoder.domain;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
 @Entity
 public class Administrative {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     Long id;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "location_id", nullable = false)
     Location location;
@@ -22,6 +29,7 @@ public class Administrative {
 
     String name;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeographicVocabulary.class)
     GeographicVocabulary vocabulary;
 

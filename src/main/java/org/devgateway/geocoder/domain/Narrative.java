@@ -1,7 +1,8 @@
 package org.devgateway.geocoder.domain;
 
-import javax.annotation.Generated;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * Created by Sebastian Dimunzio on 11/2/2017.
@@ -12,7 +13,9 @@ public class Narrative {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String lan;
+
     private String description;
 
     public Narrative() {

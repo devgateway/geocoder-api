@@ -20,7 +20,6 @@ import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
 import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationReachRepository;
-import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,10 +54,6 @@ public class XmlImport {
     private GeographicLocationReachRepository geographicLocationReachRepository;
 
     @Autowired
-    private GeographicVocabularyRepository geographicVocabularyRepository;
-
-
-    @Autowired
     private GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
 
     @Autowired
@@ -67,90 +63,106 @@ public class XmlImport {
         final ActivitiesReader reader = new ActivitiesReader(in);
         final IatiActivities activities = reader.read();
 
-        for (IatiActivity activity : activities.getIatiActivity()) {
-            final Activity newActivity = new Activity();
-            newActivity.setIdentifier(activity.getIatiIdentifier().getValue());
+        activities.getIatiActivity().stream().forEach(iatiActivity -> {
+            final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader, lan);
+            activityRepository.save(activity);
 
-            if (activity.getLocation().size() > 0) {
-                List<Location> activityLocations = activity.getLocation()
-                        .stream().map(location -> toActivityLocation(location, lan))
-                        .collect(Collectors.toList());
-
-                activityLocations.forEach(location -> location.setActivity(newActivity));
-                newActivity.setLocations(activityLocations);
-            }
-
-            final StringWriter writer = new StringWriter();
-            reader.toXML(activity, writer);
-            newActivity.setXml(writer.toString());
-            activityRepository.save(newActivity);
-
-            if (autocode || (newActivity.getLocations() != null && !newActivity.getLocations().isEmpty())) {
+            if (autocode || (activity.getLocations() != null && !activity.getLocations().isEmpty())) {
                 final ActivityQueue activityQueue = new ActivityQueue();
-                activityQueue.setActivity(newActivity);
+                activityQueue.setActivity(activity);
                 activityQueue.setCreateDate(new Date());
                 activityQueue.setState(Constants.ST_PENDING);
                 activityQueueRepository.save(activityQueue);
             }
+        });
+    }
+
+    /**
+     * Transform an {@link IatiActivity} into a {@link Activity}.
+     */
+    private Activity iatiActivityToActivityEntity(final IatiActivity iatiActivity, final ActivitiesReader reader, final String lan) {
+        final Activity activity = new Activity();
+
+        activity.setIdentifier(iatiActivity.getIatiIdentifier().getValue());
+
+        activity.setTitle(extractors.getTitle(iatiActivity.getTitle(), lan));
+
+        activity.setDescription(extractors.getDescription(iatiActivity, "1", lan));
+        if (activity.getDescription() == null) {
+            activity.setDescription(extractors.getDescription(iatiActivity, "2", lan));
+
         }
+        if (activity.getDescription() == null) {
+            activity.setDescription(extractors.getDescription(iatiActivity, "3", lan));
+
+        }
+        if (activity.getDescription() == null) {
+            activity.setDescription(extractors.getDescription(iatiActivity, "4", lan));
+        }
+
+        activity.setDate(extractors.getDate(iatiActivity, "1"));
+
+        if (iatiActivity.getLocation().size() > 0) {
+            final List<Location> activityLocations = iatiActivity.getLocation()
+                    .stream().map(location -> toActivityLocation(location))
+                    .collect(Collectors.toList());
+
+            activityLocations.forEach(location -> location.setActivity(activity));
+            activity.setLocations(activityLocations);
+        }
+
+        activity.setCountries(new HashSet<>(extractors.getCountries(iatiActivity, lan)));
+
+
+        // also keep the original XML
+        final StringWriter writer = new StringWriter();
+        reader.toXML(iatiActivity, writer);
+        activity.setXml(writer.toString());
+
+        // TODO - check this
+        // activity.setLocations(activity.getLocations().stream().map(location -> new LocationResponse(location, lan)).collect(Collectors.toList()));
+
+        return activity;
     }
 
 
-    public Location toActivityLocation(org.devgateway.geocoder.iati.model.Location location, String lan) {
+    /**
+     * Transform an {@link org.devgateway.geocoder.iati.model.Location} into a {@link Location}.
+     */
+    private Location toActivityLocation(final org.devgateway.geocoder.iati.model.Location iatiLocation) {
+        final Location location = new Location();
 
+        location.setNames(extractors.getTexts(iatiLocation.getName()));
 
-        Location acLocation = new Location();
+        final List<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
+        identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(location));
+        location.setLocationIdentifiers(identifiers);
 
-        //"name",
-        acLocation.setNames(extractors.getTexts(location.getName()));
+        final List<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
+        administratives.forEach(administrative -> administrative.setLocation(location));
+        location.setAdministratives(administratives);
 
-        //"locationId",
+        final String[] latLong = iatiLocation.getPoint().getPos().split(" ");
+        final Point pos = new GeometryFactory(new PrecisionModel(), 4326)
+                .createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
+        location.setPoint(pos);
 
-        List<LocationIdentifier> identifiers = extractors.getIdentifier(location.getLocationId());
-        identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(acLocation));
-        acLocation.setLocationIdentifiers(identifiers);
+        location.setActivityDescriptions(extractors.getTexts(iatiLocation.getActivityDescription()));
+        location.setDescriptions(extractors.getTexts(iatiLocation.getDescription()));
+        location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+        location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
+        location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+        location.setLocationStatus(LocationStatus.EXISTING);
 
-        //"administrative",
-        List<Administrative> administratives = extractors.getAdministratives(location.getAdministrative());
-        administratives.forEach(administrative -> administrative.setLocation(acLocation));
-        acLocation.setAdministratives(administratives);
-
-
-        //"point",
-        String[] latLong = location.getPoint().getPos().split(" ");
-        Point pos = new GeometryFactory(new PrecisionModel(), 4326).createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
-        acLocation.setPoint(pos);
-
-
-        //"activityDescription",
-        acLocation.setActivityDescriptions(extractors.getTexts(location.getActivityDescription()));
-
-        //"description",
-        acLocation.setDescriptions(extractors.getTexts(location.getDescription()));
-
-        //"locationClass",
-        acLocation.setLocationClass(this.geographicLocationClassRepository.findOneByCode(location.getLocationClass().getCode()));
-
-        //"exactness",
-        acLocation.setExactness(this.geographicExactnessRepository.findOneByCode(location.getExactness().getCode()));
-
-        //"locationReach",
-        acLocation.setLocationReach(this.geographicLocationReachRepository.findOneByCode(location.getLocationClass().getCode()));
-
-        acLocation.setLocationStatus(LocationStatus.EXISTING);
-
-        //In some cases they put the name instead of code
-        String fDesignation = location.getFeatureDesignation().getCode();
+        // In some cases they put the name instead of code
+        final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
         if (fDesignation != null && fDesignation.length() > 6) {
-            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
+            location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
         } else {
-            acLocation.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+            location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
         }
 
 
-        return acLocation;
+        return location;
     }
-
-
 }
-

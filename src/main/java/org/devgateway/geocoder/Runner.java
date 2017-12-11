@@ -1,13 +1,27 @@
 package org.devgateway.geocoder;
 
-import org.devgateway.geocoder.domain.*;
-import org.devgateway.geocoder.repositories.*;
+import org.devgateway.geocoder.domain.Country;
+import org.devgateway.geocoder.domain.GazetteerAgency;
+import org.devgateway.geocoder.domain.GeographicExactness;
+import org.devgateway.geocoder.domain.GeographicFeatureDesignation;
+import org.devgateway.geocoder.domain.GeographicLocationClass;
+import org.devgateway.geocoder.domain.GeographicLocationReach;
+import org.devgateway.geocoder.domain.GeographicVocabulary;
+import org.devgateway.geocoder.domain.GeographicalPrecision;
+import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.repositories.CountryRepository;
+import org.devgateway.geocoder.repositories.GazetteerAgencyRepository;
+import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
+import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
+import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
+import org.devgateway.geocoder.repositories.GeographicLocationReachRepository;
+import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
+import org.devgateway.geocoder.repositories.GeographicalPrecisionRepository;
 import org.devgateway.geocoder.service.XmlImport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,16 +57,21 @@ public class Runner implements ApplicationRunner {
     @Autowired
     GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
 
-
     @Autowired
     XmlImport xmlImport;
 
     @Autowired
     ActivityRepository activityRepository;
 
-
     @Override
-    public void run(ApplicationArguments applicationArguments) throws Exception {
+    public void run(ApplicationArguments applicationArguments) {
+        runInit();
+    }
+
+    /**
+     * Use this function to initially populate the database.
+     */
+    private void runInit() {
         GazetteerAgency gazetteerAgency;
         gazetteerAgency = new GazetteerAgency();
         gazetteerAgency.setCode("1");
@@ -115,8 +134,6 @@ public class Runner implements ApplicationRunner {
         geographicVocabularyRepository.save(geographicVocabulary);
 
         /***/
-
-
         GeographicalPrecision geographicalPrecision = null;
         geographicalPrecision = new GeographicalPrecision();
         geographicalPrecision.setCode("1");
@@ -249,7 +266,7 @@ public class Runner implements ApplicationRunner {
         geographicLocationClassRepository.save(geographicLocationClass);
 
 
-        Country country = null;
+        Country country;
         country = new Country("AF", "AFGHANISTAN", "en");
         countryRepository.save(country);
         country = new Country("AX", "ÅLAND ISLANDS", "en");
@@ -1438,13 +1455,11 @@ public class Runner implements ApplicationRunner {
         geographicFeatureDesignationRepository.save(new GeographicFeatureDesignation("ZOO", "zoo", "a zoological garden or park where wild animals are kept for exhibition", "en"));
 
 
-        /*File in = new File(this.getClass().getClassLoader().getResource("example_afdb_sudan.xml").getPath());
+        File in = new File(this.getClass().getClassLoader().getResource("example_afdb_sudan.xml").getPath());
         try {
-            //    xmlImport.process(new FileInputStream(in), "en", true);
+            xmlImport.process(new FileInputStream(in), "en", true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        */
-
     }
 }

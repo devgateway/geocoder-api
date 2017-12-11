@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.service;
 
 import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.iati.model.ActivityDate;
 import org.devgateway.geocoder.iati.model.IatiActivity;
@@ -8,10 +9,7 @@ import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
-import org.devgateway.geocoder.responses.CountryResponse;
 import org.geonames.Toponym;
-import org.geonames.ToponymSearchCriteria;
-import org.geonames.ToponymSearchResult;
 import org.geonames.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -93,18 +91,16 @@ public class IatiExtractors {
     }
 
 
-    public List<CountryResponse> getCountries(IatiActivity iatiActivity, String lan) {
+    public List<Country> getCountries(final IatiActivity iatiActivity, final String lan) {
         return iatiActivity.getRecipientCountry()
                 .stream()
-                .map(recipientCountry -> new CountryResponse(recipientCountry.getCode(), countryRepository.findOneByIso2(recipientCountry.getCode()).getName()))
+                .map(recipientCountry -> countryRepository.findOneByIso2(recipientCountry.getCode()))
                 .collect(Collectors.toList());
-
     }
 
-
-    /*
-    * Extracts all location identifier
-    * */
+    /**
+     * Extracts all location identifier
+     */
     public List<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
         List<LocationIdentifier> list = null;
         if (iatiIdentifiers != null && iatiIdentifiers.size() > 0) {
@@ -114,9 +110,9 @@ public class IatiExtractors {
         return list;
     }
 
-    /*
-    * Extracts all location names
-    * */
+    /**
+     * Extracts all location names
+     */
     public List<org.devgateway.geocoder.domain.Narrative> getTexts(TextRequiredType textRequiredType) {
         List<org.devgateway.geocoder.domain.Narrative> value = null;
         if (textRequiredType != null) {
@@ -126,17 +122,15 @@ public class IatiExtractors {
         return value;
     }
 
-    /*
-    * Extracts all location admin levels
-    * */
+    /**
+     * Extracts all location admin levels
+     */
     public List<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
         List<Administrative> value = null;
 
-
         WebService.setUserName("sdimunzio"); // add your username here
 
-
-        if (iatiAdministratives != null && iatiAdministratives.size() > 0)
+        if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
             value = iatiAdministratives.stream().map(administrative -> {
                         String adminName = "";
                         try {
@@ -157,6 +151,7 @@ public class IatiExtractors {
 
 
             ).collect(Collectors.toList());
+        }
 
         return value;
     }

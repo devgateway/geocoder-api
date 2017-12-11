@@ -1,6 +1,14 @@
 package org.devgateway.geocoder.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  * Created by Sebastian Dimunzio on 11/6/2017.
@@ -19,14 +27,17 @@ import javax.persistence.*;
         discriminatorType=DiscriminatorType.STRING      )
 @DiscriminatorValue("code")
 public class IatiCodes {
-
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
+
     private String code;
+
     private String name;
+
     @Column(columnDefinition = "text")
     private String description;
+
     private String lan;
 
     public IatiCodes() {

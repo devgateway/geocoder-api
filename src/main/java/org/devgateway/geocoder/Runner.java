@@ -65,7 +65,7 @@ public class Runner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) {
-        // runInit();
+        runInit();
     }
 
     /**

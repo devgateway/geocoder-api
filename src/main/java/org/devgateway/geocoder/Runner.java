@@ -1458,7 +1458,7 @@ public class Runner implements ApplicationRunner {
         geographicFeatureDesignationRepository.save(new GeographicFeatureDesignation("ZOO", "zoo", "a zoological garden or park where wild animals are kept for exhibition", "en"));
 
 
-        File in = new File(this.getClass().getClassLoader().getResource("example_afdb_sudan.xml").getPath());
+        File in = new File(this.getClass().getClassLoader().getResource("example_afdb_sudan.xml").getFile());
         try {
             xmlImport.process(new FileInputStream(in), "en", true);
         } catch (FileNotFoundException e) {

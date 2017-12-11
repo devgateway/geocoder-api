@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Administrative {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     Long id;
@@ -25,6 +25,7 @@ public class Administrative {
 
     String name;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = GeographicVocabulary.class)
     GeographicVocabulary vocabulary;
 

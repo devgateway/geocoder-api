@@ -1,5 +1,8 @@
 package org.devgateway.geocoder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +39,7 @@ import java.util.Set;
                 query = "select  * from activity where " +
                         " (cast(xpath('//recipient-country/@code ',xml) as varchar[])) @> cast( :codes  as varchar[])")
 })
+@JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
     private String identifier;
 
@@ -51,8 +55,9 @@ public class Activity extends AbstractAuditableEntity {
     List<Location> locations = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Country> countries = new HashSet<>();;
+    private Set<Country> countries = new HashSet<>();
 
+    @JsonIgnore
     @Column(columnDefinition = "xml")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     String xml;

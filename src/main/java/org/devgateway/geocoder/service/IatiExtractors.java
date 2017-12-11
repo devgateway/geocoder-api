@@ -9,7 +9,6 @@ import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
-import org.devgateway.geocoder.responses.CountryResponse;
 import org.geonames.Toponym;
 import org.geonames.WebService;
 import org.springframework.beans.factory.annotation.Autowired;

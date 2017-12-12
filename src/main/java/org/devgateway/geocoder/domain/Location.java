@@ -79,7 +79,7 @@ public class Location {
     @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
     GeographicVocabulary vocabulary;
 
-    @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GazetteerAgency.class, cascade = CascadeType.ALL)
     GazetteerAgency gazetteerAgency;
 
     private LocationStatus locationStatus;

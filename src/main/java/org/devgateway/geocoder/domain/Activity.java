@@ -20,7 +20,7 @@ import java.util.Set;
  * Created by Sebastian Dimunzio on 10/18/2017.
  *
  * Any change to this {@link Activity} Entity will affect the way the autogeocoder tool process the activities
- * (see 'activity_to_dic' function from autogeocoder tool)
+ * (see 'get_activity_by_id' function from autogeocoder tool)
  */
 @Entity
 @NamedNativeQueries({@NamedNativeQuery(

@@ -67,7 +67,7 @@ public class XmlImport {
             final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader, lan);
             activityRepository.save(activity);
 
-            if (autocode || (activity.getLocations() != null && !activity.getLocations().isEmpty())) {
+            if (autocode || (activity.getLocations() != null && activity.getLocations().isEmpty())) {
                 final ActivityQueue activityQueue = new ActivityQueue();
                 activityQueue.setActivity(activity);
                 activityQueue.setCreateDate(new Date());

@@ -1,5 +1,8 @@
 package org.devgateway.geocoder.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
  */
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Narrative {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)

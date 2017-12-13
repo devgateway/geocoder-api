@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Sebastian Dimunzio on 10/23/2017.
  */
+@Transactional
 public interface ActivityRepository extends JpaRepository<Activity, Long>, CrudRepository<Activity, Long> {
-
 
 }

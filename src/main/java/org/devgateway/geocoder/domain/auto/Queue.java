@@ -11,15 +11,17 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "queue_type",
-        discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "queue_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("queueType")
+@Table(indexes = {@Index(columnList = "queue_type") })
 public class Queue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id

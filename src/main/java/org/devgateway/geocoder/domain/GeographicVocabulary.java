@@ -1,5 +1,8 @@
 package org.devgateway.geocoder.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,6 +10,7 @@ import javax.persistence.Entity;
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorValue("LOCATION_VOCABULARY")
 public class GeographicVocabulary extends IatiCodes{
 }

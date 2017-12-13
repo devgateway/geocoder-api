@@ -2,10 +2,13 @@ package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
@@ -23,6 +26,8 @@ import java.util.Set;
  * (see 'get_activity_by_id' function from autogeocoder tool)
  */
 @Entity
+// @Audited
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @NamedNativeQueries({@NamedNativeQuery(
         resultClass = Activity.class,
         name = "Activity.findByText",
@@ -54,7 +59,7 @@ public class Activity extends AbstractAuditableEntity {
     @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "activity")
     List<Location> locations = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Country> countries = new HashSet<>();
 
     @JsonIgnore

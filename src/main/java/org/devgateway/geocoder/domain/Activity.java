@@ -28,7 +28,7 @@ import java.util.Set;
 @Entity
 // @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@NamedNativeQueries({@NamedNativeQuery(
+/*@NamedNativeQueries({@NamedNativeQuery(
         resultClass = Activity.class,
         name = "Activity.findByText",
         query = "select *  " +
@@ -43,7 +43,7 @@ import java.util.Set;
                 name = "Activity.findByCountries",
                 query = "select  * from activity where " +
                         " (cast(xpath('//recipient-country/@code ',xml) as varchar[])) @> cast( :codes  as varchar[])")
-})
+})*/
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
     private String identifier;

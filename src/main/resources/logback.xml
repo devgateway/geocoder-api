@@ -23,10 +23,10 @@
     <logger name="org.hibernate.tool.hbm2ddl" level="WARN" />
     <logger name="org.hibernate.cache.ehcache" level="ERROR" />
 
-    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="INFO" />
     <logger name="org.hibernate" level="ERROR" />
 
-    <logger name="org.springframework.web" level="DEBUG" />
+    <logger name="org.springframework.web" level="INFO" />
 
     <logger name="net.sf.ehcache.pool.sizeof.SizeOf" level="ERROR" />
 

@@ -1,6 +1,7 @@
 package org.devgateway.geocoder.repositories;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.domain.Country;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,6 @@ import java.util.List;
 @Transactional
 public interface ActivityRepository extends JpaRepository<Activity, Long>, CrudRepository<Activity, Long> {
 
+    @Query("SELECT DISTINCT countries FROM #{#entityName}")
+    List<Country> findDistinctCountries();
 }

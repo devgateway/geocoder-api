@@ -9,10 +9,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,22 +28,7 @@ import java.util.Set;
 @Entity
 // @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-/*@NamedNativeQueries({@NamedNativeQuery(
-        resultClass = Activity.class,
-        name = "Activity.findByText",
-        query = "select *  " +
-                "  from activity where " +
-                " cast( xpath('//narrative/text()',xml) as text) ilike :text"),
-        @NamedNativeQuery(
-                resultClass = Activity.class,
-                name = "Activity.findByDate",
-                query = "select  * from activity  where  to_date(cast(((xpath('//activity-date[@type=1]/@iso-date',xml))[1]) as varchar),'YYYY-MM-DD') between :d1 and :d2"),
-        @NamedNativeQuery(
-                resultClass = Activity.class,
-                name = "Activity.findByCountries",
-                query = "select  * from activity where " +
-                        " (cast(xpath('//recipient-country/@code ',xml) as varchar[])) @> cast( :codes  as varchar[])")
-})*/
+@Table(indexes = {@Index(columnList = "title"), @Index(columnList = "description")})
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
     private String identifier;

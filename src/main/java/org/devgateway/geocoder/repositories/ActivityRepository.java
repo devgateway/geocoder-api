@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Sebastian Dimunzio on 10/23/2017.
  */
 @Transactional
-public interface ActivityRepository extends JpaRepository<Activity, Long>, CrudRepository<Activity, Long> {
+public interface ActivityRepository extends BaseJpaRepository<Activity, Long> {
 
     @Query("SELECT DISTINCT countries FROM #{#entityName}")
     List<Country> findDistinctCountries();

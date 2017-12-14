@@ -23,4 +23,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long>, CrudR
 
     @Query("SELECT DISTINCT countries FROM #{#entityName}")
     List<Country> findDistinctCountries();
+
+    @Query("SELECT DISTINCT EXTRACT(YEAR FROM date) FROM #{#entityName} WHERE date IS NOT NULL")
+    List<Integer> findDistinctYears();
 }

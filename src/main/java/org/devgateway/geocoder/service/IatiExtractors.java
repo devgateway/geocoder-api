@@ -59,13 +59,15 @@ public class IatiExtractors {
         String retValue = null;
 
         try {
-            Optional<IatiActivity.Description> acDescription = activity.getDescription().stream().filter(d -> type.equalsIgnoreCase(d.getType())).findFirst();
+            Optional<IatiActivity.Description> acDescription = activity.getDescription()
+                    .stream()
+                    .filter(d -> type.equalsIgnoreCase(d.getType())).findFirst();
             if (!acDescription.isPresent()) {
                 log.info("Can't find description type " + type);
             } else {
-
-                IatiActivity.Description desc = acDescription.get();
-                Optional<Narrative> descNarrative = acDescription.get().getNarrative().stream().filter(narrative -> lan.equalsIgnoreCase(narrative.getLang())).findFirst();
+                Optional<Narrative> descNarrative = acDescription.get().getNarrative()
+                        .stream()
+                        .filter(narrative -> lan.equalsIgnoreCase(narrative.getLang())).findFirst();
 
                 if (!descNarrative.isPresent() || descNarrative.get().getValue().isEmpty()) {
                     log.info("Can't find narrative with language " + lan + " getting first one");
@@ -83,7 +85,9 @@ public class IatiExtractors {
     }
 
     public Date getDate(IatiActivity iatiActivity, String type) {
-        List<ActivityDate> activityDates = iatiActivity.getActivityDate().stream().filter(activityDate -> type.equalsIgnoreCase(activityDate.getType())).collect(Collectors.toList());
+        List<ActivityDate> activityDates = iatiActivity.getActivityDate()
+                .stream()
+                .filter(activityDate -> type.equalsIgnoreCase(activityDate.getType())).collect(Collectors.toList());
         ActivityDate isoDate = activityDates.iterator().hasNext() ? activityDates.iterator().next() : null;
 
         Date date = (isoDate != null) ? isoDate.getIsoDate().toGregorianCalendar().getTime() : null;
@@ -104,7 +108,8 @@ public class IatiExtractors {
     public List<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
         List<LocationIdentifier> list = null;
         if (iatiIdentifiers != null && iatiIdentifiers.size() > 0) {
-            list = iatiIdentifiers.stream().map(locationId -> new LocationIdentifier(geographicVocabularyRepository.findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toList());
+            list = iatiIdentifiers.stream().map(locationId -> new LocationIdentifier(geographicVocabularyRepository
+                    .findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toList());
         }
 
         return list;

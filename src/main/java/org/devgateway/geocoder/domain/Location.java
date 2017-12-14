@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geocoder.domain.auto.DocQueue;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,6 +24,7 @@ import java.util.Optional;
 
 @Entity
 @Table(indexes = {@Index(columnList = "activity_id")})
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
@@ -33,7 +36,6 @@ public class Location {
     @JoinColumn(name = "activity_id", nullable = true)
     private Activity activity;
 
-    // TODO - do we need this field?
     @JsonIgnore
     @ManyToOne(targetEntity = DocQueue.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "queue_id", nullable = true)

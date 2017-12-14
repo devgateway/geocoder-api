@@ -1,6 +1,8 @@
 package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
  * Created by Sebastian Dimunzio on 11/6/2017.
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Country {
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,5 +1,8 @@
 package org.devgateway.geocoder.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -8,6 +11,7 @@ import javax.persistence.Entity;
  */
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorValue("GAZETTEER_AGENCY")
 public class GazetteerAgency extends IatiCodes {
 

@@ -59,6 +59,9 @@ public class XmlImport {
     @Autowired
     private ActivityQueueRepository activityQueueRepository;
 
+    @Autowired
+    private CacheService cacheService;
+
     public void process(final InputStream in, final String lan, final Boolean autocode) {
         final ActivitiesReader reader = new ActivitiesReader(in);
         final IatiActivities activities = reader.read();
@@ -75,6 +78,9 @@ public class XmlImport {
                 activityQueueRepository.save(activityQueue);
             }
         });
+
+        // clear all the caches after we finish the import
+        cacheService.clearAllCache();
     }
 
     /**
@@ -118,9 +124,6 @@ public class XmlImport {
         final StringWriter writer = new StringWriter();
         reader.toXML(iatiActivity, writer);
         activity.setXml(writer.toString());
-
-        // TODO - check this
-        // activity.setLocations(activity.getLocations().stream().map(location -> new LocationResponse(location, lan)).collect(Collectors.toList()));
 
         return activity;
     }

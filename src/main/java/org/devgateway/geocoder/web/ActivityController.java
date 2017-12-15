@@ -17,11 +17,15 @@
 package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.request.SearchRequest;
-import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.XmlImport;
+import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,7 +49,7 @@ public class ActivityController {
     XmlImport xmlImport;
 
     @Autowired
-    ActivityService activityService;
+    ActivityRepository activityRepository;
 
 
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
@@ -64,14 +68,16 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public Page<Activity> getActivityLists(SearchRequest params) {
-        return activityService.findActivities(params);
+    public Page<Activity> getActivityLists(SearchRequest searchRequest) {
+        final Pageable pageRequest = new PageRequest(searchRequest.getPage(), 10, Sort.Direction.ASC, "id");
+        final ActivityFilterState activityFilterState = new ActivityFilterState(searchRequest);
 
+        return activityRepository.findAll(activityFilterState.getSpecification(), pageRequest);
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
     public Activity getActivityById(@PathVariable Long id, @RequestParam String lan) {
-        return activityService.getActivityById(id, lan);
+        return activityRepository.findOne(id);
     }
 
 }

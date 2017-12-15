@@ -36,7 +36,7 @@ public class Activity extends AbstractAuditableEntity {
     @Column(length = 3000)
     private String title;
 
-    @Column(length = 3000)
+    @Column(length = 10000)
     private String description;
 
     private Date date;
@@ -50,7 +50,7 @@ public class Activity extends AbstractAuditableEntity {
     @JsonIgnore
     @Column(columnDefinition = "xml")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
-    String xml;
+    private String xml;
 
     public String getIdentifier() {
         return identifier;

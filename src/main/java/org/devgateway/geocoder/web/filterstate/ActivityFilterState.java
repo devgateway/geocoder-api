@@ -2,6 +2,8 @@ package org.devgateway.geocoder.web.filterstate;
 
 import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.domain.Activity_;
+import org.devgateway.geocoder.domain.LocationStatus;
+import org.devgateway.geocoder.domain.Location_;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -29,11 +31,16 @@ public class ActivityFilterState implements Serializable {
 
             if(searchRequest.getText() != null && !searchRequest.getText().isEmpty()) {
                 final String text = searchRequest.getText().toLowerCase();
-                // predicates.add(cb.like(root.get(Activity_.title), "%" + searchRequest.getText() + "%"));
                 predicates.add(cb.or(cb.like(cb.lower(root.get(Activity_.title)), "%" + text + "%"),
                         cb.like(cb.lower(root.get(Activity_.description)), "%" + text + "%")));
             }
 
+            if(searchRequest.getPendingVerification()) {
+                predicates.add(cb.equal(
+                        root.join(Activity_.locations).get(Location_.locationStatus), LocationStatus.AUTO_CODED));
+            }
+
+            query.distinct(true);
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

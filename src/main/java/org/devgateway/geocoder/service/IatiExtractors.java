@@ -14,6 +14,7 @@ import org.geonames.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,54 +35,40 @@ public class IatiExtractors {
     @Autowired
     private GeographicVocabularyRepository geographicVocabularyRepository;
 
-    public String getTitle(TextRequiredType textRequiredType, String lan) {
-        String retValue = null;
-        Optional<Narrative> narrativeTitle = null;
+    public List<org.devgateway.geocoder.domain.Narrative> getTitles(TextRequiredType textRequiredType) {
+        List<org.devgateway.geocoder.domain.Narrative> titles = null;
         try {
-            narrativeTitle = textRequiredType.getNarrative().stream().filter(narrative -> lan.equalsIgnoreCase(narrative.getLang())).findFirst();
-            if (!narrativeTitle.isPresent() || narrativeTitle.get().getValue().isEmpty()) {
-                log.info("Can't find title for language " + lan + " or it was empty, getting first one");
-                narrativeTitle = textRequiredType.getNarrative().stream().findFirst();
-            }
-
-            if (narrativeTitle.isPresent()) {
-                retValue = narrativeTitle.get().getValue();
-            }
-
+            titles = textRequiredType.getNarrative()
+                    .stream()
+                    .map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang(), narrative.getValue()))
+                    .collect(Collectors.toList());
         } catch (Exception ex) {
-            log.log(Level.WARNING, "Error when extracting description from activity", ex);
+            log.log(Level.WARNING, "Error when extracting title from activity", ex);
         }
-        return retValue;
+
+        return titles;
     }
 
 
-    public String getDescription(IatiActivity activity, String type, String lan) {
-        String retValue = null;
+    public List<org.devgateway.geocoder.domain.Narrative> getDescriptions(IatiActivity activity) {
+        List<org.devgateway.geocoder.domain.Narrative> descriptions = new ArrayList<>();
 
         try {
-            Optional<IatiActivity.Description> acDescription = activity.getDescription()
-                    .stream()
-                    .filter(d -> type.equalsIgnoreCase(d.getType())).findFirst();
-            if (!acDescription.isPresent()) {
-                log.info("Can't find description type " + type);
-            } else {
-                Optional<Narrative> descNarrative = acDescription.get().getNarrative()
+            List<IatiActivity.Description> acDescriptions = activity.getDescription();
+
+            for(IatiActivity.Description description : acDescriptions) {
+                description.getNarrative()
                         .stream()
-                        .filter(narrative -> lan.equalsIgnoreCase(narrative.getLang())).findFirst();
+                        .forEach(narrative -> descriptions.add(
+                                new org.devgateway.geocoder.domain.Narrative(
+                                        narrative.getLang(), narrative.getValue())));
 
-                if (!descNarrative.isPresent() || descNarrative.get().getValue().isEmpty()) {
-                    log.info("Can't find narrative with language " + lan + " getting first one");
-                    descNarrative = acDescription.get().getNarrative().stream().findFirst();
-                }
-
-                if (descNarrative.isPresent()) {
-                    retValue = descNarrative.get().getValue();
-                }
             }
         } catch (Exception ex) {
             log.log(Level.WARNING, "Error when extracting description from activity", ex);
         }
-        return retValue;
+
+        return descriptions;
     }
 
     public Date getDate(IatiActivity iatiActivity, String type) {
@@ -95,7 +82,7 @@ public class IatiExtractors {
     }
 
 
-    public List<Country> getCountries(final IatiActivity iatiActivity, final String lan) {
+    public List<Country> getCountries(final IatiActivity iatiActivity) {
         return iatiActivity.getRecipientCountry()
                 .stream()
                 .map(recipientCountry -> countryRepository.findOneByIso2(recipientCountry.getCode()))
@@ -121,9 +108,12 @@ public class IatiExtractors {
     public List<org.devgateway.geocoder.domain.Narrative> getTexts(TextRequiredType textRequiredType) {
         List<org.devgateway.geocoder.domain.Narrative> value = null;
         if (textRequiredType != null) {
-            value = textRequiredType.getNarrative().stream().map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang(), narrative.getValue())).collect(Collectors.toList());
-
+            value = textRequiredType.getNarrative()
+                    .stream()
+                    .map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang(), narrative.getValue()))
+                    .collect(Collectors.toList());
         }
+
         return value;
     }
 

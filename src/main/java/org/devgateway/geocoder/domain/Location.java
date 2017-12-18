@@ -21,9 +21,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
-@Table(indexes = {@Index(columnList = "activity_id")})
+@Table(indexes = {@Index(columnList = "activity_id"), @Index(columnList = "locationStatus")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,19 +43,19 @@ public class Location {
     private DocQueue queue;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Narrative> names;
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Narrative> names;
 
     @JsonIgnore
     private Point point;
 
     @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Narrative> activityDescriptions;
+    private Set<Narrative> activityDescriptions;
 
     @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Narrative> descriptions;
+    private Set<Narrative> descriptions;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
@@ -111,11 +112,11 @@ public class Location {
         this.activity = activity;
     }
 
-    public List<Narrative> getNames() {
+    public Set<Narrative> getNames() {
         return names;
     }
 
-    public void setNames(List<Narrative> names) {
+    public void setNames(Set<Narrative> names) {
         this.names = names;
     }
 
@@ -127,19 +128,19 @@ public class Location {
         this.point = point;
     }
 
-    public List<Narrative> getActivityDescriptions() {
+    public Set<Narrative> getActivityDescriptions() {
         return activityDescriptions;
     }
 
-    public void setActivityDescriptions(List<Narrative> activityDescriptions) {
+    public void setActivityDescriptions(Set<Narrative> activityDescriptions) {
         this.activityDescriptions = activityDescriptions;
     }
 
-    public List<Narrative> getDescriptions() {
+    public Set<Narrative> getDescriptions() {
         return descriptions;
     }
 
-    public void setDescriptions(List<Narrative> descriptions) {
+    public void setDescriptions(Set<Narrative> descriptions) {
         this.descriptions = descriptions;
     }
 
@@ -248,7 +249,7 @@ public class Location {
         return getNarrativeIfPrenset(this.descriptions);
     }
 
-    private String getNarrativeIfPrenset(final List<Narrative> narratives) {
+    private String getNarrativeIfPrenset(final Set<Narrative> narratives) {
         final Optional<Narrative> value = narratives.stream().findFirst();
         return value.isPresent() ? value.get().getDescription() : null;
     }

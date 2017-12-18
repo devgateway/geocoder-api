@@ -2,6 +2,7 @@ package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -28,16 +30,19 @@ import java.util.Set;
 @Entity
 // @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(indexes = {@Index(columnList = "title"), @Index(columnList = "description")})
+@Table(indexes = {@Index(columnList = "date")})
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
     private String identifier;
 
-    @Column(length = 3000)
-    private String title;
+    @JsonIgnore
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    private Set<Narrative> titles;
 
-    @Column(length = 10000)
-    private String description;
+
+    @JsonIgnore
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    private Set<Narrative> descriptions;
 
     private Date date;
 
@@ -60,20 +65,20 @@ public class Activity extends AbstractAuditableEntity {
         this.identifier = identifier;
     }
 
-    public String getTitle() {
-        return title;
+    public Set<Narrative> getTitles() {
+        return titles;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitles(Set<Narrative> titles) {
+        this.titles = titles;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<Narrative> getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptions(Set<Narrative> descriptions) {
+        this.descriptions = descriptions;
     }
 
     public Date getDate() {
@@ -111,5 +116,23 @@ public class Activity extends AbstractAuditableEntity {
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
+    }
+
+    @JsonProperty("title")
+    public String getTitleForAPI() {
+        return getNarrativeIfPrenset(this.titles);
+    }
+
+    @JsonProperty("description")
+    public String getDescriptionForAPI() {
+        return getNarrativeIfPrenset(this.descriptions);
+    }
+
+    /**
+     * Get the first narrative for now. We should add support for language here.
+     */
+    private String getNarrativeIfPrenset(final Set<Narrative> narratives) {
+        final Optional<Narrative> value = narratives.stream().findFirst();
+        return value.isPresent() ? value.get().getDescription() : null;
     }
 }

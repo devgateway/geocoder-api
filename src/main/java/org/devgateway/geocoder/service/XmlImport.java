@@ -14,6 +14,7 @@ import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
+import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.repositories.ActivityQueueRepository;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
@@ -67,7 +68,7 @@ public class XmlImport {
         final IatiActivities activities = reader.read();
 
         activities.getIatiActivity().stream().forEach(iatiActivity -> {
-            final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader, lan);
+            final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
             activityRepository.save(activity);
 
             if (autocode || (activity.getLocations() != null && activity.getLocations().isEmpty())) {
@@ -86,25 +87,14 @@ public class XmlImport {
     /**
      * Transform an {@link IatiActivity} into a {@link Activity}.
      */
-    private Activity iatiActivityToActivityEntity(final IatiActivity iatiActivity, final ActivitiesReader reader, final String lan) {
+    private Activity iatiActivityToActivityEntity(final IatiActivity iatiActivity, final ActivitiesReader reader) {
         final Activity activity = new Activity();
 
         activity.setIdentifier(iatiActivity.getIatiIdentifier().getValue());
 
-        activity.setTitle(extractors.getTitle(iatiActivity.getTitle(), lan));
+        activity.setTitles(narrativeToSet(extractors.getTitles(iatiActivity.getTitle())));
 
-        activity.setDescription(extractors.getDescription(iatiActivity, "1", lan));
-        if (activity.getDescription() == null) {
-            activity.setDescription(extractors.getDescription(iatiActivity, "2", lan));
-
-        }
-        if (activity.getDescription() == null) {
-            activity.setDescription(extractors.getDescription(iatiActivity, "3", lan));
-
-        }
-        if (activity.getDescription() == null) {
-            activity.setDescription(extractors.getDescription(iatiActivity, "4", lan));
-        }
+        activity.setDescriptions(narrativeToSet(extractors.getDescriptions(iatiActivity)));
 
         activity.setDate(extractors.getDate(iatiActivity, "1"));
 
@@ -117,7 +107,7 @@ public class XmlImport {
             activity.setLocations(activityLocations);
         }
 
-        activity.setCountries(new HashSet<>(extractors.getCountries(iatiActivity, lan)));
+        activity.setCountries(new HashSet<>(extractors.getCountries(iatiActivity)));
 
 
         // also keep the original XML
@@ -135,7 +125,7 @@ public class XmlImport {
     private Location toActivityLocation(final org.devgateway.geocoder.iati.model.Location iatiLocation) {
         final Location location = new Location();
 
-        location.setNames(extractors.getTexts(iatiLocation.getName()));
+        location.setNames(narrativeToSet(extractors.getTexts(iatiLocation.getName())));
 
         final List<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
         identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(location));
@@ -150,8 +140,8 @@ public class XmlImport {
                 .createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
         location.setPoint(pos);
 
-        location.setActivityDescriptions(extractors.getTexts(iatiLocation.getActivityDescription()));
-        location.setDescriptions(extractors.getTexts(iatiLocation.getDescription()));
+        location.setActivityDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getActivityDescription())));
+        location.setDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getDescription())));
         location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
         location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
         location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
@@ -167,5 +157,14 @@ public class XmlImport {
 
 
         return location;
+    }
+
+    protected HashSet<org.devgateway.geocoder.domain.Narrative> narrativeToSet(
+            final List<org.devgateway.geocoder.domain.Narrative> list) {
+        if (list == null) {
+            return null;
+        }
+
+        return new HashSet<>(list);
     }
 }

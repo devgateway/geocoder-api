@@ -16,8 +16,8 @@ public class GeographicFeatureDesignation extends IatiCodes {
     public GeographicFeatureDesignation() {
     }
 
-    public GeographicFeatureDesignation(String code, String name, String description, String lan) {
-        super(code, name, description, lan);
+    public GeographicFeatureDesignation(String code, String name, String description, String lang) {
+        super(code, name, description, lang);
     }
 
     public GeographicFeatureDesignation(String code, String name) {

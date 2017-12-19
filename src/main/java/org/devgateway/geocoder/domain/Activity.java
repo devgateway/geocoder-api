@@ -124,7 +124,7 @@ public class Activity extends AbstractAuditableEntity {
         return titles;
     }
 
-    @JsonProperty("description")
+    @JsonProperty("descriptions")
     public Set<Narrative> getDescriptionForAPI() {
         // Just touch the object in order to force hibernate to load it.
         // We can remove this if we decide to Eager load this object

@@ -1,6 +1,5 @@
 package org.devgateway.geocoder;
 
-import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.domain.GazetteerAgency;
 import org.devgateway.geocoder.domain.GeographicExactness;
@@ -20,7 +19,6 @@ import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.GeographicalPrecisionRepository;
 import org.devgateway.geocoder.service.XmlImport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

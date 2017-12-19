@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -38,7 +37,6 @@ public class Activity extends AbstractAuditableEntity {
     @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
     private Set<Narrative> titles;
-
 
     @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
@@ -118,21 +116,19 @@ public class Activity extends AbstractAuditableEntity {
         return null;
     }
 
-    @JsonProperty("title")
-    public String getTitleForAPI() {
-        return getNarrativeIfPrenset(this.titles);
+    @JsonProperty("titles")
+    public Set<Narrative> getTitleForAPI() {
+        // Just touch the object in order to force hibernate to load it.
+        // We can remove this if we decide to Eager load this object
+        this.titles.size();
+        return titles;
     }
 
     @JsonProperty("description")
-    public String getDescriptionForAPI() {
-        return getNarrativeIfPrenset(this.descriptions);
-    }
-
-    /**
-     * Get the first narrative for now. We should add support for language here.
-     */
-    private String getNarrativeIfPrenset(final Set<Narrative> narratives) {
-        final Optional<Narrative> value = narratives.stream().findFirst();
-        return value.isPresent() ? value.get().getDescription() : null;
+    public Set<Narrative> getDescriptionForAPI() {
+        // Just touch the object in order to force hibernate to load it.
+        // We can remove this if we decide to Eager load this object
+        this.descriptions.size();
+        return descriptions;
     }
 }

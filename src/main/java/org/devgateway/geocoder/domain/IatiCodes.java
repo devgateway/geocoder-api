@@ -44,16 +44,16 @@ public class IatiCodes {
     @Column(columnDefinition = "text")
     private String description;
 
-    private String lan;
+    private String lang;
 
     public IatiCodes() {
     }
 
-    public IatiCodes(String code, String name, String description, String lan) {
+    public IatiCodes(String code, String name, String description, String lang) {
         this.code = code;
         this.name = name;
         this.description = description;
-        this.lan = lan;
+        this.lang = lang;
     }
 
     public IatiCodes(String code, String name) {
@@ -93,11 +93,11 @@ public class IatiCodes {
         this.description = description;
     }
 
-    public String getLan() {
-        return lan;
+    public String getLang() {
+        return lang;
     }
 
-    public void setLan(String lan) {
-        this.lan = lan;
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

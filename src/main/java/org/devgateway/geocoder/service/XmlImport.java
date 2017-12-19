@@ -63,7 +63,7 @@ public class XmlImport {
     @Autowired
     private CacheService cacheService;
 
-    public void process(final InputStream in, final String lan, final Boolean autocode) {
+    public void process(final InputStream in, final String lang, final Boolean autocode) {
         final ActivitiesReader reader = new ActivitiesReader(in);
         final IatiActivities activities = reader.read();
 

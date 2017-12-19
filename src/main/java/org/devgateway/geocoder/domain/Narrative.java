@@ -1,5 +1,6 @@
 package org.devgateway.geocoder.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,11 +19,12 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "description")})
 public class Narrative {
+    @JsonIgnore
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String lan;
+    private String lang;
 
     @Column(length = 10000)
     private String description;
@@ -30,8 +32,8 @@ public class Narrative {
     public Narrative() {
     }
 
-    public Narrative(String lan, String description) {
-        this.lan = lan;
+    public Narrative(String lang, String description) {
+        this.lang = lang;
         this.description = description;
     }
 
@@ -44,12 +46,12 @@ public class Narrative {
     }
 
 
-    public String getLan() {
-        return lan;
+    public String getLang() {
+        return lang;
     }
 
-    public void setLan(String lan) {
-        this.lan = lan;
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getDescription() {

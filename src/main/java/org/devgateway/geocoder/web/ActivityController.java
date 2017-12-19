@@ -76,7 +76,7 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public Activity getActivityById(@PathVariable Long id, @RequestParam String lan) {
+    public Activity getActivityById(@PathVariable Long id, @RequestParam String lang) {
         return activityRepository.findOne(id);
     }
 

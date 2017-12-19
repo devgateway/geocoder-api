@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Sebastian Dimunzio on 11/10/2017.
  */
 public class SearchRequest {
-    private String lan = "en";
+    private String lang = "en";
 
     private String text;
 
@@ -22,12 +22,12 @@ public class SearchRequest {
 
     private Integer page = 0;
 
-    public String getLan() {
-        return lan;
+    public String getLang() {
+        return lang;
     }
 
-    public void setLan(String lan) {
-        this.lan = lan;
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getText() {

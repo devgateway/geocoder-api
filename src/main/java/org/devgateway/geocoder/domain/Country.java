@@ -30,12 +30,12 @@ public class Country {
     private String name;
 
     @JsonIgnore
-    private String lan;
+    private String lang;
 
-    public Country(String iso2, String name, String lan) {
+    public Country(String iso2, String name, String lang) {
         this.iso2 = iso2;
         this.name = name;
-        this.lan = lan;
+        this.lang = lang;
     }
 
     public Country() {
@@ -73,11 +73,11 @@ public class Country {
         this.name = name;
     }
 
-    public String getLan() {
-        return lan;
+    public String getLang() {
+        return lang;
     }
 
-    public void setLan(String lan) {
-        this.lan = lan;
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

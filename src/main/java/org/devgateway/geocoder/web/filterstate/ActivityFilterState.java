@@ -57,8 +57,17 @@ public class ActivityFilterState implements Serializable {
                 predicates.add(cb.or(yearPredicates.toArray(new Predicate[yearPredicates.size()])));
             }
 
+            if (searchRequest.getWithNoLocation() != null && searchRequest.getWithNoLocation()) {
+                predicates.add(cb.isEmpty(root.get(Activity_.locations)));
+            }
+
             if (searchRequest.getPendingVerification() != null && searchRequest.getPendingVerification()) {
                 predicates.add(cb.equal(
+                        root.join(Activity_.locations).get(Location_.locationStatus), LocationStatus.AUTO_CODED));
+            }
+
+            if (searchRequest.getVerifiedLocation() != null && searchRequest.getVerifiedLocation()) {
+                predicates.add(cb.notEqual(
                         root.join(Activity_.locations).get(Location_.locationStatus), LocationStatus.AUTO_CODED));
             }
 

@@ -10,10 +10,20 @@
     <defaultCache
             eternal="false"
             overflowToDisk="false"
-            statistics="true"
-            maxEntriesLocalHeap="10000"
             timeToIdleSeconds="120"
-            timeToLiveSeconds="120"/>
+            timeToLiveSeconds="120"
+            maxEntriesLocalHeap="10000"
+            statistics="true"/>
+
+    <!-- we need to make this cache eternal after we find a method to clear it after we run the autogeocoder scheduler-->
+    <cache name="activityController"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="15"
+           timeToLiveSeconds="15"
+           maxEntriesLocalHeap="100000"
+           statistics="true">
+    </cache>
 
     <cache name="filtersController"
            eternal="true"

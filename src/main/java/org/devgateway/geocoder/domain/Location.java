@@ -29,7 +29,6 @@ import java.util.Set;
 public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
-
     private Long id;
 
     @JsonIgnore
@@ -234,23 +233,27 @@ public class Location {
         return point.getCoordinate().y;
     }
 
-    @JsonProperty("name")
-    public String getNameForAPI() {
-        return getNarrativeIfPrenset(this.names);
+    @JsonProperty("names")
+    public Set<Narrative> getNameForAPI() {
+        // Just touch the object in order to force hibernate to load it.
+        // We can remove this if we decide to Eager load this object
+        this.names.size();
+        return names;
     }
 
-    @JsonProperty("activityDescription")
-    public String getActivityDescriptionForAPI() {
-        return getNarrativeIfPrenset(this.activityDescriptions);
+    @JsonProperty("activityDescriptions")
+    public Set<Narrative> getActivityDescriptionForAPI() {
+        // Just touch the object in order to force hibernate to load it.
+        // We can remove this if we decide to Eager load this object
+        this.activityDescriptions.size();
+        return activityDescriptions;
     }
 
-    @JsonProperty("description")
-    public String getDescriptionForAPI() {
-        return getNarrativeIfPrenset(this.descriptions);
-    }
-
-    private String getNarrativeIfPrenset(final Set<Narrative> narratives) {
-        final Optional<Narrative> value = narratives.stream().findFirst();
-        return value.isPresent() ? value.get().getDescription() : null;
+    @JsonProperty("descriptions")
+    public Set<Narrative> getDescriptionForAPI() {
+        // Just touch the object in order to force hibernate to load it.
+        // We can remove this if we decide to Eager load this object
+        this.descriptions.size();
+        return descriptions;
     }
 }

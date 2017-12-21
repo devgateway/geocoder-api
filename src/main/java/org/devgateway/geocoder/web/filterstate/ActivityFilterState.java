@@ -6,25 +6,31 @@ import org.devgateway.geocoder.domain.Country_;
 import org.devgateway.geocoder.domain.LocationStatus;
 import org.devgateway.geocoder.domain.Location_;
 import org.devgateway.geocoder.domain.Narrative_;
+import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author idobre
  * @since 14/12/2017
  */
 public class ActivityFilterState implements Serializable {
+    private final ActivityRepository activityRepository;
+
     private final SearchRequest searchRequest;
 
 
-    public ActivityFilterState(final SearchRequest searchRequest) {
+    public ActivityFilterState(final ActivityRepository activityRepository, final SearchRequest searchRequest) {
+        this.activityRepository = activityRepository;
         this.searchRequest = searchRequest;
     }
 
@@ -67,8 +73,17 @@ public class ActivityFilterState implements Serializable {
             }
 
             if (searchRequest.getVerifiedLocation() != null && searchRequest.getVerifiedLocation()) {
-                predicates.add(cb.notEqual(
-                        root.join(Activity_.locations).get(Location_.locationStatus), LocationStatus.AUTO_CODED));
+                // get the IDs of the activities with "AUTO_CODED" status.
+                final SearchRequest searchRequest = new SearchRequest();
+                searchRequest.setPendingVerification(true);
+                final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
+                final List<Long> IDs = activityRepository.findAll(activityFilterState.getSpecification())
+                        .stream()
+                        .map(activity -> activity.getId())
+                        .collect(Collectors.toList());
+
+                predicates.add(root.get(Activity_.id).in(IDs).not());
+                predicates.add(cb.isNotEmpty(root.get(Activity_.locations)));
             }
 
             query.distinct(true);

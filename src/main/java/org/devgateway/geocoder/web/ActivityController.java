@@ -73,7 +73,7 @@ public class ActivityController {
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public Page<Activity> getActivityLists(SearchRequest searchRequest) {
         final Pageable pageRequest = new PageRequest(searchRequest.getPage(), 10, Sort.Direction.ASC, "id");
-        final ActivityFilterState activityFilterState = new ActivityFilterState(searchRequest);
+        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
 
         return activityRepository.findAll(activityFilterState.getSpecification(), pageRequest);
     }

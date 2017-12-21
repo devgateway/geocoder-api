@@ -14,7 +14,6 @@ import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
-import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.repositories.ActivityQueueRepository;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.repositories.GeographicExactnessRepository;

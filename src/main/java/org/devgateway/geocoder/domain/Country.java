@@ -32,8 +32,9 @@ public class Country {
     @JsonIgnore
     private String lang;
 
-    public Country(String iso2, String name, String lang) {
+    public Country(String name, String iso2, String iso3,String lang) {
         this.iso2 = iso2;
+        this.iso3 = iso3;
         this.name = name;
         this.lang = lang;
     }

@@ -23,4 +23,6 @@ public class BoundaryRequest {
     public void setCodes(List<String> codes) {
         this.codes = codes;
     }
+
+
 }

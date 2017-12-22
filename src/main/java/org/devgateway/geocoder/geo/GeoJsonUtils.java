@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
-* Created by Sebas on 9/2/2016, refactorized on 11/09/2016.
-*/
+/**
+ * @author Sebastian Dimunzio
+ */
+
 public final class GeoJsonUtils {
 
     private GeoJsonUtils() {

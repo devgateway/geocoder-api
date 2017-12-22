@@ -1,13 +1,12 @@
 package org.devgateway.geocoder.service;
 
-import com.sun.org.apache.xalan.internal.utils.FeatureManager;
-import org.devgateway.geocoder.domain.Boundary;
 import org.devgateway.geocoder.geo.GeoJsonBuilder;
 import org.devgateway.geocoder.geo.GeoJsonUtils;
 import org.devgateway.geocoder.repositories.BoundaryRepository;
-import org.devgateway.geocoder.repositories.helpers.BoundaryDao;
+import org.devgateway.geocoder.repositories.helpers.BoundaryWrapper;
 import org.geojson.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,10 +18,10 @@ public class BoundariesService {
     @Autowired
     BoundaryRepository boundaryRepository;
 
-
+    @Cacheable("boundaries")
     public FeatureCollection getBoundariesGeoJson(final List<String> isoCodes, final Double simplifyFactor) {
 
-        List<BoundaryDao> results = boundaryRepository.getBoundaries(isoCodes, simplifyFactor);
+        List<BoundaryWrapper> results = boundaryRepository.getBoundaries(isoCodes, simplifyFactor);
 
         GeoJsonBuilder geoJsonBuilder = new GeoJsonBuilder();
 
@@ -34,9 +33,17 @@ public class BoundariesService {
     }
 
 
-    private HashMap<String, Object> boundaryToMap(final BoundaryDao instance) {
+    private HashMap<String, Object> boundaryToMap(final BoundaryWrapper instance) {
         final HashMap<String, Object> map = new HashMap<>();
-        map.put("ID", instance.getId());
+        map.put("ID", instance.getGid());
+        map.put("ADMIN_0_CODE", instance.getAdmin0Code());
+        map.put("ADMIN_1_CODE", instance.getAdmin1Code());
+        map.put("ADMIN_2_CODE", instance.getAdmin2Code());
+        map.put("ADMIN_0_NAME", instance.getAdmin0Name());
+        map.put("ADMIN_1_NAME", instance.getAdmin1Name());
+        map.put("ADMIN_2_NAME", instance.getAdmin2Name());
+        map.put("ISO", instance.getIso());
+
         return map;
     }
 }

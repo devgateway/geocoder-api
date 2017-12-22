@@ -7,8 +7,9 @@ import org.geojson.GeoJsonObject;
 import java.util.Map;
 
 /**
- * Created by sebas on 9/2/2016.
+ * @author Sebastian Dimunzio
  */
+
 public class GeoJsonBuilder {
 
     private final FeatureCollection features;

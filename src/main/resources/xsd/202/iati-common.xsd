@@ -47,7 +47,7 @@
     </xsd:complexType>
   </xsd:element>
 
-  <xsd:element name="title" fileType="textRequiredType">
+  <xsd:element name="title" type="textRequiredType">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
         A short, human-readable title.
@@ -70,7 +70,7 @@
     </xsd:complexType>
   </xsd:element>
 
-  <xsd:element name="comment" fileType="textRequiredType">
+  <xsd:element name="comment" type="textRequiredType">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
         A human-readable comment associated with a piece of aid information.
@@ -107,21 +107,21 @@
         </xsd:element>
         <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="ref" use="required" fileType="xsd:string">
+      <xsd:attribute name="ref" use="required" type="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             Machine-readable identification string for the organisation issuing the report. Must be in the format {RegistrationAgency}-{RegistrationNumber} where {RegistrationAgency} is a valid code in the RegistrationAgency code list and {RegistrationNumber } is a valid identifier issued by the {RegistrationAgency}
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="fileType" use="required" fileType="xsd:string">
+      <xsd:attribute name="type" use="required" type="xsd:string">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
-            The fileType of organisation issuing the report. See IATI codelist for values.
+            The type of organisation issuing the report. See IATI codelist for values.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="secondary-reporter" fileType="xsd:boolean" use="optional">
+      <xsd:attribute name="secondary-reporter" type="xsd:boolean" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A flag indicating that the reporting organisation is a
@@ -139,7 +139,7 @@
       Frequently-used attributes.
   -->
 
-  <xsd:attribute name="value-date" fileType="xsd:date">
+  <xsd:attribute name="value-date" type="xsd:date">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
         The date to be used for determining the exchange rate for
@@ -155,7 +155,7 @@
   <xsd:complexType name="textType">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
-        Data fileType for an element that may contain human-readable text
+        Data type for an element that may contain human-readable text
         in different languages.
       </xsd:documentation>
     </xsd:annotation>
@@ -169,7 +169,7 @@
   <xsd:complexType name="textRequiredType">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">
-        Data fileType for an element that must contain human-readable text.
+        Data type for an element that must contain human-readable text.
         The information may be repeated in different languages.
       </xsd:documentation>
     </xsd:annotation>

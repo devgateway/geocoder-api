@@ -47,7 +47,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="file-id" fileType="xsd:string" use="required">
+      <xsd:attribute name="file-id" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A unique identifier for this file of IATI information.
@@ -56,7 +56,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="source-url" fileType="xsd:anyURI" use="required">
+      <xsd:attribute name="source-url" type="xsd:anyURI" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The source URL for this file: the most up-to-date version
@@ -65,7 +65,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="publisher-id" fileType="xsd:string" use="required">
+      <xsd:attribute name="publisher-id" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The IATI identifier for the publishing organization
@@ -75,7 +75,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="publisher-role" fileType="xsd:string" use="required">
+      <xsd:attribute name="publisher-role" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The role of the publisher in the activity (if any).  This
@@ -85,7 +85,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="contact-email" fileType="xsd:string" use="optional">
+      <xsd:attribute name="contact-email" type="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             An email address that the registry can use for queries
@@ -94,7 +94,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="donor-id" fileType="xsd:string" use="optional">
+      <xsd:attribute name="donor-id" type="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The identifier for the donor whose information is reported
@@ -107,14 +107,14 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="donor-fileType" fileType="xsd:string" use="optional">
+      <xsd:attribute name="donor-type" type="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
-            The fileType code for the donor listed in the @donor-id attribute.
+            The type code for the donor listed in the @donor-id attribute.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="donor-country" fileType="xsd:string" use="optional">
+      <xsd:attribute name="donor-country" type="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The ISO 3166-2 alpha2 code for the donor listed in the
@@ -124,14 +124,14 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="title" fileType="xsd:string" use="required">
+      <xsd:attribute name="title" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The title of the document.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="activity-period" fileType="xsd:string" use="optional">
+      <xsd:attribute name="activity-period" type="xsd:string" use="optional">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The period of time covered by the information in this
@@ -147,7 +147,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="last-updated-datetime" fileType="xsd:dateTime" use="required">
+      <xsd:attribute name="last-updated-datetime" type="xsd:dateTime" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The most recent date and time that any of the data for
@@ -158,7 +158,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="generated-datetime" fileType="xsd:dateTime" use="required">
+      <xsd:attribute name="generated-datetime" type="xsd:dateTime" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The date and time that this file was generated, in ISO
@@ -167,7 +167,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="verification-status" fileType="xsd:string" use="required">
+      <xsd:attribute name="verification-status" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A code specifying whether the information in this record has been verified.
@@ -176,17 +176,17 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="format" fileType="xsd:string" use="required">
+      <xsd:attribute name="format" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
-            A MIME fileType describing the content of the file,
+            A MIME type describing the content of the file,
             e.g. "application/x-iati+xml" for an IATI XML file.
 
             See http://iatistandard.org/codelists/file_format for a partial list
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
-      <xsd:attribute name="license" fileType="xsd:string" use="required">
+      <xsd:attribute name="license" type="xsd:string" use="required">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             A text name of a license (e.g. "Creative Commons").  May

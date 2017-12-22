@@ -1,1403 +1,1322 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <iati-activities version="2.01" generated-datetime="2017-09-18T15:38:37">
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:37">
-        <iati-identifier>46002-P-SS-AA0-002</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:37">
+    <iati-identifier>46002-P-SS-AA0-002</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Emergency Humanitarian Assistance to the conflict-affected vulnerable population</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="SRF" type=" ">
+      <narrative>Special Relief Funds</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="3"/>
+    <activity-date iso-date="2014-12-11" type="1"/>
+    <activity-date iso-date="2015-06-30" type="3"/>
+    <activity-date iso-date="2015-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Eastern Africa Regional Resource Center/ Centre Régional de Ressources Afrique de l'Est</narrative>
+      </department>
+      <person-name>
+        <narrative>NKAMLEU NGASSAM Guy Blaise</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Chief Country Economist</narrative>
+      </job-title>
+      <telephone/>
+      <email>b.nkamleu@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <location>
+      <location-id vocabulary="G1" code="7909807"/>
+      <name>
+        <narrative>South Sudan</narrative>
+      </name>
+      <administrative code="2746.0" vocabulary="G1" level="1"/>
+      <administrative code="37023.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>7.5 30</pos>
+      </point>
+      <exactness code="1"/>
+      <location-class code="1"/>
+      <feature-designation code="Administrative Region"/>
+    </location>
+    <sector vocabulary="DAC" code="31110">
+      <narrative>Agriculture</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5000199003718">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2014-12-11"/>
+      <value value-date="2014-12-11">690221.63</value>
+      <provider-org>
+        <narrative>Special Relief Funds</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>MINISTER OF FINANCE AND ECONOMIC PLANNING</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:38">
+    <iati-identifier>46002-P-SS-D00-001</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Technical Assistance for the Development of the Transport Sector Project</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet d'assistance technique pour le développement du secteur des transports</narrative>
+    </title>
+    <description type="2">
+      <narrative xml:lang="en">The objectives of the proposed project are to enhance institutional setup and capacity, improve human resource capacity, streamline the transport infrastructure development, provide information for policy makers with regard to economic diversification and strengthen project management and implementation capacity. The outcome of the intervention will provide the basis for the sustainable development of the transport sector in South Sudan</narrative>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>Ministry of Transport, Roads and Bridges</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2014-05-09" type="1"/>
+    <activity-date iso-date="2016-02-12" type="2"/>
+    <activity-date iso-date="2017-12-31" type="3"/>
+    <activity-date iso-date="2017-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Transport North, East, Southern Africa/ Transport Afrique du Nord, de l'Est et Afrique Australe</narrative>
+      </department>
+      <person-name>
+        <narrative>BEZABEH Girma Berhanu</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Principal  Transport Engineer</narrative>
+      </job-title>
+      <telephone>+225 2020 3615</telephone>
+      <email>g.bezabeh@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <location>
+      <location-id vocabulary="G1" code="363656"/>
+      <name>
+        <narrative>Yambio</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="7.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>4.57213 28.3955</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="2"/>
+      <feature-designation code="Populated Place"/>
+    </location>
+    <location>
+      <location-id vocabulary="G1" code="369717"/>
+      <name>
+        <narrative>Mundri</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="7.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>5.4 30.25</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="2"/>
+      <feature-designation code="Populated Place"/>
+    </location>
+    <location>
+      <location-id vocabulary="G1" code="373303"/>
+      <name>
+        <narrative>Juba</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="5.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>4.85165 31.5825</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="2"/>
+      <feature-designation code="Populated Place"/>
+    </location>
+    <location>
+      <location-id vocabulary="G1" code="373469"/>
+      <name>
+        <narrative>Bahr el Jebel</narrative>
+      </name>
+      <administrative code="0.0" vocabulary="G1" level="1"/>
+      <administrative code="0.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>9.51716 30.5003</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="4"/>
+      <feature-designation code="Other Topographical Feature"/>
+    </location>
+    <location>
+      <location-id vocabulary="G1" code="408655"/>
+      <name>
+        <narrative>Central Equatoria</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="0.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>4.75 31</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="1"/>
+      <feature-designation code="Administrative Region"/>
+    </location>
+    <location>
+      <location-id vocabulary="G1" code="408656"/>
+      <name>
+        <narrative>Western Equatoria</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="0.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>5.4 28.4</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="1"/>
+      <feature-designation code="Administrative Region"/>
+    </location>
+    <sector vocabulary="DAC" code="21010">
+      <narrative>Transport</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900155005851">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2014-05-09"/>
+      <value value-date="2014-05-09">6930000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="C01"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-03-31"/>
+      <value value-date="2016-03-31">286285.48</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-09-30"/>
+      <value value-date="2016-09-30">58799.10</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-03-31"/>
+      <value value-date="2017-03-31">89518.73</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <result type="1">
+      <title>
+        <narrative>Staff trained / recruited for road maintenance (#)</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Emergency Humanitarian Assistance to the conflict-affected vulnerable
-                population
-            </narrative>
+          <narrative>Number of people</narrative>
         </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="SRF" type=" ">
-            <narrative>Special Relief Funds</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="3"/>
-        <activity-date iso-date="2014-12-11" type="1"/>
-        <activity-date iso-date="2015-06-30" type="3"/>
-        <activity-date iso-date="2015-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Eastern Africa Regional Resource Center/ Centre Régional de Ressources Afrique de l'Est
-                </narrative>
-            </department>
-            <person-name>
-                <narrative>NKAMLEU NGASSAM Guy Blaise</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Chief Country Economist</narrative>
-            </job-title>
-            <telephone/>
-            <email>b.nkamleu@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <location>
-            <location-id vocabulary="G1" code="7909807"/>
-            <name>
-                <narrative xml:lang="en">South Sudan</narrative>
-            </name>
-
-            <name>
-
-                <narrative xml:lang="fr">Soudan du Sud</narrative>
-            </name>
-
-
-            <administrative code="2746.0" vocabulary="G1" level="1"/>
-            <administrative code="37023.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>7.5 30</pos>
-            </point>
-            <exactness code="1"/>
-            <location-class code="1"/>
-            <feature-designation code="Administrative Region"/>
-        </location>
-        <sector vocabulary="DAC" code="31110">
-            <narrative>Agriculture</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5000199003718">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2014-12-11"/>
-            <value value-date="2014-12-11">690221.63</value>
-            <provider-org>
-                <narrative>Special Relief Funds</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>MINISTER OF FINANCE AND ECONOMIC PLANNING</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:38">
-        <iati-identifier>46002-P-SS-D00-001</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="223.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+    <result type="1">
+      <title>
+        <narrative>People with improved access to transport (#)</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Technical Assistance for the Development of the Transport Sector
-                Project
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet d'assistance technique pour le développement du secteur des
-                transports
-            </narrative>
+          <narrative>Number of people</narrative>
         </title>
-        <description type="2">
-            <narrative xml:lang="en">The objectives of the proposed project are to enhance institutional setup and
-                capacity, improve human resource capacity, streamline the transport infrastructure development, provide
-                information for policy makers with regard to economic diversification and strengthen project management
-                and implementation capacity. The outcome of the intervention will provide the basis for the sustainable
-                development of the transport sector in South Sudan
-            </narrative>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>Ministry of Transport, Roads and Bridges</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2014-05-09" type="1"/>
-        <activity-date iso-date="2016-02-12" type="2"/>
-        <activity-date iso-date="2017-12-31" type="3"/>
-        <activity-date iso-date="2017-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Transport North, East, Southern Africa/ Transport Afrique du Nord, de l'Est et Afrique
-                    Australe
-                </narrative>
-            </department>
-            <person-name>
-                <narrative>BEZABEH Girma Berhanu</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Principal Transport Engineer</narrative>
-            </job-title>
-            <telephone>+225 2020 3615</telephone>
-            <email>g.bezabeh@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <location>
-            <location-id vocabulary="G1" code="363656"/>
-            <name>
-                <narrative xml:lang="en">Yambio</narrative>
-            </name>
-            <name>
-                <narrative xml:lang="fr">Yambiyo</narrative>
-            </name>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="500000.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:40">
+    <iati-identifier>46002-P-SS-E00-002</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Resilient Water Project for Improved Livelihoods in Juba Project</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet de résilience de l'approvisionnement en eau pour améliorer les conditions de vie à Juba</narrative>
+    </title>
+    <description type="1">
+      <narrative xml:lang="en">Le Projet de résilience de l'approvisionnement en eau pour améliorer les
+conditions de vie à Juba (RWPILJ) vise, en termes de développement, à améliorer l'approvisionnement en
+eau dans la ville de Juba afin de contribuer à l'amélioration des conditions de vie des habitants de la capitale
+du Soudan du Sud. Son coût est estimé à 5,50 millions d'UC, lesquels seront financés par un don de 4,95
+millions d'UC sur les ressources du guichet du Pilier 1 de la Facilité d'appui à la transition, et le reste par la
+contribution de contrepartie du Gouvernement de la République du Soudan du Sud (GRSS). La mise en
+?uvre du projet s'étalera sur 48 mois, avec une date de clôture fixée au 31 décembre 2020.</narrative>
+    </description>
+    <description type="2">
+      <narrative xml:lang="en">Le projet vise à améliorer les infrastructures d'approvisionnement en eau et à contribuer à
+l'amélioration des moyens de subsistance des habitants de la ville de Juba.</narrative>
+    </description>
+    <description type="3">
+      <narrative xml:lang="en">Le projet concerne principalement Juba, la capitale du Soudan du Sud. En répartissant les
+stations de remplissage des camions-citernes et les bornes-fontaines publiques, il faudrait cibler les
+zones en pénurie d'eau et sujettes aux épidémies de maladies d'origine hydrique. Sur les cartes
+d'orientation fournies par le ministère de la Santé, les zones désignées camps d'établissement
+temporaires ? Hai Gabat, MTC, Konyo, Kasaba, Lologo, Atlabara, Muniki, certains quartiers de
+Gudele/Gurei ? figurent parmi les plus touchées par les épidémies et devraient donc être concernées
+par l'opération. Dans le cadre de l'intervention, au moins quatre stations de remplissage de camionsciternes
+et 30 PSP devraient être fournies dans les zones choisies. Le projet permettra de réaliser la
+couverture en services d'approvisionnement en eau de 35 % prévue pour Juba d'ici 2020. Il permettra
+également l'accès à ces services de 230 000 autres personnes d'ici à 2020. Au moins 1 000 compteurs
+individuels et 4 compteurs collectifs seront fournis pour améliorer la facturation et l'efficacité du
+recouvrement des recettes, ce qui rendra en retour les clients plus responsables et plus confiants dans
+le service. Le projet formera des femmes entrepreneurs pour gérer les PSP. Des emplois qualifiés et
+non qualifiés seront générés durant la construction et l'exploitation du réseau.</narrative>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>Ministère de l'Électricité, des Barrages, de l'Irrigation et des Ressources en eau</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="">
+      <narrative>South Sudan Urban Water Corporation</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2016-09-19" type="1"/>
+    <activity-date iso-date="2017-02-08" type="2"/>
+    <activity-date iso-date="2020-12-30" type="3"/>
+    <activity-date iso-date="2021-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Uganda Country Office/ Bureau National de l'Ouganda</narrative>
+      </department>
+      <person-name>
+        <narrative>MBIRO Andrew</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Water and Sanitation Specialist</narrative>
+      </job-title>
+      <telephone/>
+      <email>a.mbiro@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="14010">
+      <narrative>Water supply and Sanitation</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900155010353">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2016-09-19"/>
+      <value value-date="2016-09-19">4950000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="C01"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-03-31"/>
+      <value value-date="2017-03-31">183806.22</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
 
 
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="7.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>4.57213 28.3955</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="2"/>
-            <feature-designation code="Populated Place"/>
-        </location>
-        <location>
-            <location-id vocabulary="G1" code="369717"/>
-            <name>
-                <narrative>Mundri</narrative>
-            </name>
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="7.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>5.4 30.25</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="2"/>
-            <feature-designation code="Populated Place"/>
-        </location>
-        <location>
-            <location-id vocabulary="G1" code="373303"/>
-            <name>
-                <narrative xml:lang="en">Juba</narrative>
-            </name>
-            <name>
-                <narrative xml:lang="fr">Djouba</narrative>
-            </name>
-
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="5.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>4.85165 31.5825</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="2"/>
-            <feature-designation code="Populated Place"/>
-        </location>
-        <location>
-            <location-id vocabulary="G1" code="373469"/>
-            <name>
-                <narrative>Bahr el Jebel</narrative>
-            </name>
-            <administrative code="0.0" vocabulary="G1" level="1"/>
-            <administrative code="0.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>9.51716 30.5003</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="4"/>
-            <feature-designation code="Other Topographical Feature"/>
-        </location>
-        <location>
-            <location-id vocabulary="G1" code="408655"/>
-            <name>
-                <narrative>Central Equatoria</narrative>
-            </name>
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="0.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>4.75 31</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="1"/>
-            <feature-designation code="Administrative Region"/>
-        </location>
-        <location>
-            <location-id vocabulary="G1" code="408656"/>
-            <name>
-                <narrative>Western Equatoria</narrative>
-            </name>
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="0.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>5.4 28.4</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="1"/>
-            <feature-designation code="Administrative Region"/>
-        </location>
-        <sector vocabulary="DAC" code="21010">
-            <narrative>Transport</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900155005851">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2014-05-09"/>
-            <value value-date="2014-05-09">6930000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="C01"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-03-31"/>
-            <value value-date="2016-03-31">286285.48</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-09-30"/>
-            <value value-date="2016-09-30">58799.10</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-03-31"/>
-            <value value-date="2017-03-31">89518.73</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <result type="1">
-            <title>
-                <narrative>Staff trained / recruited for road maintenance (#)</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>Number of people</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="223.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-        <result type="1">
-            <title>
-                <narrative>People with improved access to transport (#)</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>Number of people</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="500000.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:40">
-        <iati-identifier>46002-P-SS-E00-002</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:41">
+    <iati-identifier>46002-P-SS-FA0-002</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Juba Power Distribution System Rehabilitation and Expansion Project</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet de réhabilitation et d'extension du réseau de distribution d'énergie électrique de Djouba</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="46003" type="40">
+      <narrative>African Development Fund</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="">
+      <narrative>SOUTHERN SUDAN ELECTRICITY CORPORATION</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2014-05-08" type="1"/>
+    <activity-date iso-date="2015-09-11" type="2"/>
+    <activity-date iso-date="2019-12-31" type="3"/>
+    <activity-date iso-date="2018-11-30" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Energy East and Southern Africa (including Egypt)/ Energie Afrique de l'Est et Afrique Australe (y compris l'Egypte)</narrative>
+      </department>
+      <person-name>
+        <narrative>ASFAW Solomon Abebe</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Principal Power Engineer</narrative>
+      </job-title>
+      <telephone/>
+      <email>s.asfaw@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <location>
+      <location-id vocabulary="G1" code="373303"/>
+      <name>
+        <narrative>Juba</narrative>
+      </name>
+      <administrative code="2.0" vocabulary="G1" level="1"/>
+      <administrative code="5.0" vocabulary="G1" level="2"/>
+      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+        <pos>4.85165 31.5825</pos>
+      </point>
+      <exactness code="2"/>
+      <location-class code="2"/>
+      <feature-designation code="Populated Place"/>
+    </location>
+    <sector vocabulary="DAC" code="23010">
+      <narrative>Electricity</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="2100155026966">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2014-05-08"/>
+      <value value-date="2014-05-08">16960000.00</value>
+      <provider-org>
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-09-30"/>
+      <value value-date="2015-09-30">217857.23</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-12-31"/>
+      <value value-date="2015-12-31">65068.79</value>
+      <description>
+        <narrative>Total Disbursement in Fourth Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-09-30"/>
+      <value value-date="2016-09-30">92650.42</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-12-31"/>
+      <value value-date="2016-12-31">4901046.69</value>
+      <description>
+        <narrative>Total Disbursement in Fourth Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value value-date="2017-06-30">128455.24</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+    </transaction>
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+    <result type="1">
+      <title>
+        <narrative>Length of transmission and distribution lines rehabilitated or installed (km)</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Resilient Water Project for Improved Livelihoods in Juba Project
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet de résilience de l'approvisionnement en eau pour améliorer
-                les conditions de vie à Juba
-            </narrative>
+          <narrative>kilometers</narrative>
         </title>
-        <description type="1">
-            <narrative xml:lang="en">Le Projet de résilience de l'approvisionnement en eau pour améliorer les
-                conditions de vie à Juba (RWPILJ) vise, en termes de développement, à améliorer l'approvisionnement en
-                eau dans la ville de Juba afin de contribuer à l'amélioration des conditions de vie des habitants de la
-                capitale
-                du Soudan du Sud. Son coût est estimé à 5,50 millions d'UC, lesquels seront financés par un don de 4,95
-                millions d'UC sur les ressources du guichet du Pilier 1 de la Facilité d'appui à la transition, et le
-                reste par la
-                contribution de contrepartie du Gouvernement de la République du Soudan du Sud (GRSS). La mise en
-                ?uvre du projet s'étalera sur 48 mois, avec une date de clôture fixée au 31 décembre 2020.
-            </narrative>
-        </description>
-        <description type="2">
-            <narrative xml:lang="en">Le projet vise à améliorer les infrastructures d'approvisionnement en eau et à
-                contribuer à
-                l'amélioration des moyens de subsistance des habitants de la ville de Juba.
-            </narrative>
-        </description>
-        <description type="3">
-            <narrative xml:lang="en">Le projet concerne principalement Juba, la capitale du Soudan du Sud. En
-                répartissant les
-                stations de remplissage des camions-citernes et les bornes-fontaines publiques, il faudrait cibler les
-                zones en pénurie d'eau et sujettes aux épidémies de maladies d'origine hydrique. Sur les cartes
-                d'orientation fournies par le ministère de la Santé, les zones désignées camps d'établissement
-                temporaires ? Hai Gabat, MTC, Konyo, Kasaba, Lologo, Atlabara, Muniki, certains quartiers de
-                Gudele/Gurei ? figurent parmi les plus touchées par les épidémies et devraient donc être concernées
-                par l'opération. Dans le cadre de l'intervention, au moins quatre stations de remplissage de
-                camionsciternes
-                et 30 PSP devraient être fournies dans les zones choisies. Le projet permettra de réaliser la
-                couverture en services d'approvisionnement en eau de 35 % prévue pour Juba d'ici 2020. Il permettra
-                également l'accès à ces services de 230 000 autres personnes d'ici à 2020. Au moins 1 000 compteurs
-                individuels et 4 compteurs collectifs seront fournis pour améliorer la facturation et l'efficacité du
-                recouvrement des recettes, ce qui rendra en retour les clients plus responsables et plus confiants dans
-                le service. Le projet formera des femmes entrepreneurs pour gérer les PSP. Des emplois qualifiés et
-                non qualifiés seront générés durant la construction et l'exploitation du réseau.
-            </narrative>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>Ministère de l'Électricité, des Barrages, de l'Irrigation et des Ressources en eau</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="">
-            <narrative>South Sudan Urban Water Corporation</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2016-09-19" type="1"/>
-        <activity-date iso-date="2017-02-08" type="2"/>
-        <activity-date iso-date="2020-12-30" type="3"/>
-        <activity-date iso-date="2021-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Uganda Country Office/ Bureau National de l'Ouganda</narrative>
-            </department>
-            <person-name>
-                <narrative>MBIRO Andrew</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Water and Sanitation Specialist</narrative>
-            </job-title>
-            <telephone/>
-            <email>a.mbiro@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="14010">
-            <narrative>Water supply and Sanitation</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900155010353">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2016-09-19"/>
-            <value value-date="2016-09-19">4950000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="C01"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-03-31"/>
-            <value value-date="2017-03-31">183806.22</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-
-
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:41">
-        <iati-identifier>46002-P-SS-FA0-002</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="515.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+    <result type="1">
+      <title>
+        <narrative>Staff trained/recruited in the maintenance of energy facilities</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Juba Power Distribution System Rehabilitation and Expansion Project
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet de réhabilitation et d'extension du réseau de distribution
-                d'énergie électrique de Djouba
-            </narrative>
+          <narrative>Number of people</narrative>
         </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="46003" type="40">
-            <narrative>African Development Fund</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="">
-            <narrative>SOUTHERN SUDAN ELECTRICITY CORPORATION</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2014-05-08" type="1"/>
-        <activity-date iso-date="2015-09-11" type="2"/>
-        <activity-date iso-date="2019-12-31" type="3"/>
-        <activity-date iso-date="2018-11-30" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Energy East and Southern Africa (including Egypt)/ Energie Afrique de l'Est et Afrique
-                    Australe (y compris l'Egypte)
-                </narrative>
-            </department>
-            <person-name>
-                <narrative>ASFAW Solomon Abebe</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Principal Power Engineer</narrative>
-            </job-title>
-            <telephone/>
-            <email>s.asfaw@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <location>
-            <location-id vocabulary="G1" code="373303"/>
-            <name>
-                <narrative>Juba</narrative>
-            </name>
-            <administrative code="2.0" vocabulary="G1" level="1"/>
-            <administrative code="5.0" vocabulary="G1" level="2"/>
-            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-                <pos>4.85165 31.5825</pos>
-            </point>
-            <exactness code="2"/>
-            <location-class code="2"/>
-            <feature-designation code="Populated Place"/>
-        </location>
-        <sector vocabulary="DAC" code="23010">
-            <narrative>Electricity</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="2100155026966">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2014-05-08"/>
-            <value value-date="2014-05-08">16960000.00</value>
-            <provider-org>
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-09-30"/>
-            <value value-date="2015-09-30">217857.23</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-12-31"/>
-            <value value-date="2015-12-31">65068.79</value>
-            <description>
-                <narrative>Total Disbursement in Fourth Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-09-30"/>
-            <value value-date="2016-09-30">92650.42</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-12-31"/>
-            <value value-date="2016-12-31">4901046.69</value>
-            <description>
-                <narrative>Total Disbursement in Fourth Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-06-30"/>
-            <value value-date="2017-06-30">128455.24</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-        </transaction>
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-        <result type="1">
-            <title>
-                <narrative>Length of transmission and distribution lines rehabilitated or installed (km)</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>kilometers</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="515.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-        <result type="1">
-            <title>
-                <narrative>Staff trained/recruited in the maintenance of energy facilities</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>Number of people</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="120.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-        <result type="1">
-            <title>
-                <narrative>People with a new electricity connection</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>Number of people</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="31200.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-        <result type="1">
-            <title>
-                <narrative>People benefiting from new electricity connections</narrative>
-            </title>
-            <indicator measure="1">
-                <title>
-                    <narrative>Number of people</narrative>
-                </title>
-                <period>
-                    <period-start iso-date="2013-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <target value="368436.00"/>
-                </period>
-                <period>
-                    <period-start iso-date="2017-01-01"/>
-                    <period-end iso-date="2017-12-31"/>
-                    <actual value="0.00"/>
-                </period>
-            </indicator>
-        </result>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:43">
-        <iati-identifier>46002-P-SS-FA0-006</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="120.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+    <result type="1">
+      <title>
+        <narrative>People with a new electricity connection</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Juba Power Distribution System Rehabilitation and Expansion Project
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet de réhabilitation et d'extension du réseau de distribution
-                d'énergie électrique de Djouba
-            </narrative>
+          <narrative>Number of people</narrative>
         </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="">
-            <narrative>SOUTHERN SUDAN ELECTRICITY CORPORATION</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2017-05-22" type="1"/>
-        <activity-date iso-date="2018-12-31" type="3"/>
-        <activity-date iso-date="2019-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Energy East and Southern Africa (including Egypt)/ Energie Afrique de l'Est et Afrique
-                    Australe (y compris l'Egypte)
-                </narrative>
-            </department>
-            <person-name>
-                <narrative>ASFAW Solomon Abebe</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Principal Power Engineer</narrative>
-            </job-title>
-            <telephone/>
-            <email>s.asfaw@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="23010">
-            <narrative>Electricity</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900150001451">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">10610000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="410"/>
-            <aid-type code="C01"/>
-            <tied-status code="5"/>
-        </transaction>
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:44">
-        <iati-identifier>46002-P-SS-HA0-001</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="31200.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+    <result type="1">
+      <title>
+        <narrative>People benefiting from new electricity connections</narrative>
+      </title>
+      <indicator measure="1">
         <title>
-            <narrative xml:lang="en">South Sudan - Institutional Support Project to Public Finance Management and Aid
-                Coordination (PFAID)
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet d'appui institutionnel à la gestion des finances publiques
-                et à la coordination de l'aide (PFAID)
-            </narrative>
+          <narrative>Number of people</narrative>
         </title>
-        <description type="2">
-            <narrative xml:lang="en">The specific objectives of the PFAID are to (i) build and enhance transparency and
-                accountability in the use of public resources through training, skills transfers in the OAG and MoFEP;
-                ii) improve aid coordination; and iii) enhance the operational effectiveness of beneficiary institutions
-                by providing basic office equipment, including ICT.
-            </narrative>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2013-05-07" type="1"/>
-        <activity-date iso-date="2014-04-08" type="2"/>
-        <activity-date iso-date="2017-06-30" type="3"/>
-        <activity-date iso-date="2017-06-30" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Financial Management/ Gestion Financière</narrative>
-            </department>
-            <person-name>
-                <narrative>SUGDEN Carina</narrative>
-            </person-name>
-            <job-title>
-                <narrative>'Principal Governance Officer</narrative>
-            </job-title>
-            <telephone>+225 2020 2226</telephone>
-            <email>c.sugden@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="24030">
-            <narrative>Banks</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900155004152">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2013-05-07"/>
-            <value value-date="2013-05-07">4800000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2014-06-30"/>
-            <value value-date="2014-06-30">371116.40</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2014</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2014-09-30"/>
-            <value value-date="2014-09-30">108876.45</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2014</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2014-12-31"/>
-            <value value-date="2014-12-31">1421634.09</value>
-            <description>
-                <narrative>Total Disbursement in Fourth Quarter of 2014</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-03-31"/>
-            <value value-date="2015-03-31">139801.34</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-06-30"/>
-            <value value-date="2015-06-30">107693.80</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-09-30"/>
-            <value value-date="2015-09-30">414376.45</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2015-12-31"/>
-            <value value-date="2015-12-31">185369.80</value>
-            <description>
-                <narrative>Total Disbursement in Fourth Quarter of 2015</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-03-31"/>
-            <value value-date="2016-03-31">816705.20</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-06-30"/>
-            <value value-date="2016-06-30">315409.93</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-09-30"/>
-            <value value-date="2016-09-30">116778.01</value>
-            <description>
-                <narrative>Total Disbursement in Third Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-12-31"/>
-            <value value-date="2016-12-31">145297.11</value>
-            <description>
-                <narrative>Total Disbursement in Fourth Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-03-31"/>
-            <value value-date="2017-03-31">51758.27</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-06-30"/>
-            <value value-date="2017-06-30">302016.65</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
+        <period>
+          <period-start iso-date="2013-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <target value="368436.00"/>
+        </period>
+        <period>
+          <period-start iso-date="2017-01-01"/>
+          <period-end iso-date="2017-12-31"/>
+          <actual value="0.00"/>
+        </period>
+      </indicator>
+    </result>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:43">
+    <iati-identifier>46002-P-SS-FA0-006</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Juba Power Distribution System Rehabilitation and Expansion Project</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet de réhabilitation et  d'extension du réseau de distribution d'énergie électrique de Djouba</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="">
+      <narrative>SOUTHERN SUDAN ELECTRICITY CORPORATION</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2017-05-22" type="1"/>
+    <activity-date iso-date="2018-12-31" type="3"/>
+    <activity-date iso-date="2019-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Energy East and Southern Africa (including Egypt)/ Energie Afrique de l'Est et Afrique Australe (y compris l'Egypte)</narrative>
+      </department>
+      <person-name>
+        <narrative>ASFAW Solomon Abebe</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Principal Power Engineer</narrative>
+      </job-title>
+      <telephone/>
+      <email>s.asfaw@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="23010">
+      <narrative>Electricity</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900150001451">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">10610000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="410"/>
+      <aid-type code="C01"/>
+      <tied-status code="5"/>
+    </transaction>
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:44">
+    <iati-identifier>46002-P-SS-HA0-001</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Institutional Support Project to Public Finance Management and Aid Coordination (PFAID)</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet d'appui institutionnel à la gestion des finances publiques et à la coordination de l'aide (PFAID)</narrative>
+    </title>
+    <description type="2">
+      <narrative xml:lang="en">The specific objectives of the PFAID are to (i) build and enhance transparency and accountability in the use of public resources through training, skills transfers in the OAG and MoFEP; ii) improve aid coordination; and iii) enhance the operational effectiveness of beneficiary institutions by providing basic office equipment, including ICT.</narrative>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2013-05-07" type="1"/>
+    <activity-date iso-date="2014-04-08" type="2"/>
+    <activity-date iso-date="2017-06-30" type="3"/>
+    <activity-date iso-date="2017-06-30" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Financial Management/ Gestion Financière</narrative>
+      </department>
+      <person-name>
+        <narrative>SUGDEN Carina</narrative>
+      </person-name>
+      <job-title>
+        <narrative>'Principal Governance Officer</narrative>
+      </job-title>
+      <telephone>+225 2020 2226</telephone>
+      <email>c.sugden@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="24030">
+      <narrative>Banks</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900155004152">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2013-05-07"/>
+      <value value-date="2013-05-07">4800000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>MINISTRY OF FINANCE AND ECONOMICPLANNING</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2014-06-30"/>
+      <value value-date="2014-06-30">371116.40</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2014</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2014-09-30"/>
+      <value value-date="2014-09-30">108876.45</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2014</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2014-12-31"/>
+      <value value-date="2014-12-31">1421634.09</value>
+      <description>
+        <narrative>Total Disbursement in Fourth Quarter of 2014</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-03-31"/>
+      <value value-date="2015-03-31">139801.34</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-06-30"/>
+      <value value-date="2015-06-30">107693.80</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-09-30"/>
+      <value value-date="2015-09-30">414376.45</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2015-12-31"/>
+      <value value-date="2015-12-31">185369.80</value>
+      <description>
+        <narrative>Total Disbursement in Fourth Quarter of 2015</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-03-31"/>
+      <value value-date="2016-03-31">816705.20</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-06-30"/>
+      <value value-date="2016-06-30">315409.93</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-09-30"/>
+      <value value-date="2016-09-30">116778.01</value>
+      <description>
+        <narrative>Total Disbursement in Third Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-12-31"/>
+      <value value-date="2016-12-31">145297.11</value>
+      <description>
+        <narrative>Total Disbursement in Fourth Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-03-31"/>
+      <value value-date="2017-03-31">51758.27</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-06-30"/>
+      <value value-date="2017-06-30">302016.65</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
 
 
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:45">
-        <iati-identifier>46002-P-SS-HZ0-001</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
-        <title>
-            <narrative xml:lang="en">South Sudan - Regional Development Finance Institutions (African Trade Insurance
-                Agency (ATI) and Eastern and Southern African Trade and Development Bank (TDB)) ? Country Membership
-                Programme
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Institutions financières régionales de développement (Agence pour
-                l'assurance du commerce en Afrique (ATI) et la Banque de l'Afrique de l'Est et de l'Afrique Australe
-                pour le Commerce et le Développement (TDB)) ? Programme d'adhésion pays
-            </narrative>
-        </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="46003" type="40">
-            <narrative>African Development Fund</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2017-05-22" type="1"/>
-        <activity-date iso-date="2018-12-31" type="3"/>
-        <activity-date iso-date="2018-06-30" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Trade Finance/ Financement du Commerce</narrative>
-            </department>
-            <person-name>
-                <narrative>NEKATI Bleming</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Chief Trade Finance Officer</narrative>
-            </job-title>
-            <telephone>+225 2020 1276</telephone>
-            <email>b.nekati@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="24030">
-            <narrative>More Than One Financial Sub-Sector</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="2100150037296">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">8220000.00</value>
-            <provider-org>
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="410"/>
-            <aid-type code="C01"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction ref="2100155034466">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">5160000.00</value>
-            <provider-org>
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:47">
-        <iati-identifier>46002-P-SS-KF0-002</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
-        <title>
-            <narrative xml:lang="en">South Sudan- Support to Good Governance and Capacity Building in Natural Resources
-                Management
-            </narrative>
-        </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2015-12-15" type="1"/>
-        <activity-date iso-date="2016-06-14" type="2"/>
-        <activity-date iso-date="2017-12-31" type="3"/>
-        <activity-date iso-date="2017-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Financial Management/ Gestion Financière</narrative>
-            </department>
-            <person-name>
-                <narrative>SUGDEN Carina</narrative>
-            </person-name>
-            <job-title>
-                <narrative>'Principal Governance Officer</narrative>
-            </job-title>
-            <telephone>+225 2020 2226</telephone>
-            <email>c.sugden@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="15110">
-            <narrative>Institutional Support</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900155009355">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2015-12-15"/>
-            <value value-date="2015-12-15">1000000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-06-30"/>
-            <value value-date="2016-06-30">271646.50</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-03-31"/>
-            <value value-date="2017-03-31">63013.83</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:48">
-        <iati-identifier>46002-P-SS-KF0-003</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
-        <title>
-            <narrative xml:lang="en">South Sudan- Gender equality and women's economic empowerment for inclusive
-                growth
-            </narrative>
-        </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2015-12-15" type="1"/>
-        <activity-date iso-date="2016-06-08" type="2"/>
-        <activity-date iso-date="2017-12-31" type="3"/>
-        <activity-date iso-date="2017-12-31" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Financial Management/ Gestion Financière</narrative>
-            </department>
-            <person-name>
-                <narrative>SUGDEN Carina</narrative>
-            </person-name>
-            <job-title>
-                <narrative>'Principal Governance Officer</narrative>
-            </job-title>
-            <telephone>+225 2020 2226</telephone>
-            <email>c.sugden@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="15110">
-            <narrative>Institutional Support</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="5900155009354">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2015-12-15"/>
-            <value value-date="2015-12-15">1000000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2016-06-30"/>
-            <value value-date="2016-06-30">167732.83</value>
-            <description>
-                <narrative>Total Disbursement in Second Quarter of 2016</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-        <transaction>
-            <transaction-type code="3"/>
-            <transaction-date iso-date="2017-03-31"/>
-            <value value-date="2017-03-31">25580.45</value>
-            <description>
-                <narrative>Total Disbursement in First Quarter of 2017</narrative>
-            </description>
-            <provider-org ref="">
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-        </transaction>
-
-    </iati-activity>
-    <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:49">
-        <iati-identifier>46002-P-SS-KF0-004</iati-identifier>
-        <reporting-org ref="46002" type="40">
-            <narrative>African Development Bank Group</narrative>
-        </reporting-org>
-        <title>
-            <narrative xml:lang="en">South Sudan - Non-Oil Revenue Mobilisation and Accountability in South Sudan
-                Project (NORMA-SS)
-            </narrative>
-            <narrative xml:lang="fr">Soudan du Sud - Projet de mobilisation des recettes non pétrolières et
-                responsabilité au Soudan du Sud (NORMA- SS)
-            </narrative>
-        </title>
-        <description>
-            <narrative/>
-        </description>
-        <participating-org role="1" ref="46003" type="40">
-            <narrative>African Development Fund</narrative>
-        </participating-org>
-        <participating-org role="1" ref="FSF" type=" ">
-            <narrative>Fragile States Facility</narrative>
-        </participating-org>
-        <participating-org role="4" ref="" type="10">
-            <narrative>MINISTRY OF FINANCE AND ECONOMIC PLANNING</narrative>
-        </participating-org>
-        <activity-status code="2"/>
-        <activity-date iso-date="2017-05-22" type="1"/>
-        <activity-date iso-date="2020-12-31" type="3"/>
-        <activity-date iso-date="2021-06-30" type="4"/>
-        <contact-info>
-            <organisation>
-                <narrative>African Development Bank Group</narrative>
-            </organisation>
-            <department>
-                <narrative>Financial Management/ Gestion Financière</narrative>
-            </department>
-            <person-name>
-                <narrative>KARAMAGA Camille</narrative>
-            </person-name>
-            <job-title>
-                <narrative>Principal Governance Officer</narrative>
-            </job-title>
-            <telephone/>
-            <email>c.karamaga@afdb.org</email>
-            <website>www.afdb.org</website>
-            <mailing-address>
-                <narrative>African Development Bank Group
-                    Headquarters
-                    Avenue Joseph Anoma
-                    01 BP 1387
-                    Abidjan 01, Côte d'Ivoire
-                </narrative>
-            </mailing-address>
-        </contact-info>
-        <activity-scope code="4"/>
-        <recipient-country code="SS"/>
-        <sector vocabulary="DAC" code="15110">
-            <narrative>Institutional Support</narrative>
-        </sector>
-        <collaboration-type code="2"/>
-        <transaction ref="2100155034419">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">1820000.00</value>
-            <provider-org>
-                <narrative>African Development Fund</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction ref="5900150001401">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">1250000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="410"/>
-            <aid-type code="C01"/>
-            <tied-status code="5"/>
-        </transaction>
-        <transaction ref="5900155011704">
-            <transaction-type code="2"/>
-            <transaction-date iso-date="2017-05-22"/>
-            <value value-date="2017-05-22">7580000.00</value>
-            <provider-org>
-                <narrative>Fragile States Facility</narrative>
-            </provider-org>
-            <receiver-org>
-                <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
-            </receiver-org>
-            <flow-type code="10"/>
-            <finance-type code="110"/>
-            <aid-type code="D02"/>
-            <tied-status code="5"/>
-        </transaction>
 
 
-        <conditions attached="true">
-            <condition type="">
-                <narrative xml:lang="en">please refer to the appraisal report below</narrative>
-            </condition>
-        </conditions>
-    </iati-activity>
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:45">
+    <iati-identifier>46002-P-SS-HZ0-001</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan  - Regional Development Finance Institutions (African Trade Insurance Agency (ATI) and Eastern and Southern African Trade and Development Bank (TDB)) ? Country Membership Programme</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Institutions financières régionales de développement (Agence pour l'assurance du commerce en Afrique (ATI) et la Banque de l'Afrique de l'Est et de l'Afrique Australe pour le Commerce et le Développement (TDB)) ? Programme d'adhésion pays</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="46003" type="40">
+      <narrative>African Development Fund</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2017-05-22" type="1"/>
+    <activity-date iso-date="2018-12-31" type="3"/>
+    <activity-date iso-date="2018-06-30" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Trade Finance/ Financement du Commerce</narrative>
+      </department>
+      <person-name>
+        <narrative>NEKATI Bleming</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Chief Trade Finance Officer</narrative>
+      </job-title>
+      <telephone>+225 2020 1276</telephone>
+      <email>b.nekati@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="24030">
+      <narrative>More Than One Financial Sub-Sector</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="2100150037296">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">8220000.00</value>
+      <provider-org>
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="410"/>
+      <aid-type code="C01"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction ref="2100155034466">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">5160000.00</value>
+      <provider-org>
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:47">
+    <iati-identifier>46002-P-SS-KF0-002</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan- Support to Good Governance and Capacity Building in Natural Resources Management</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2015-12-15" type="1"/>
+    <activity-date iso-date="2016-06-14" type="2"/>
+    <activity-date iso-date="2017-12-31" type="3"/>
+    <activity-date iso-date="2017-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Financial Management/ Gestion Financière</narrative>
+      </department>
+      <person-name>
+        <narrative>SUGDEN Carina</narrative>
+      </person-name>
+      <job-title>
+        <narrative>'Principal Governance Officer</narrative>
+      </job-title>
+      <telephone>+225 2020 2226</telephone>
+      <email>c.sugden@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="15110">
+      <narrative>Institutional Support</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900155009355">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2015-12-15"/>
+      <value value-date="2015-12-15">1000000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-06-30"/>
+      <value value-date="2016-06-30">271646.50</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-03-31"/>
+      <value value-date="2017-03-31">63013.83</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:48">
+    <iati-identifier>46002-P-SS-KF0-003</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan- Gender equality and women's economic empowerment for inclusive growth</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2015-12-15" type="1"/>
+    <activity-date iso-date="2016-06-08" type="2"/>
+    <activity-date iso-date="2017-12-31" type="3"/>
+    <activity-date iso-date="2017-12-31" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Financial Management/ Gestion Financière</narrative>
+      </department>
+      <person-name>
+        <narrative>SUGDEN Carina</narrative>
+      </person-name>
+      <job-title>
+        <narrative>'Principal Governance Officer</narrative>
+      </job-title>
+      <telephone>+225 2020 2226</telephone>
+      <email>c.sugden@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="15110">
+      <narrative>Institutional Support</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="5900155009354">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2015-12-15"/>
+      <value value-date="2015-12-15">1000000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2016-06-30"/>
+      <value value-date="2016-06-30">167732.83</value>
+      <description>
+        <narrative>Total Disbursement in Second Quarter of 2016</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+    <transaction>
+      <transaction-type code="3"/>
+      <transaction-date iso-date="2017-03-31"/>
+      <value value-date="2017-03-31">25580.45</value>
+      <description>
+        <narrative>Total Disbursement in First Quarter of 2017</narrative>
+      </description>
+      <provider-org ref="">
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+    </transaction>
+
+  </iati-activity>
+  <iati-activity xml:lang="en" default-currency="XDR" hierarchy="1" last-updated-datetime="2017-09-18T15:38:49">
+    <iati-identifier>46002-P-SS-KF0-004</iati-identifier>
+    <reporting-org ref="46002" type="40">
+      <narrative>African Development Bank Group</narrative>
+    </reporting-org>
+    <title>
+      <narrative xml:lang="en">South Sudan - Non-Oil Revenue Mobilisation and Accountability in South Sudan Project (NORMA-SS)</narrative>
+      <narrative xml:lang="fr">Soudan du Sud - Projet de mobilisation des recettes non pétrolières et responsabilité au Soudan du Sud (NORMA- SS)</narrative>
+    </title>
+    <description>
+      <narrative/>
+    </description>
+    <participating-org role="1" ref="46003" type="40">
+      <narrative>African Development Fund</narrative>
+    </participating-org>
+    <participating-org role="1" ref="FSF" type=" ">
+      <narrative>Fragile States Facility</narrative>
+    </participating-org>
+    <participating-org role="4" ref="" type="10">
+      <narrative>MINISTRY  OF FINANCE AND ECONOMIC PLANNING</narrative>
+    </participating-org>
+    <activity-status code="2"/>
+    <activity-date iso-date="2017-05-22" type="1"/>
+    <activity-date iso-date="2020-12-31" type="3"/>
+    <activity-date iso-date="2021-06-30" type="4"/>
+    <contact-info>
+      <organisation>
+        <narrative>African Development Bank Group</narrative>
+      </organisation>
+      <department>
+        <narrative>Financial Management/ Gestion Financière</narrative>
+      </department>
+      <person-name>
+        <narrative>KARAMAGA Camille</narrative>
+      </person-name>
+      <job-title>
+        <narrative>Principal Governance Officer</narrative>
+      </job-title>
+      <telephone/>
+      <email>c.karamaga@afdb.org</email>
+      <website>www.afdb.org</website>
+      <mailing-address>
+        <narrative>African Development Bank Group
+				Headquarters
+				Avenue Joseph Anoma
+				01 BP 1387
+				Abidjan 01, Côte d'Ivoire</narrative>
+      </mailing-address>
+    </contact-info>
+    <activity-scope code="4"/>
+    <recipient-country code="SS"/>
+    <sector vocabulary="DAC" code="15110">
+      <narrative>Institutional Support</narrative>
+    </sector>
+    <collaboration-type code="2"/>
+    <transaction ref="2100155034419">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">1820000.00</value>
+      <provider-org>
+        <narrative>African Development Fund</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction ref="5900150001401">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">1250000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="410"/>
+      <aid-type code="C01"/>
+      <tied-status code="5"/>
+    </transaction>
+    <transaction ref="5900155011704">
+      <transaction-type code="2"/>
+      <transaction-date iso-date="2017-05-22"/>
+      <value value-date="2017-05-22">7580000.00</value>
+      <provider-org>
+        <narrative>Fragile States Facility</narrative>
+      </provider-org>
+      <receiver-org>
+        <narrative>GOVERNMENT OF SOUTHERN SUDAN</narrative>
+      </receiver-org>
+      <flow-type code="10"/>
+      <finance-type code="110"/>
+      <aid-type code="D02"/>
+      <tied-status code="5"/>
+    </transaction>
+
+
+    <conditions attached="true">
+      <condition type="">
+        <narrative xml:lang="en">please refer to the appraisal report below</narrative>
+      </condition>
+    </conditions>
+  </iati-activity>
 </iati-activities>

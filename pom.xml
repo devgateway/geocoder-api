@@ -18,6 +18,7 @@
         <joda-time.version>2.9.9</joda-time.version>
         <jadira.usertype.version>5.0.0.GA</jadira.usertype.version>
         <ehcache.version>2.10.4</ehcache.version>
+        <geojson.version>1.5.1</geojson.version>
     </properties>
     <dependencies>
         <!-- Compile -->
@@ -47,12 +48,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-spatial</artifactId>
             <version>5.2.12.Final</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>postgresql</artifactId>
-                    <groupId>postgresql</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -149,6 +144,15 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>de.grundid.opendatalab</groupId>
+            <artifactId>geojson-jackson</artifactId>
+            <version> ${geojson.version}</version>
+        </dependency>
+
+
     </dependencies>
 
 

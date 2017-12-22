@@ -77,7 +77,7 @@ public class Runner implements ApplicationRunner {
      * Use this function to initially populate the database.
      */
     private void runInit() {
-        if (this.dllAuto != null && ((this.dllAuto.toUpperCase() == "CREATE") || (this.dllAuto.toUpperCase() == "CREATE-DROP"))) {
+        if (this.dllAuto != null && ((this.dllAuto.equalsIgnoreCase("CREATE")) || (this.dllAuto.toUpperCase().equalsIgnoreCase("CREATE-DROP")))) {
             GazetteerAgency gazetteerAgency;
             gazetteerAgency = new GazetteerAgency();
             gazetteerAgency.setCode("1");
@@ -673,8 +673,14 @@ public class Runner implements ApplicationRunner {
             countryRepository.save(country);
             country = new Country("ST. PIERRE AND MIQUELON", "PM", "SPM", "en");
             countryRepository.save(country);
+
             country = new Country("SUDAN", "SD", "SDN", "en");
             countryRepository.save(country);
+
+            country = new Country("SOUTH SUDAN", "SS", "SSD", "en");
+            countryRepository.save(country);
+
+
             country = new Country("SURINAME", "SR", "SUR", "en");
             countryRepository.save(country);
             country = new Country("SVALBARD AND JAN MAYEN ISLANDS", "SJ", "SJM", "en");

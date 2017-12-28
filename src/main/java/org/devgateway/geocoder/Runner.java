@@ -24,6 +24,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.InputStream;
 import java.util.logging.Logger;
 
@@ -72,6 +74,7 @@ public class Runner implements ApplicationRunner {
 
     @Value("${spring.jpa.hibernate.ddl-auto}")
     String dllAuto;
+
 
     /**
      * Use this function to initially populate the database.
@@ -1445,8 +1448,8 @@ public class Runner implements ApplicationRunner {
             geographicFeatureDesignationRepository.save(new GeographicFeatureDesignation("ZOO", "zoo", "a zoological garden or park where wild animals are kept for exhibition", "en"));
 
 
-            final InputStream is = getClass().getResourceAsStream("/one_activity_full_data.xml");
-            xmlImport.process(is, "en", true);
+            //final InputStream is = getClass().getResourceAsStream("/one_activity_full_data.xml");
+            //xmlImport.process(is, "en", true);
         }
     }
 }

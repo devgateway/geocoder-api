@@ -1,12 +1,13 @@
 package org.devgateway.geocoder.service;
 
+import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.geo.GeoJsonBuilder;
 import org.devgateway.geocoder.geo.GeoJsonUtils;
 import org.devgateway.geocoder.repositories.BoundaryRepository;
+import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.helpers.BoundaryWrapper;
 import org.geojson.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,7 +19,10 @@ public class BoundariesService {
     @Autowired
     BoundaryRepository boundaryRepository;
 
-    @Cacheable("boundaries")
+    @Autowired
+    CountryRepository countryRepository;
+
+
     public FeatureCollection getBoundariesGeoJson(final List<String> isoCodes, final Double simplifyFactor) {
 
         List<BoundaryWrapper> results = boundaryRepository.getBoundaries(isoCodes, simplifyFactor);
@@ -45,5 +49,10 @@ public class BoundariesService {
         map.put("ISO", instance.getIso());
 
         return map;
+    }
+
+
+    public List<Country> getCountryList() {
+        return countryRepository.findAll();
     }
 }

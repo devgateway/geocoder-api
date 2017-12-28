@@ -35,8 +35,5 @@ public class GeoCoderApplication {
     }
 
 
-    @Bean
-    public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("boundaries");
-    }
+
 }

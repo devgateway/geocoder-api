@@ -47,20 +47,7 @@
     </contact-info>
     <activity-scope code="4"/>
     <recipient-country code="SS"/>
-    <location>
-      <location-id vocabulary="G1" code="7909807"/>
-      <name>
-        <narrative>South Sudan</narrative>
-      </name>
-      <administrative code="2746.0" vocabulary="G1" level="1"/>
-      <administrative code="37023.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>7.5 30</pos>
-      </point>
-      <exactness code="1"/>
-      <location-class code="1"/>
-      <feature-designation code="Administrative Region"/>
-    </location>
+
     <sector vocabulary="DAC" code="31110">
       <narrative>Agriculture</narrative>
     </sector>
@@ -130,90 +117,9 @@
     </contact-info>
     <activity-scope code="4"/>
     <recipient-country code="SS"/>
-    <location>
-      <location-id vocabulary="G1" code="363656"/>
-      <name>
-        <narrative>Yambio</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="7.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>4.57213 28.3955</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="2"/>
-      <feature-designation code="Populated Place"/>
-    </location>
-    <location>
-      <location-id vocabulary="G1" code="369717"/>
-      <name>
-        <narrative>Mundri</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="7.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>5.4 30.25</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="2"/>
-      <feature-designation code="Populated Place"/>
-    </location>
-    <location>
-      <location-id vocabulary="G1" code="373303"/>
-      <name>
-        <narrative>Juba</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="5.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>4.85165 31.5825</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="2"/>
-      <feature-designation code="Populated Place"/>
-    </location>
-    <location>
-      <location-id vocabulary="G1" code="373469"/>
-      <name>
-        <narrative>Bahr el Jebel</narrative>
-      </name>
-      <administrative code="0.0" vocabulary="G1" level="1"/>
-      <administrative code="0.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>9.51716 30.5003</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="4"/>
-      <feature-designation code="Other Topographical Feature"/>
-    </location>
-    <location>
-      <location-id vocabulary="G1" code="408655"/>
-      <name>
-        <narrative>Central Equatoria</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="0.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>4.75 31</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="1"/>
-      <feature-designation code="Administrative Region"/>
-    </location>
-    <location>
-      <location-id vocabulary="G1" code="408656"/>
-      <name>
-        <narrative>Western Equatoria</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="0.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>5.4 28.4</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="1"/>
-      <feature-designation code="Administrative Region"/>
-    </location>
+
+
+
     <sector vocabulary="DAC" code="21010">
       <narrative>Transport</narrative>
     </sector>
@@ -472,20 +378,7 @@ non qualifiés seront générés durant la construction et l'exploitation du réseau.
     </contact-info>
     <activity-scope code="4"/>
     <recipient-country code="SS"/>
-    <location>
-      <location-id vocabulary="G1" code="373303"/>
-      <name>
-        <narrative>Juba</narrative>
-      </name>
-      <administrative code="2.0" vocabulary="G1" level="1"/>
-      <administrative code="5.0" vocabulary="G1" level="2"/>
-      <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
-        <pos>4.85165 31.5825</pos>
-      </point>
-      <exactness code="2"/>
-      <location-class code="2"/>
-      <feature-designation code="Populated Place"/>
-    </location>
+
     <sector vocabulary="DAC" code="23010">
       <narrative>Electricity</narrative>
     </sector>

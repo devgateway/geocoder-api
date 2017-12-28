@@ -24,12 +24,11 @@ public class Country {
 
     private String iso2;
 
-    @JsonIgnore
+
     private String iso3;
 
     private String name;
 
-    @JsonIgnore
     private String lang;
 
     public Country(String name, String iso2, String iso3,String lang) {

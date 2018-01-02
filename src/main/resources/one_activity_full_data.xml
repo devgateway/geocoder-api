@@ -54,6 +54,8 @@
         </contact-info>
         <activity-scope code="4"/>
         <recipient-country code="SS"/>
+
+
         <location>
             <location-id vocabulary="G1" code="7909807"/>
 
@@ -92,6 +94,30 @@
             <location-class code="1"/>
             <feature-designation code="PPLC"/>
         </location>
+
+
+        <location>
+            <location-id vocabulary="G1" code="7909807"/>
+
+            <name>
+                <narrative xml:lang="en">Juba</narrative>
+            </name>
+
+            <administrative code="11550569" vocabulary="G1" level="1">
+                <dg:adminstrative-name xmlns:dg="http://developmentgateway.org/ns/">
+                    Jubek
+                </dg:adminstrative-name>
+            </administrative>
+
+            <point srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+                <pos>4.85165 31.58247</pos>
+            </point>
+            <exactness code="1"/>
+            <location-class code="1"/>
+            <feature-designation code="PPLC"/>
+        </location>
+
+
         <sector vocabulary="DAC" code="31110">
             <narrative>Agriculture</narrative>
         </sector>

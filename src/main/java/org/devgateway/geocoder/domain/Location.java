@@ -29,7 +29,6 @@ import java.util.Set;
 public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
-
     private Long id;
 
     @JsonIgnore
@@ -224,5 +223,6 @@ public class Location {
     public Double getPointYForAPI() {
         return point.getCoordinate().y;
     }
+
 
 }

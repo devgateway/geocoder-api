@@ -1,6 +1,10 @@
 package org.devgateway.geocoder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.devgateway.geocoder.web.generators.GenericKeyGenerator;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -23,5 +27,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         if (uiPath != null) {
             registry.addResourceHandler("/**").addResourceLocations("file:" + uiPath);
         }
+    }
+
+    @Bean(name = "genericKeyGenerator")
+    public KeyGenerator genericKeyGenerator(final ObjectMapper objectMapper) {
+        return new GenericKeyGenerator(objectMapper);
     }
 }

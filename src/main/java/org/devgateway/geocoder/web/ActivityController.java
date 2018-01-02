@@ -22,6 +22,8 @@ import org.devgateway.geocoder.request.SearchRequest;
 import org.devgateway.geocoder.service.XmlImport;
 import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +44,7 @@ import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "activityController")
 public class ActivityController {
     Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -50,7 +53,6 @@ public class ActivityController {
 
     @Autowired
     ActivityRepository activityRepository;
-
 
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
@@ -67,14 +69,16 @@ public class ActivityController {
         }
     }
 
+    @Cacheable
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public Page<Activity> getActivityLists(SearchRequest searchRequest) {
         final Pageable pageRequest = new PageRequest(searchRequest.getPage(), 10, Sort.Direction.ASC, "id");
-        final ActivityFilterState activityFilterState = new ActivityFilterState(searchRequest);
+        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
 
         return activityRepository.findAll(activityFilterState.getSpecification(), pageRequest);
     }
 
+    @Cacheable
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
     public Activity getActivityById(@PathVariable Long id) {
         return activityRepository.findOne(id);

@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -41,21 +40,17 @@ public class Location {
     @JoinColumn(name = "queue_id", nullable = true)
     private DocQueue queue;
 
-
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> names;
 
     @JsonIgnore
     private Point point;
 
-
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> activityDescriptions;
 
-
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> descriptions;
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<LocationIdentifier> locationIdentifiers;

@@ -2,7 +2,6 @@ package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,11 +33,9 @@ import java.util.Set;
 public class Activity extends AbstractAuditableEntity {
     private String identifier;
 
-    @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
     private Set<Narrative> titles;
 
-    @JsonIgnore
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
     private Set<Narrative> descriptions;
 
@@ -114,21 +111,5 @@ public class Activity extends AbstractAuditableEntity {
     @Override
     public AbstractAuditableEntity getParent() {
         return null;
-    }
-
-    @JsonProperty("titles")
-    public Set<Narrative> getTitleForAPI() {
-        // Just touch the object in order to force hibernate to load it.
-        // We can remove this if we decide to Eager load this object
-        this.titles.size();
-        return titles;
-    }
-
-    @JsonProperty("descriptions")
-    public Set<Narrative> getDescriptionForAPI() {
-        // Just touch the object in order to force hibernate to load it.
-        // We can remove this if we decide to Eager load this object
-        this.descriptions.size();
-        return descriptions;
     }
 }

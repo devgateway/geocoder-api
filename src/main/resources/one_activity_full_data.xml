@@ -13,8 +13,8 @@
                 population
             </narrative>
         </title>
-        <description>
-            <narrative/>
+        <description fileType="1">
+            <narrative xml:lang="en">Large-scale small-holder peasant-managed irrigation and conservation developed and made sustainably operational in the Koga River Basin. Indicators: 1.1 ,,77 million m3 of water reservoir created on the Koga River capable of delivering 9,400 m3 per ha per annum and at a rate of 0.98 l/s ha during peak demand period for  a 12-hr day operation. 1.2,,A 6,000 ha net irrigable area provided with efficient irrigation and drainage infrastructure by 2005.  This has been revised upwards to 7 ,000 ha due increased available reservoir capacity to be completed by 2008. 1.3,,Intensive smallholder, irrigation-based, diversified multiple-cropping agricultural production system established and fully developed over the 6,000 ha area by year 2006. Revised by GOE to end 2010. 1.4,,Some 12,000 households provided with farm holdings and effective agricultural support services, including extension, inputs and credit facilities. Revised to an estimated 14,000  households due to increased land availability.</narrative>
         </description>
         <participating-org role="1" ref="SRF" type=" ">
             <narrative>Special Relief Funds</narrative>

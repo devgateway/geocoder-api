@@ -80,7 +80,7 @@ public class ActivityController {
 
     @Cacheable
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public Activity getActivityById(@PathVariable Long id, @RequestParam String lang) {
+    public Activity getActivityById(@PathVariable Long id) {
         return activityRepository.findOne(id);
     }
 

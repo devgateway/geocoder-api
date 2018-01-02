@@ -41,22 +41,22 @@ public class Location {
     @JoinColumn(name = "queue_id", nullable = true)
     private DocQueue queue;
 
-    @JsonIgnore
+
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> names;
 
     @JsonIgnore
     private Point point;
 
-    @JsonIgnore
+
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> activityDescriptions;
 
-    @JsonIgnore
+
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Narrative> descriptions;
 
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<LocationIdentifier> locationIdentifiers;
 
@@ -78,8 +78,6 @@ public class Location {
     @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.ALL)
     GeographicalPrecision precision;
 
-    @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
-    GeographicVocabulary vocabulary;
 
     @ManyToOne(targetEntity = GazetteerAgency.class, cascade = CascadeType.ALL)
     GazetteerAgency gazetteerAgency;
@@ -199,13 +197,6 @@ public class Location {
         this.precision = precision;
     }
 
-    public GeographicVocabulary getVocabulary() {
-        return vocabulary;
-    }
-
-    public void setVocabulary(GeographicVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
-    }
 
     public GazetteerAgency getGazetteerAgency() {
         return gazetteerAgency;
@@ -233,27 +224,5 @@ public class Location {
         return point.getCoordinate().y;
     }
 
-    @JsonProperty("names")
-    public Set<Narrative> getNameForAPI() {
-        // Just touch the object in order to force hibernate to load it.
-        // We can remove this if we decide to Eager load this object
-        this.names.size();
-        return names;
-    }
 
-    @JsonProperty("activityDescriptions")
-    public Set<Narrative> getActivityDescriptionForAPI() {
-        // Just touch the object in order to force hibernate to load it.
-        // We can remove this if we decide to Eager load this object
-        this.activityDescriptions.size();
-        return activityDescriptions;
-    }
-
-    @JsonProperty("descriptions")
-    public Set<Narrative> getDescriptionForAPI() {
-        // Just touch the object in order to force hibernate to load it.
-        // We can remove this if we decide to Eager load this object
-        this.descriptions.size();
-        return descriptions;
-    }
 }

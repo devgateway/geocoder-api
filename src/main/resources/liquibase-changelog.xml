@@ -15,8 +15,8 @@
        <sql>
            CREATE EXTENSION postgis
            SCHEMA public
-
        </sql>
     </changeSet>
+
 
 </databaseChangeLog>

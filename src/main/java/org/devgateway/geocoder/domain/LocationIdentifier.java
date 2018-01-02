@@ -24,14 +24,14 @@ public class LocationIdentifier {
     @javax.persistence.Id
     private Long id;
 
-    @ManyToOne(targetEntity = GeographicVocabulary.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
     private GeographicVocabulary vocabulary;
 
     private String code;
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name="location_id", nullable=false)
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     public Location getLocation() {

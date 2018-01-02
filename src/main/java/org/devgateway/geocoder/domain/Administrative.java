@@ -35,7 +35,6 @@ public class Administrative {
 
     String name;
 
-    @JsonIgnore
     @ManyToOne(targetEntity = GeographicVocabulary.class)
     GeographicVocabulary vocabulary;
 

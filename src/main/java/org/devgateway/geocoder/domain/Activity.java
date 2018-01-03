@@ -33,10 +33,10 @@ import java.util.Set;
 public class Activity extends AbstractAuditableEntity {
     private String identifier;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Narrative> titles;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Narrative> descriptions;
 
     private Date date;

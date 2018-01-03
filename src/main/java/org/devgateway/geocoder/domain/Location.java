@@ -40,17 +40,17 @@ public class Location {
     @JoinColumn(name = "queue_id", nullable = true)
     private DocQueue queue;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Narrative> names;
+
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Narrative> activityDescriptions;
+
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Narrative> descriptions;
 
     @JsonIgnore
     private Point point;
-
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Narrative> activityDescriptions;
-
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Narrative> descriptions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<LocationIdentifier> locationIdentifiers;

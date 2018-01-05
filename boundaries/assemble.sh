@@ -1,1 +1,0 @@
-cat part_* > boundaries.tar.gz

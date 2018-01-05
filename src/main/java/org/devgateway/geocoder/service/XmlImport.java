@@ -146,9 +146,18 @@ public class XmlImport {
 
             location.setActivityDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getActivityDescription())));
             location.setDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getDescription())));
-            location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
-            location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
-            location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            if (iatiLocation.getLocationClass() != null && iatiLocation.getLocationClass().getCode() != null) {
+                location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            }
+
+            if (iatiLocation.getExactness() != null && iatiLocation.getExactness().getCode() != null) {
+                location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
+            }
+
+            if (iatiLocation.getLocationClass() != null) {
+                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            }
+
             location.setLocationStatus(LocationStatus.EXISTING);
 
             // In some cases they put the name instead of code

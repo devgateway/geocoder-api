@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geocoder.domain.auto.DocQueue;
+import org.devgateway.geocoder.domain.auto.Queue;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -36,9 +37,9 @@ public class Location {
     private Activity activity;
 
     @JsonIgnore
-    @ManyToOne(targetEntity = DocQueue.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "queue_id", nullable = true)
-    private DocQueue queue;
+    private Queue queue;
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Narrative> names;
@@ -201,11 +202,11 @@ public class Location {
         this.gazetteerAgency = gazetteerAgency;
     }
 
-    public DocQueue getQueue() {
+    public Queue getQueue() {
         return queue;
     }
 
-    public void setQueue(DocQueue queue) {
+    public void setQueue(Queue queue) {
         this.queue = queue;
     }
 

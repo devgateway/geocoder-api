@@ -1,5 +1,7 @@
 package org.devgateway.geocoder.domain.auto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,11 +60,13 @@ public class Geocoding {
 
     private String adminName4;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Queue.class)
     private Queue queue;
 
     private Long activity_id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "geocoding")
     List<Extract> extracts;
 

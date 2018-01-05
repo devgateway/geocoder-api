@@ -1,18 +1,22 @@
 package org.devgateway.geocoder.domain.auto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.devgateway.geocoder.domain.Location;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Created by Sebastian Dimunzio on 11/16/2017.
  */
 @Entity
+@Table(indexes = {@Index(columnList = "geocoding_id"), @Index(columnList = "location_id")})
 public class Extract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
@@ -26,13 +30,15 @@ public class Extract {
     private String fileName;
 
     @ManyToOne()
-    private Queue queue;
-
-    @ManyToOne()
     private Geocoding geocoding;
 
+    @JsonIgnore
     @ManyToOne()
     private Location location;
+
+    @JsonIgnore
+    @ManyToOne()
+    private Queue queue;
 
     public String getFileName() {
         return fileName;

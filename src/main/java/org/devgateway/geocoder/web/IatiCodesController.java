@@ -1,9 +1,6 @@
 package org.devgateway.geocoder.web;
 
-import org.devgateway.geocoder.domain.Country;
-import org.devgateway.geocoder.domain.GeographicExactness;
 import org.devgateway.geocoder.domain.GeographicFeatureDesignation;
-import org.devgateway.geocoder.domain.GeographicLocationClass;
 import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
 import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;

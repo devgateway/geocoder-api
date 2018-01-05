@@ -6,8 +6,6 @@ import java.util.List;
  * Created by Sebastian Dimunzio on 11/10/2017.
  */
 public class SearchRequest {
-    private String lang = "en";
-
     private String text;
 
     private List<String> countries;
@@ -21,14 +19,6 @@ public class SearchRequest {
     private Boolean verifiedLocation;
 
     private Integer page = 0;
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
 
     public String getText() {
         return text;

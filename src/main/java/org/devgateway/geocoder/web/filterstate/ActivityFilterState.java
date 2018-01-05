@@ -10,7 +10,6 @@ import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,7 +81,9 @@ public class ActivityFilterState implements Serializable {
                         .map(activity -> activity.getId())
                         .collect(Collectors.toList());
 
-                predicates.add(root.get(Activity_.id).in(IDs).not());
+                if (!IDs.isEmpty()) {
+                    predicates.add(root.get(Activity_.id).in(IDs).not());
+                }
                 predicates.add(cb.isNotEmpty(root.get(Activity_.locations)));
             }
 

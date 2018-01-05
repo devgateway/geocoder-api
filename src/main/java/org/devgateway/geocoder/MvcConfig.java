@@ -1,5 +1,6 @@
 package org.devgateway.geocoder;
 
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.devgateway.geocoder.web.generators.GenericKeyGenerator;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         if (uiPath != null) {
             registry.addResourceHandler("/**").addResourceLocations("file:" + uiPath);
         }
+    }
+
+    @Bean
+    public JtsModule jtsModule() {
+        return new JtsModule();
     }
 
     @Bean(name = "genericKeyGenerator")

@@ -19,6 +19,7 @@
         <jadira.usertype.version>5.0.0.GA</jadira.usertype.version>
         <ehcache.version>2.10.4</ehcache.version>
         <geojson.version>1.5.1</geojson.version>
+        <jackson-datatype-jts.version>2.4</jackson-datatype-jts.version>
     </properties>
     <dependencies>
         <!-- Compile -->
@@ -152,7 +153,11 @@
             <version> ${geojson.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.bedatadriven</groupId>
+            <artifactId>jackson-datatype-jts</artifactId>
+            <version>${jackson-datatype-jts.version}</version>
+        </dependency>
     </dependencies>
 
 

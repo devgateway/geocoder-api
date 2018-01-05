@@ -19,7 +19,6 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "description")})
 public class Narrative {
-    @JsonIgnore
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,6 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "location_id")})
 public class Administrative {
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     Long id;
@@ -35,7 +35,7 @@ public class Administrative {
 
     String name;
 
-    @ManyToOne(targetEntity = GeographicVocabulary.class)
+    @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.PERSIST)
     GeographicVocabulary vocabulary;
 
     public Administrative() {

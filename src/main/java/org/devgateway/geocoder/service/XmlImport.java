@@ -161,13 +161,14 @@ public class XmlImport {
             location.setLocationStatus(LocationStatus.EXISTING);
 
             // In some cases they put the name instead of code
-            final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
-            if (fDesignation != null && fDesignation.length() > 6) {
-                location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
-            } else {
-                location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+            if (iatiLocation.getFeatureDesignation() != null && iatiLocation.getFeatureDesignation().getCode() != null) {
+                final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
+                if (fDesignation != null && fDesignation.length() > 6) {
+                    location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
+                } else {
+                    location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+                }
             }
-
 
             return location;
         } else {

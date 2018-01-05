@@ -3,7 +3,6 @@ package org.devgateway.geocoder.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vividsolutions.jts.geom.Point;
-import org.devgateway.geocoder.domain.auto.DocQueue;
 import org.devgateway.geocoder.domain.auto.Queue;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -41,41 +40,39 @@ public class Location {
     @JoinColumn(name = "queue_id", nullable = true)
     private Queue queue;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Narrative> names;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Narrative> activityDescriptions;
 
-    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Narrative> descriptions;
 
-    @JsonIgnore
     private Point point;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
     private List<LocationIdentifier> locationIdentifiers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
     List<Administrative> administratives;
 
-    @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.PERSIST)
     GeographicLocationClass locationClass;
 
-    @ManyToOne(targetEntity = GeographicExactness.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicExactness.class, cascade = CascadeType.PERSIST)
     GeographicExactness exactness;
 
-    @ManyToOne(targetEntity = GeographicLocationReach.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicLocationReach.class, cascade = CascadeType.PERSIST)
     GeographicLocationReach locationReach;
 
-    @ManyToOne(targetEntity = GeographicFeatureDesignation.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicFeatureDesignation.class, cascade = CascadeType.PERSIST)
     GeographicFeatureDesignation featuresDesignation;
 
-    @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.PERSIST)
     GeographicalPrecision precision;
 
-
-    @ManyToOne(targetEntity = GazetteerAgency.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = GazetteerAgency.class, cascade = CascadeType.PERSIST)
     GazetteerAgency gazetteerAgency;
 
     private LocationStatus locationStatus;
@@ -209,16 +206,4 @@ public class Location {
     public void setQueue(Queue queue) {
         this.queue = queue;
     }
-
-    @JsonProperty("x")
-    public Double getPointXForAPI() {
-        return point.getCoordinate().x;
-    }
-
-    @JsonProperty("y")
-    public Double getPointYForAPI() {
-        return point.getCoordinate().y;
-    }
-
-
 }

@@ -12,5 +12,5 @@ import javax.persistence.Entity;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @DiscriminatorValue("LOCATION_VOCABULARY")
-public class GeographicVocabulary extends IatiCodes{
+public class GeographicVocabulary extends IatiCodes {
 }

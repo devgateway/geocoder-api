@@ -17,8 +17,16 @@
 package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
+import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.Location;
+import org.devgateway.geocoder.domain.LocationIdentifier;
+import org.devgateway.geocoder.domain.LocationStatus;
+import org.devgateway.geocoder.domain.auto.Extract;
 import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.repositories.LocationRepository;
+import org.devgateway.geocoder.repositories.auto.ExtractRepository;
 import org.devgateway.geocoder.request.SearchRequest;
+import org.devgateway.geocoder.service.CacheService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +38,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +64,15 @@ public class ActivityController {
 
     @Autowired
     ActivityRepository activityRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
+    ExtractRepository extractRepository;
+
+    @Autowired
+    private CacheService cacheService;
 
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
@@ -84,4 +104,44 @@ public class ActivityController {
         return activityRepository.findOne(id);
     }
 
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.PUT)
+    @Transactional
+    public void saveActivity(@PathVariable Long id, @RequestBody Activity activity) {
+        // fetch the activity that we want to save and delete all it's locations.
+        // we will replace the locations with the ones received from the UI.
+        final Activity newActivity = activityRepository.findOne(id);
+        for(final Location location : newActivity.getLocations()) {
+            List<Extract> extract = extractRepository.findByLocationId(location.getId());
+            extractRepository.delete(extract);
+        }
+        locationRepository.delete(newActivity.getLocations());
+
+        final List<Location> newLocations = new ArrayList<>();
+        for(final Location location : activity.getLocations()) {
+            if (location.getLocationStatus() != LocationStatus.DELETED) {
+                location.setLocationStatus(LocationStatus.EXISTING);
+                location.setActivity(newActivity);
+
+                if (location.getAdministratives() != null && !location.getAdministratives().isEmpty()) {
+                    for(final Administrative administrative : location.getAdministratives()) {
+                        administrative.setLocation(location);
+                    }
+                }
+
+                if (location.getLocationIdentifiers() != null && !location.getLocationIdentifiers().isEmpty()) {
+                    for(final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
+                        locationIdentifier.setLocation(location);
+                    }
+                }
+
+                newLocations.add(location);
+            }
+        }
+
+        newActivity.setLocations(newLocations);
+        activityRepository.save(newActivity);
+
+        // clear all the caches after we save the activity
+        cacheService.clearAllCache();
+    }
 }

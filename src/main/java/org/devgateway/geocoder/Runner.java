@@ -376,6 +376,11 @@ public class Runner implements ApplicationRunner {
             countryRepository.save(country);
             country = new Country("CONGO", "CG", "COG", "en");
             countryRepository.save(country);
+
+            country = new Country("CONGO, THE DEMOCRATIC REPUBLIC OF THE", "CD", "COD", "en");
+            countryRepository.save(country);
+
+
             country = new Country("COOK ISLANDS", "CK", "COK", "en");
             countryRepository.save(country);
             country = new Country("COSTA RICA", "CR", "CRI", "en");

@@ -48,7 +48,7 @@ public class Activity extends AbstractAuditableEntity {
     private Set<Country> countries = new HashSet<>();
 
     @JsonIgnore
-    @Column(length = 32000)
+    @Column(columnDefinition = "text")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     private String xml;
 

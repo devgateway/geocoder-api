@@ -99,7 +99,7 @@ public class XmlImport {
 
         if (iatiActivity.getLocation().size() > 0) {
             final List<Location> activityLocations = iatiActivity.getLocation()
-                    .stream().map(location -> toActivityLocation(location))
+                    .stream().map(location -> toActivityLocation(location)).filter(location -> location != null)
                     .collect(Collectors.toList());
 
             activityLocations.forEach(location -> location.setActivity(activity));
@@ -122,40 +122,48 @@ public class XmlImport {
      * Transform an {@link org.devgateway.geocoder.iati.model.Location} into a {@link Location}.
      */
     private Location toActivityLocation(final org.devgateway.geocoder.iati.model.Location iatiLocation) {
-        final Location location = new Location();
+        if (iatiLocation.getPoint() != null) {
+            final Location location = new Location();
 
-        location.setNames(narrativeToSet(extractors.getTexts(iatiLocation.getName())));
+            location.setNames(narrativeToSet(extractors.getTexts(iatiLocation.getName())));
 
-        final List<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
-        identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(location));
-        location.setLocationIdentifiers(identifiers);
+            final List<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
 
-        final List<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
-        administratives.forEach(administrative -> administrative.setLocation(location));
-        location.setAdministratives(administratives);
+            if (identifiers != null) {
+                identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(location));
+                location.setLocationIdentifiers(identifiers);
+            }
 
-        final String[] latLong = iatiLocation.getPoint().getPos().split(" ");
-        final Point pos = new GeometryFactory(new PrecisionModel(), 4326)
-                .createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
-        location.setPoint(pos);
+            final List<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
+            if (administratives != null) {
+                administratives.forEach(administrative -> administrative.setLocation(location));
+                location.setAdministratives(administratives);
+            }
+            final String[] latLong = iatiLocation.getPoint().getPos().split(" ");
+            final Point pos = new GeometryFactory(new PrecisionModel(), 4326)
+                    .createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
+            location.setPoint(pos);
 
-        location.setActivityDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getActivityDescription())));
-        location.setDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getDescription())));
-        location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
-        location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
-        location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
-        location.setLocationStatus(LocationStatus.EXISTING);
+            location.setActivityDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getActivityDescription())));
+            location.setDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getDescription())));
+            location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
+            location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            location.setLocationStatus(LocationStatus.EXISTING);
 
-        // In some cases they put the name instead of code
-        final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
-        if (fDesignation != null && fDesignation.length() > 6) {
-            location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
+            // In some cases they put the name instead of code
+            final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
+            if (fDesignation != null && fDesignation.length() > 6) {
+                location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
+            } else {
+                location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+            }
+
+
+            return location;
         } else {
-            location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
+            return null;
         }
-
-
-        return location;
     }
 
     protected HashSet<org.devgateway.geocoder.domain.Narrative> narrativeToSet(

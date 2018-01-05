@@ -56,7 +56,7 @@ public class IatiExtractors {
         try {
             List<IatiActivity.Description> acDescriptions = activity.getDescription();
 
-            for(IatiActivity.Description description : acDescriptions) {
+            for (IatiActivity.Description description : acDescriptions) {
                 description.getNarrative()
                         .stream()
                         .forEach(narrative -> descriptions.add(
@@ -85,7 +85,15 @@ public class IatiExtractors {
     public List<Country> getCountries(final IatiActivity iatiActivity) {
         return iatiActivity.getRecipientCountry()
                 .stream()
-                .map(recipientCountry -> countryRepository.findOneByIso2(recipientCountry.getCode()))
+                .map(recipientCountry -> {
+                    Country country = countryRepository.findOneByIso2(recipientCountry.getCode());
+                    if (country != null) {
+                        return country;
+                    } else {
+                        log.warning("Wasn't able to find country code " + recipientCountry.getCode());
+                        return null;
+                    }
+                }).filter(country -> country != null)
                 .collect(Collectors.toList());
     }
 
@@ -110,7 +118,7 @@ public class IatiExtractors {
         if (textRequiredType != null) {
             value = textRequiredType.getNarrative()
                     .stream()
-                    .map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang(), narrative.getValue()))
+                    .map(narrative -> new org.devgateway.geocoder.domain.Narrative(narrative.getLang() != null ? narrative.getLang() : "en", narrative.getValue()))
                     .collect(Collectors.toList());
         }
 
@@ -127,25 +135,31 @@ public class IatiExtractors {
 
         if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
             value = iatiAdministratives.stream().map(administrative -> {
+
                         String adminName = "";
-                        try {
-                            if (!administrative.getCode().equalsIgnoreCase("0.0") &&
-                                    administrative.getVocabulary().equalsIgnoreCase("G1")) {
-                                Double code = Double.parseDouble(administrative.getCode());
-                                Toponym toponym = WebService.get(code.intValue(), "en", "full");
-                                adminName = toponym.getName();
+                        if (administrative.getCode() != null) {
+                            try {
+                                if (!administrative.getCode().equalsIgnoreCase("0.0") &&
+                                        administrative.getVocabulary().equalsIgnoreCase("G1")) {
+                                    Double code = Double.parseDouble(administrative.getCode());
+                                    Toponym toponym = WebService.get(code.intValue(), "en", "full");
+                                    adminName = toponym.getName();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+
+                            return new Administrative(administrative.getLevel().intValue(), administrative.getCode(), adminName,
+                                    geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()));
+
                         }
-
-                        return new Administrative(administrative.getLevel().intValue(), administrative.getCode(), adminName,
-                                geographicVocabularyRepository.findOneByCode(administrative.getVocabulary()));
-
+                        return null;
                     }
 
 
-            ).collect(Collectors.toList());
+            ).collect(Collectors.toList()).stream().filter(administrative -> {
+                return administrative != null;
+            }).collect(Collectors.toList());
         }
 
         return value;

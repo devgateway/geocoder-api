@@ -32,11 +32,7 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
 @DiscriminatorValue("code")
 @Table(indexes = {@Index(columnList = "type") })
-public class IatiCodes {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
-    private Long id;
-
+public class IatiCodes extends GenericPersistable {
     private String code;
 
     private String name;
@@ -59,14 +55,6 @@ public class IatiCodes {
     public IatiCodes(String code, String name) {
         this.code = code;
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCode() {

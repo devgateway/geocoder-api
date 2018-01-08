@@ -24,11 +24,7 @@ import java.util.Set;
 @Entity
 @Table(indexes = {@Index(columnList = "activity_id"), @Index(columnList = "locationStatus")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Location {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
-    private Long id;
-
+public class Location extends GenericPersistable {
     @JsonIgnore
     @ManyToOne(targetEntity = Activity.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "activity_id", nullable = true)
@@ -56,22 +52,22 @@ public class Location {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
     List<Administrative> administratives;
 
-    @ManyToOne(targetEntity = GeographicLocationClass.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicLocationClass.class)
     GeographicLocationClass locationClass;
 
-    @ManyToOne(targetEntity = GeographicExactness.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicExactness.class)
     GeographicExactness exactness;
 
-    @ManyToOne(targetEntity = GeographicLocationReach.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicLocationReach.class)
     GeographicLocationReach locationReach;
 
-    @ManyToOne(targetEntity = GeographicFeatureDesignation.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicFeatureDesignation.class)
     GeographicFeatureDesignation featuresDesignation;
 
-    @ManyToOne(targetEntity = GeographicalPrecision.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicalPrecision.class)
     GeographicalPrecision precision;
 
-    @ManyToOne(targetEntity = GazetteerAgency.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GazetteerAgency.class)
     GazetteerAgency gazetteerAgency;
 
     private LocationStatus locationStatus;
@@ -83,14 +79,6 @@ public class Location {
 
     public void setLocationStatus(LocationStatus locationStatus) {
         this.locationStatus = locationStatus;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Activity getActivity() {

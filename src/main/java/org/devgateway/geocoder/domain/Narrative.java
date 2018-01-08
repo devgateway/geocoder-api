@@ -18,11 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "description")})
-public class Narrative {
-    @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+public class Narrative extends GenericPersistable {
     private String lang;
 
     @Column(length = 10000)
@@ -35,15 +31,6 @@ public class Narrative {
         this.lang = lang;
         this.description = description;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public String getLang() {
         return lang;

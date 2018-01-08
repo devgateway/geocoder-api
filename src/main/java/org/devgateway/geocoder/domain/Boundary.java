@@ -3,8 +3,6 @@ package org.devgateway.geocoder.domain;
 import com.vividsolutions.jts.geom.Geometry;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Subselect;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-
 @Table(name = "boundaries")
 
 

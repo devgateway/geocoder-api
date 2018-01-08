@@ -19,12 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "location_id")})
-public class LocationIdentifier {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
-    private Long id;
-
-    @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.ALL)
+public class LocationIdentifier extends GenericPersistable {
+    @ManyToOne(targetEntity = GeographicVocabulary.class)
     private GeographicVocabulary vocabulary;
 
     private String code;
@@ -48,14 +44,6 @@ public class LocationIdentifier {
     }
 
     public LocationIdentifier() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public GeographicVocabulary getVocabulary() {

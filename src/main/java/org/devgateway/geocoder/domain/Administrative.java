@@ -19,11 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "location_id")})
-public class Administrative {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
-    Long id;
-
+public class Administrative extends GenericPersistable {
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "location_id", nullable = false)
@@ -35,7 +31,7 @@ public class Administrative {
 
     String name;
 
-    @ManyToOne(targetEntity = GeographicVocabulary.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = GeographicVocabulary.class)
     GeographicVocabulary vocabulary;
 
     public Administrative() {
@@ -54,14 +50,6 @@ public class Administrative {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Location getLocation() {

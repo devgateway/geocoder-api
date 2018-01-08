@@ -18,11 +18,17 @@ package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.GeographicFeatureDesignation;
+import org.devgateway.geocoder.domain.GeographicLocationClass;
+import org.devgateway.geocoder.domain.GeographicVocabulary;
 import org.devgateway.geocoder.domain.Location;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.domain.LocationStatus;
 import org.devgateway.geocoder.domain.auto.Extract;
 import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
+import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
+import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.LocationRepository;
 import org.devgateway.geocoder.repositories.auto.ExtractRepository;
 import org.devgateway.geocoder.request.SearchRequest;
@@ -70,6 +76,15 @@ public class ActivityController {
 
     @Autowired
     ExtractRepository extractRepository;
+
+    @Autowired
+    GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
+
+    @Autowired
+    GeographicLocationClassRepository geographicLocationClassRepository;
+
+    @Autowired
+    GeographicVocabularyRepository geographicVocabularyRepository;
 
     @Autowired
     private CacheService cacheService;
@@ -125,6 +140,13 @@ public class ActivityController {
                 if (location.getAdministratives() != null && !location.getAdministratives().isEmpty()) {
                     for(final Administrative administrative : location.getAdministratives()) {
                         administrative.setLocation(location);
+
+                        // find the `IatiCodes` and use what we have in the database instead of creating new entities.
+                        if (administrative.getVocabulary() != null) {
+                            final GeographicVocabulary vocabulary = geographicVocabularyRepository
+                                    .findOneByCode(administrative.getVocabulary().getCode());
+                            administrative.setVocabulary(vocabulary);
+                        }
                     }
                 }
 
@@ -132,6 +154,19 @@ public class ActivityController {
                     for(final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
                         locationIdentifier.setLocation(location);
                     }
+                }
+
+                // find the `IatiCodes` and use what we have in the database instead of creating new entities.
+                if (location.getFeaturesDesignation() != null) {
+                    final GeographicFeatureDesignation featuresDesignation = geographicFeatureDesignationRepository
+                            .findOneByCode(location.getFeaturesDesignation().getCode());
+                    location.setFeaturesDesignation(featuresDesignation);
+                }
+
+                if (location.getLocationClass() != null) {
+                    final GeographicLocationClass locationClass = geographicLocationClassRepository
+                            .findOneByCode(location.getLocationClass().getCode());
+                    location.setLocationClass(locationClass);
                 }
 
                 newLocations.add(location);

@@ -41,7 +41,8 @@ public class ActivityFilterState implements Serializable {
             if (searchRequest.getText() != null && !searchRequest.getText().isEmpty()) {
                 final String text = searchRequest.getText().toLowerCase();
                 predicates.add(cb.or(cb.like(cb.lower(root.join(Activity_.titles).get(Narrative_.description)), "%" + text + "%"),
-                        cb.like(cb.lower(root.join(Activity_.descriptions).get(Narrative_.description)), "%" + text + "%")));
+                        cb.like(cb.lower(root.join(Activity_.descriptions).get(Narrative_.description)), "%" + text + "%"),
+                        cb.like(cb.lower(root.get(Activity_.xml)), "%" + text + "%")));
             }
 
             if (searchRequest.getCountries() != null && !searchRequest.getCountries().isEmpty()) {

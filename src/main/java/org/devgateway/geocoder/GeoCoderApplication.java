@@ -26,7 +26,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @EnableCaching
-@PropertySource("classpath:/application.properties")
 public class GeoCoderApplication {
 
     public static void main(String[] args) throws Exception {

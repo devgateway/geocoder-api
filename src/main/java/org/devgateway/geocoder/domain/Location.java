@@ -1,7 +1,6 @@
 package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vividsolutions.jts.geom.Point;
 import org.devgateway.geocoder.domain.auto.Queue;
 import org.hibernate.annotations.Cache;

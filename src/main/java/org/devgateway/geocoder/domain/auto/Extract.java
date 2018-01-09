@@ -25,8 +25,10 @@ public class Extract {
     @Column(columnDefinition = "text")
     private String text;
 
+    @Column(length = 500)
     private String entities;
 
+    @Column(length = 500)
     private String fileName;
 
     @ManyToOne()

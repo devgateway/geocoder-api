@@ -95,9 +95,14 @@ public class ActivityController {
         final Boolean auto = Boolean.valueOf(autoGeocode);
 
         try {
-            xmlImport.process(uploadfile.getInputStream(), "en", auto);
+            List<String> errors = xmlImport.process(uploadfile.getInputStream(), "en", auto);
+            if (errors.size() > 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid version");
+            } else {
+                return new ResponseEntity(HttpStatus.OK);
+            }
 
-            return new ResponseEntity(HttpStatus.OK);
+
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error while importing file", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while importing file");
@@ -125,20 +130,20 @@ public class ActivityController {
         // fetch the activity that we want to save and delete all it's locations.
         // we will replace the locations with the ones received from the UI.
         final Activity newActivity = activityRepository.findOne(id);
-        for(final Location location : newActivity.getLocations()) {
+        for (final Location location : newActivity.getLocations()) {
             List<Extract> extract = extractRepository.findByLocationId(location.getId());
             extractRepository.delete(extract);
         }
         locationRepository.delete(newActivity.getLocations());
 
         final List<Location> newLocations = new ArrayList<>();
-        for(final Location location : activity.getLocations()) {
+        for (final Location location : activity.getLocations()) {
             if (location.getLocationStatus() != LocationStatus.DELETED) {
                 location.setLocationStatus(LocationStatus.EXISTING);
                 location.setActivity(newActivity);
 
                 if (location.getAdministratives() != null && !location.getAdministratives().isEmpty()) {
-                    for(final Administrative administrative : location.getAdministratives()) {
+                    for (final Administrative administrative : location.getAdministratives()) {
                         administrative.setLocation(location);
 
                         // find the `IatiCodes` and use what we have in the database instead of creating new entities.
@@ -151,7 +156,7 @@ public class ActivityController {
                 }
 
                 if (location.getLocationIdentifiers() != null && !location.getLocationIdentifiers().isEmpty()) {
-                    for(final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
+                    for (final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
                         locationIdentifier.setLocation(location);
                     }
                 }

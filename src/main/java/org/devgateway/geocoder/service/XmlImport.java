@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -62,25 +63,33 @@ public class XmlImport {
     @Autowired
     private CacheService cacheService;
 
-    public void process(final InputStream in, final String lang, final Boolean autocode) {
+
+    public List<String> process(final InputStream in, final String lang, final Boolean autocode) {
         final ActivitiesReader reader = new ActivitiesReader(in);
-        final IatiActivities activities = reader.read();
+        if (reader.validate()) {
 
-        activities.getIatiActivity().stream().forEach(iatiActivity -> {
-            final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
-            activityRepository.save(activity);
+            final IatiActivities activities = reader.read();
 
-            if (autocode || (activity.getLocations() != null && activity.getLocations().isEmpty())) {
-                final ActivityQueue activityQueue = new ActivityQueue();
-                activityQueue.setActivity(activity);
-                activityQueue.setCreateDate(new Date());
-                activityQueue.setState(Constants.ST_PENDING);
-                activityQueueRepository.save(activityQueue);
-            }
-        });
+            activities.getIatiActivity().stream().forEach(iatiActivity -> {
+                final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
+                activityRepository.save(activity);
 
-        // clear all the caches after we finish the import
-        cacheService.clearAllCache();
+                if (autocode || (activity.getLocations() != null && activity.getLocations().isEmpty())) {
+                    final ActivityQueue activityQueue = new ActivityQueue();
+                    activityQueue.setActivity(activity);
+                    activityQueue.setCreateDate(new Date());
+                    activityQueue.setState(Constants.ST_PENDING);
+                    activityQueueRepository.save(activityQueue);
+                }
+            });
+            // clear all the caches after we finish the import
+            cacheService.clearAllCache();
+            return new ArrayList<>();
+        } else {
+
+            return reader.getValidationErrors();
+        }
+
     }
 
     /**

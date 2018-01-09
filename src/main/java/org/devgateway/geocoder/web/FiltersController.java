@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,10 @@ public class FiltersController {
      */
     @RequestMapping(value = "/filters/countries", method = RequestMethod.GET)
     public List<Country> getCounries() {
-        return activityRepository.findDistinctCountries();
+        final List<Country> countries = activityRepository.findDistinctCountries();
+        countries.sort(Comparator.comparing(Country::getName));
+
+        return countries;
     }
 
     /**
@@ -55,6 +59,9 @@ public class FiltersController {
      */
     @RequestMapping(value = "/filters/years", method = RequestMethod.GET)
     public List<Integer> getYears() {
+        final List<Integer> years = activityRepository.findDistinctYears();
+        years.sort(Comparator.naturalOrder());
+
         return activityRepository.findDistinctYears();
     }
 }

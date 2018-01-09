@@ -162,6 +162,13 @@ public class ActivityController {
                 if (location.getLocationIdentifiers() != null && !location.getLocationIdentifiers().isEmpty()) {
                     for (final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
                         locationIdentifier.setLocation(location);
+
+                        // find the `IatiCodes` and use what we have in the database instead of creating new entities.
+                        if (locationIdentifier.getVocabulary() != null) {
+                            final GeographicVocabulary vocabulary = geographicVocabularyRepository
+                                    .findOneByCode(locationIdentifier.getVocabulary().getCode());
+                            locationIdentifier.setVocabulary(vocabulary);
+                        }
                     }
                 }
 

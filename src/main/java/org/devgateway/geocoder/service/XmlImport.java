@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class XmlImport {
     private CacheService cacheService;
 
 
-    public List<String> process(final InputStream in, final String lang, final Boolean autocode) {
+    public List<String> process(final File in, final Boolean autocode) {
         final ActivitiesReader reader = new ActivitiesReader(in);
         if (reader.validate()) {
 

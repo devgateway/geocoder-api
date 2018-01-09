@@ -17,10 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,11 +28,11 @@ import java.util.logging.Logger;
 public class ActivitiesReader {
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private InputStream in;
+    private File in;
     private List<String> validationErrors;
     private IatiActivities iatiActivities;
 
-    public ActivitiesReader(InputStream in) {
+    public ActivitiesReader(File in) {
         this.in = in;
 
     }
@@ -46,7 +43,6 @@ public class ActivitiesReader {
 
     public Boolean validate() {
         try {
-
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = null;
             schema = sf.newSchema(this.getClass().getClassLoader().getResource("xsd202/iati-activities-schema.xsd"));
@@ -54,7 +50,7 @@ public class ActivitiesReader {
             Validator validator = schema.newValidator();
             org.devgateway.geocoder.iati.ErrorHandler errorHandler = new org.devgateway.geocoder.iati.ErrorHandler();
             validator.setErrorHandler(errorHandler);
-            validator.validate(new StreamSource(this.in));
+            validator.validate(new StreamSource(new FileInputStream(this.in)));
             if (errorHandler.getErrors().size() > 0) {
                 this.validationErrors = errorHandler.getErrors();
                 return false;
@@ -62,11 +58,13 @@ public class ActivitiesReader {
                 return true;
             }
         } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            log.warning("Error when validating");
             return false;
+
+        } catch (IOException e) {
+            log.warning("Error when validating");
+            return false;
+
         }
     }
 

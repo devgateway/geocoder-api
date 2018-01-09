@@ -180,6 +180,7 @@
                     <include>**/*.properties</include>
                     <include>**/*.sql</include>
                     <include>**/*.xml</include>
+                    <include>**/*.xsd</include>
                 </includes>
             </resource>
         </resources>

@@ -29,9 +29,9 @@ public class ImportTest {
     public void testFileImport() {
         File in = new File(this.getClass().getClassLoader().getResource("example_afdb.xml").getPath());
         try {
-            xmlImport.process(new FileInputStream(in), "en", false);
+            xmlImport.process(in, false);
             Assert.isTrue(activityRepository.count() > 0, "There are no activities");
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

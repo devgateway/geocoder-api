@@ -54,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -95,7 +96,10 @@ public class ActivityController {
         final Boolean auto = Boolean.valueOf(autoGeocode);
 
         try {
-            List<String> errors = xmlImport.process(uploadfile.getInputStream(), "en", auto);
+            File file = File.createTempFile(uploadfile.getName(), "xml");
+            uploadfile.transferTo(file);
+
+            List<String> errors = xmlImport.process(file, auto);
             if (errors.size() > 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid version");
             } else {

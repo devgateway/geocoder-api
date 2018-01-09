@@ -28,7 +28,7 @@ import java.util.Set;
 @Entity
 // @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(indexes = {@Index(columnList = "date")})
+@Table(indexes = {@Index(columnList = "date"), @Index(columnList = "identifier")})
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
     private String identifier;

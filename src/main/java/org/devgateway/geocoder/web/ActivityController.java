@@ -143,7 +143,11 @@ public class ActivityController {
         final List<Location> newLocations = new ArrayList<>();
         for (final Location location : activity.getLocations()) {
             if (location.getLocationStatus() != LocationStatus.DELETED) {
-                location.setLocationStatus(LocationStatus.EXISTING);
+                // don't update not verified locations
+                if (location.getLocationStatus() != LocationStatus.AUTO_CODED) {
+                    location.setLocationStatus(LocationStatus.EXISTING);
+                }
+
                 location.setActivity(newActivity);
 
                 if (location.getAdministratives() != null && !location.getAdministratives().isEmpty()) {

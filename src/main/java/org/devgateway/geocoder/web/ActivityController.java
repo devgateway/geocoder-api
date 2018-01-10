@@ -92,14 +92,16 @@ public class ActivityController {
 
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
-                                        @RequestPart(name = "autoGeocode", required = false) final String autoGeocode) {
-        final Boolean auto = Boolean.valueOf(autoGeocode);
+                                        @RequestPart(name = "autoGeocodeAll", required = false) final String autoGeocodeAll,
+                                        @RequestPart(name = "autoGeocodeAllWithoutLoc", required = false) final String autoGeocodeAllWithoutLoc) {
+        final Boolean autoGeocode = Boolean.valueOf(autoGeocodeAll);
+        final Boolean autoGeocodeWithoutLoc = Boolean.valueOf(autoGeocodeAllWithoutLoc);
 
         try {
             File file = File.createTempFile(uploadfile.getName(), "xml");
             uploadfile.transferTo(file);
 
-            List<String> errors = xmlImport.process(file, auto);
+            List<String> errors = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc);
             if (errors.size() > 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid version");
             } else {

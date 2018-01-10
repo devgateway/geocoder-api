@@ -65,7 +65,7 @@ public class XmlImport {
     private CacheService cacheService;
 
 
-    public List<String> process(final File in, final Boolean autocode) {
+    public List<String> process(final File in, final Boolean autoGeocode, final Boolean autoGeocodeWithoutLoc) {
         final ActivitiesReader reader = new ActivitiesReader(in);
         if (reader.validate()) {
 
@@ -75,12 +75,12 @@ public class XmlImport {
                 final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
                 activityRepository.save(activity);
 
-                if (autocode || (activity.getLocations() != null && activity.getLocations().isEmpty())) {
-                    final ActivityQueue activityQueue = new ActivityQueue();
-                    activityQueue.setActivity(activity);
-                    activityQueue.setCreateDate(new Date());
-                    activityQueue.setState(Constants.ST_PENDING);
-                    activityQueueRepository.save(activityQueue);
+                if (autoGeocode) {
+                    addQueue(activity);
+                } else {
+                    if (autoGeocodeWithoutLoc && (activity.getLocations() != null && activity.getLocations().isEmpty())) {
+                        addQueue(activity);
+                    }
                 }
             });
             // clear all the caches after we finish the import
@@ -91,6 +91,19 @@ public class XmlImport {
             return reader.getValidationErrors();
         }
 
+    }
+
+    /**
+     * Add an activity to {@link org.devgateway.geocoder.domain.auto.Queue}.
+     * @param activity
+     */
+    private void addQueue(final Activity activity) {
+        final ActivityQueue activityQueue = new ActivityQueue();
+
+        activityQueue.setActivity(activity);
+        activityQueue.setCreateDate(new Date());
+        activityQueue.setState(Constants.ST_PENDING);
+        activityQueueRepository.save(activityQueue);
     }
 
     /**

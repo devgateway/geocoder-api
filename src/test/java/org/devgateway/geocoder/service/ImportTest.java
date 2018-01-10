@@ -9,8 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**
  * Created by Sebastian Dimunzio on 10/18/2017.
@@ -29,7 +27,7 @@ public class ImportTest {
     public void testFileImport() {
         File in = new File(this.getClass().getClassLoader().getResource("example_afdb.xml").getPath());
         try {
-            xmlImport.process(in, false);
+            xmlImport.process(in, false, false);
             Assert.isTrue(activityRepository.count() > 0, "There are no activities");
         } catch (Exception e) {
             e.printStackTrace();

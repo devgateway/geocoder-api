@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(indexes = {@Index(columnList = "iso2"), @Index(columnList = "name")})
+@Table(indexes = {@Index(columnList = "iso2"), @Index(columnList = "iso3"), @Index(columnList = "name")})
 public class Country {
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +23,6 @@ public class Country {
     private Long id;
 
     private String iso2;
-
 
     private String iso3;
 

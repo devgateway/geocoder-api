@@ -3,9 +3,8 @@ package org.devgateway.geocoder.request;
 import java.util.List;
 
 public class BoundaryRequest {
-
-
     private Integer zoom;
+
     private List<String> codes;
 
     public Integer getZoom() {
@@ -23,6 +22,4 @@ public class BoundaryRequest {
     public void setCodes(List<String> codes) {
         this.codes = codes;
     }
-
-
 }

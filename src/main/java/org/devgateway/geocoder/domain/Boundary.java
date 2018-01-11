@@ -7,42 +7,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@Table(name = "boundaries")
-
-
-/*this table should be crated by running an external sql script, The purpose of @Subselect annontation is to avoid dll updates over this table
-
-  gid integer NOT NULL DEFAULT nextval('boundaries_gid_seq'::regclass),
-  objectid numeric(10,0),
-  id_0 numeric(10,0),
-  iso character varying(3),
-  name_0 character varying(75),
-  id_1 numeric(10,0),
-  name_1 character varying(75),
-  id_2 numeric(10,0),
-  name_2 character varying(75),
-  hasc_2 character varying(15),
-  ccn_2 numeric(10,0),
-  cca_2 character varying(254),
-  type_2 character varying(50),
-  engtype_2 character varying(50),
-  nl_name_2 character varying(75),
-  varname_2 character varying(150),
-  shape_leng numeric,
-  shape_area numeric,
-  geom geometry(MultiPolygon,4326),
-  CONSTRAINT boundaries_pkey PRIMARY KEY (gi
-
- */
-
-
+@Table(name = "boundaries", indexes = {@Index(columnList = "iso")})
 public class Boundary {
     @Id
-
     @Column(name = "gid")
     private Long gid;
 
@@ -69,7 +41,6 @@ public class Boundary {
 
     @Column(name = "name_2")
     private String name_2;
-
 
     @Column(name = "hasc_2")
     private String hasc_2;

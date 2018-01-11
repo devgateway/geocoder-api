@@ -30,7 +30,7 @@ public class Location extends GenericPersistable {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "queue_id", nullable = true)
+    @JoinColumn(name = "queue_id")
     private Queue queue;
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

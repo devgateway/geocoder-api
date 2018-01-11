@@ -23,7 +23,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "queue_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("queueType")
-@Table(indexes = {@Index(columnList = "queue_type")})
+@Table(indexes = {@Index(columnList = "queue_type"), @Index(columnList = "state")})
 public class Queue {
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)

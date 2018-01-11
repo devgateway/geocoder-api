@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -126,9 +127,9 @@ public class XmlImport {
         activity.setDate(extractors.getDate(iatiActivity, "1"));
 
         if (iatiActivity.getLocation().size() > 0) {
-            final List<Location> activityLocations = iatiActivity.getLocation()
+            final Set<Location> activityLocations = iatiActivity.getLocation()
                     .stream().map(location -> toActivityLocation(location)).filter(location -> location != null)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
 
             activityLocations.forEach(location -> location.setActivity(activity));
             activity.setLocations(activityLocations);

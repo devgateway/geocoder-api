@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,7 +30,7 @@ public class Location extends GenericPersistable {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "queue_id", nullable = true)
+    @JoinColumn(name = "queue_id")
     private Queue queue;
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

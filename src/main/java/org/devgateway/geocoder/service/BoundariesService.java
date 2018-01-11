@@ -32,8 +32,6 @@ public class BoundariesService {
         results.stream().forEach(boundaryInstance -> geoJsonBuilder.add(boundaryToMap(boundaryInstance), GeoJsonUtils.jtsGeometryToGeoJson(boundaryInstance.getGeometry())));
 
         return geoJsonBuilder.getFeatures();
-
-
     }
 
 

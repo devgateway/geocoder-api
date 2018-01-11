@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,15 +17,15 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "location_id")})
 public class LocationIdentifier extends GenericPersistable {
-    @ManyToOne(targetEntity = GeographicVocabulary.class)
-    private GeographicVocabulary vocabulary;
-
     private String code;
 
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
+
+    @ManyToOne(targetEntity = GeographicVocabulary.class)
+    private GeographicVocabulary vocabulary;
 
     public Location getLocation() {
         return location;

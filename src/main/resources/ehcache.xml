@@ -19,8 +19,8 @@
     <cache name="activityController"
            eternal="false"
            overflowToDisk="false"
-           timeToIdleSeconds="15"
-           timeToLiveSeconds="15"
+           timeToIdleSeconds="60"
+           timeToLiveSeconds="60"
            maxEntriesLocalHeap="100000"
            statistics="true">
     </cache>

@@ -4,6 +4,8 @@ package org.devgateway.geocoder.domain.auto;
  * Created by Sebastian Dimunzio on 11/16/2017.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -21,8 +23,9 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "queue_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("queueType")
-@Table(indexes = {@Index(columnList = "queue_type") })
+@Table(indexes = {@Index(columnList = "queue_type"), @Index(columnList = "state")})
 public class Queue {
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     @javax.persistence.Id
     private Long id;
@@ -33,6 +36,7 @@ public class Queue {
 
     private Date processedDate;
 
+    @JsonIgnore
     @Column(length = 500)
     private String message;
 

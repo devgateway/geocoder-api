@@ -20,8 +20,6 @@ import java.util.logging.Logger;
 @CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "boundariesController")
 @Cacheable
 public class BoundariesController {
-
-
     Logger log = Logger.getLogger(this.getClass().getName());
 
     @Autowired
@@ -36,9 +34,7 @@ public class BoundariesController {
 
     @RequestMapping(value = "/boundaries/list", method = RequestMethod.GET)
     public List<Country> getCountryList() {
-
         return boundariesService.getCountryList();
-
     }
 
 }

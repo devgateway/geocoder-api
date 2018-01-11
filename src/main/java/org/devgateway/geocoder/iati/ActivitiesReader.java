@@ -19,6 +19,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,34 +30,42 @@ public class ActivitiesReader {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     private File in;
-    private List<String> validationErrors;
+    private HashMap<String, List<String>> validationErrors;
     private IatiActivities iatiActivities;
 
     public ActivitiesReader(File in) {
+        this.validationErrors=new HashMap<>();
         this.in = in;
 
     }
 
-    public List<String> getValidationErrors() {
-        return validationErrors;
+    public List<String> getValidationErrors(String version) {
+        return validationErrors.get(version);
     }
 
-    public Boolean validate() {
+    public Boolean validate(String version) {
         try {
+            String xsdpah = "xsd" + version + "/iati-activities-schema.xsd";
+
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = null;
-            schema = sf.newSchema(this.getClass().getClassLoader().getResource("xsd202/iati-activities-schema.xsd"));
+
+            final Boolean is202;
+            schema = sf.newSchema(this.getClass().getClassLoader().getResource(xsdpah));
 
             Validator validator = schema.newValidator();
             org.devgateway.geocoder.iati.ErrorHandler errorHandler = new org.devgateway.geocoder.iati.ErrorHandler();
             validator.setErrorHandler(errorHandler);
             validator.validate(new StreamSource(new FileInputStream(this.in)));
+
             if (errorHandler.getErrors().size() > 0) {
-                this.validationErrors = errorHandler.getErrors();
+                this.validationErrors.put(version, errorHandler.getErrors());
                 return false;
             } else {
                 return true;
             }
+
+
         } catch (SAXException e) {
             log.warning("Error when validating");
             return false;

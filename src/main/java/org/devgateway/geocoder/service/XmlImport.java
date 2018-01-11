@@ -67,7 +67,11 @@ public class XmlImport {
 
     public List<String> process(final File in, final Boolean autoGeocode, final Boolean autoGeocodeWithoutLoc) {
         final ActivitiesReader reader = new ActivitiesReader(in);
-        if (reader.validate()) {
+        boolean valid202 = reader.validate("202");
+
+        boolean valid201 = reader.validate("201");
+
+        if (valid201 || valid202) {
 
             final IatiActivities activities = reader.read();
 
@@ -87,14 +91,15 @@ public class XmlImport {
             cacheService.clearAllCache();
             return new ArrayList<>();
         } else {
-
-            return reader.getValidationErrors();
+            //if not valid return validation error of most recent version
+            return reader.getValidationErrors("202");
         }
 
     }
 
     /**
      * Add an activity to {@link org.devgateway.geocoder.domain.auto.Queue}.
+     *
      * @param activity
      */
     private void addQueue(final Activity activity) {

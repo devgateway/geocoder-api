@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -103,7 +104,7 @@ public class ActivityController {
 
             List<String> errors = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc);
             if (errors.size() > 0) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid version");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.stream().map(err -> err + "\r\n").collect(Collectors.toList()));
             } else {
                 return new ResponseEntity(HttpStatus.OK);
             }
@@ -141,7 +142,7 @@ public class ActivityController {
             extractRepository.delete(extract);
         }
         locationRepository.delete(newActivity.getLocations());
-
+        locationRepository.flush();
         final List<Location> newLocations = new ArrayList<>();
         for (final Location location : activity.getLocations()) {
             if (location.getLocationStatus() != LocationStatus.DELETED) {

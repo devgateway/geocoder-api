@@ -44,7 +44,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,11 +54,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -71,25 +68,10 @@ public class ActivityController {
     XmlImport xmlImport;
 
     @Autowired
+    ActivityService activityService;
+
+    @Autowired
     ActivityRepository activityRepository;
-
-    @Autowired
-    LocationRepository locationRepository;
-
-    @Autowired
-    ExtractRepository extractRepository;
-
-    @Autowired
-    GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
-
-    @Autowired
-    GeographicLocationClassRepository geographicLocationClassRepository;
-
-    @Autowired
-    GeographicVocabularyRepository geographicVocabularyRepository;
-
-    @Autowired
-    private CacheService cacheService;
 
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
@@ -132,74 +114,7 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.PUT)
-    @Transactional
     public void saveActivity(@PathVariable Long id, @RequestBody Activity activity) {
-        // fetch the activity that we want to save and delete all it's locations.
-        // we will replace the locations with the ones received from the UI.
-        final Activity newActivity = activityRepository.findOne(id);
-        for (final Location location : newActivity.getLocations()) {
-            List<Extract> extract = extractRepository.findByLocationId(location.getId());
-            extractRepository.delete(extract);
-        }
-        locationRepository.delete(newActivity.getLocations());
-        locationRepository.flush();
-        final List<Location> newLocations = new ArrayList<>();
-        for (final Location location : activity.getLocations()) {
-            if (location.getLocationStatus() != LocationStatus.DELETED) {
-                // don't update not verified locations
-                if (location.getLocationStatus() != LocationStatus.AUTO_CODED) {
-                    location.setLocationStatus(LocationStatus.EXISTING);
-                }
-
-                location.setActivity(newActivity);
-
-                if (location.getAdministratives() != null && !location.getAdministratives().isEmpty()) {
-                    for (final Administrative administrative : location.getAdministratives()) {
-                        administrative.setLocation(location);
-
-                        // find the `IatiCodes` and use what we have in the database instead of creating new entities.
-                        if (administrative.getVocabulary() != null) {
-                            final GeographicVocabulary vocabulary = geographicVocabularyRepository
-                                    .findOneByCode(administrative.getVocabulary().getCode());
-                            administrative.setVocabulary(vocabulary);
-                        }
-                    }
-                }
-
-                if (location.getLocationIdentifiers() != null && !location.getLocationIdentifiers().isEmpty()) {
-                    for (final LocationIdentifier locationIdentifier : location.getLocationIdentifiers()) {
-                        locationIdentifier.setLocation(location);
-
-                        // find the `IatiCodes` and use what we have in the database instead of creating new entities.
-                        if (locationIdentifier.getVocabulary() != null) {
-                            final GeographicVocabulary vocabulary = geographicVocabularyRepository
-                                    .findOneByCode(locationIdentifier.getVocabulary().getCode());
-                            locationIdentifier.setVocabulary(vocabulary);
-                        }
-                    }
-                }
-
-                // find the `IatiCodes` and use what we have in the database instead of creating new entities.
-                if (location.getFeaturesDesignation() != null) {
-                    final GeographicFeatureDesignation featuresDesignation = geographicFeatureDesignationRepository
-                            .findOneByCode(location.getFeaturesDesignation().getCode());
-                    location.setFeaturesDesignation(featuresDesignation);
-                }
-
-                if (location.getLocationClass() != null) {
-                    final GeographicLocationClass locationClass = geographicLocationClassRepository
-                            .findOneByCode(location.getLocationClass().getCode());
-                    location.setLocationClass(locationClass);
-                }
-
-                newLocations.add(location);
-            }
-        }
-
-        newActivity.setLocations(newLocations);
-        activityRepository.save(newActivity);
-
-        // clear all the caches after we save the activity
-        cacheService.clearAllCache();
+        activityService.updateActivityLocations(id, activity);
     }
 }

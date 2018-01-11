@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author idobre
@@ -59,7 +61,7 @@ public class ActivityService {
             extractRepository.delete(extract);
         }
 
-        final List<Location> newLocations = new ArrayList<>();
+        final Set<Location> newLocations = new HashSet<>();
         for (final Location location : activity.getLocations()) {
             if (location.getLocationStatus() != LocationStatus.DELETED) {
                 // don't update not verified locations

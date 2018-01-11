@@ -46,7 +46,7 @@ public class Activity extends AbstractAuditableEntity {
     private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
-    List<Location> locations = new ArrayList<>();
+    Set<Location> locations = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Country> countries = new HashSet<>();
@@ -96,11 +96,11 @@ public class Activity extends AbstractAuditableEntity {
         this.date = date;
     }
 
-    public List<Location> getLocations() {
+    public Set<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<Location> locations) {
+    public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
 

@@ -25,6 +25,15 @@
            statistics="true">
     </cache>
 
+    <cache name="documentRefController"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="60"
+           timeToLiveSeconds="60"
+           maxEntriesLocalHeap="100000"
+           statistics="true">
+    </cache>
+
     <cache name="filtersController"
            eternal="true"
            diskPersistent="false"
@@ -35,15 +44,6 @@
     </cache>
 
     <cache name="boundariesController"
-           eternal="true"
-           diskPersistent="false"
-           diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LRU"
-           maxEntriesLocalHeap="100000"
-           statistics="true">
-    </cache>
-
-    <cache name="documentRefController"
            eternal="true"
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"

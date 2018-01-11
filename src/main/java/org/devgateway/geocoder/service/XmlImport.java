@@ -67,11 +67,11 @@ public class XmlImport {
 
     public List<String> process(final File in, final Boolean autoGeocode, final Boolean autoGeocodeWithoutLoc) {
         final ActivitiesReader reader = new ActivitiesReader(in);
-        boolean valid202 = reader.validate("202");
 
-        boolean valid201 = reader.validate("201");
+        ArrayList<String> validations = reader.validate();
 
-        if (valid201 || valid202) {
+
+        if (validations.size() == 0) {
 
             final IatiActivities activities = reader.read();
 
@@ -92,7 +92,7 @@ public class XmlImport {
             return new ArrayList<>();
         } else {
             //if not valid return validation error of most recent version
-            return reader.getValidationErrors("202");
+            return validations;
         }
 
     }

@@ -36,6 +36,7 @@ import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.CacheService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
+import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -45,6 +46,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +57,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +91,7 @@ public class ActivityController {
 
             List<String> errors = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc);
             if (errors.size() > 0) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.stream().map(err -> err + "\r\n").collect(Collectors.toList()));
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
             } else {
                 return new ResponseEntity(HttpStatus.OK);
             }
@@ -96,7 +99,8 @@ public class ActivityController {
 
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error while importing file", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while importing file");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(CollectionUtils.arrayToList(new String[]{"Error when processing this request"}));
         }
     }
 

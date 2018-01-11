@@ -32,6 +32,7 @@ import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.LocationRepository;
 import org.devgateway.geocoder.repositories.auto.ExtractRepository;
 import org.devgateway.geocoder.request.SearchRequest;
+import org.devgateway.geocoder.service.ActivityService;
 import org.devgateway.geocoder.service.CacheService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
@@ -57,6 +58,7 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin

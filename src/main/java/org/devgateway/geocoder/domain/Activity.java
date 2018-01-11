@@ -2,6 +2,7 @@ package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,11 +28,13 @@ import java.util.Set;
  * (see 'get_activity_by_id' function from autogeocoder tool)
  */
 @Entity
-// @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "date"), @Index(columnList = "identifier")})
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
+    @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private ActivityQueue queue;
+
     private String identifier;
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -51,6 +55,14 @@ public class Activity extends AbstractAuditableEntity {
     @Column(columnDefinition = "text")
     @org.hibernate.annotations.Type(type = "org.devgateway.geocoder.types.IatiActivityUserType")
     private String xml;
+
+    public ActivityQueue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(ActivityQueue queue) {
+        this.queue = queue;
+    }
 
     public String getIdentifier() {
         return identifier;

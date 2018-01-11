@@ -45,7 +45,7 @@ public class Activity extends AbstractAuditableEntity {
 
     private Date date;
 
-    @OneToMany(targetEntity = Location.class, cascade = CascadeType.ALL, mappedBy = "activity")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity", fetch = FetchType.EAGER)
     List<Location> locations = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

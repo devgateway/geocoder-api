@@ -24,8 +24,8 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Location extends GenericPersistable {
     @JsonIgnore
-    @ManyToOne(targetEntity = Activity.class, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "activity_id", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "activity_id")
     private Activity activity;
 
     @JsonIgnore

@@ -8,19 +8,16 @@ import org.devgateway.geocoder.domain.GeographicVocabulary;
 import org.devgateway.geocoder.domain.Location;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.domain.LocationStatus;
-import org.devgateway.geocoder.domain.auto.Extract;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.LocationRepository;
-import org.devgateway.geocoder.repositories.auto.ExtractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,9 +31,6 @@ public class ActivityService {
 
     @Autowired
     LocationRepository locationRepository;
-
-    @Autowired
-    ExtractRepository extractRepository;
 
     @Autowired
     GeographicFeatureDesignationRepository geographicFeatureDesignationRepository;
@@ -55,10 +49,6 @@ public class ActivityService {
         // fetch the activity that we want to save and delete all it's locations.
         // we will replace the locations with the ones received from the UI.
         final Activity newActivity = activityRepository.findOne(id);
-        for (final Location location : newActivity.getLocations()) {
-            List<Extract> extract = extractRepository.findByLocationId(location.getId());
-            extractRepository.delete(extract);
-        }
 
         final Set<Location> newLocations = new HashSet<>();
         for (final Location location : activity.getLocations()) {

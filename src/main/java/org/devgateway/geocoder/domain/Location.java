@@ -2,6 +2,7 @@ package org.devgateway.geocoder.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vividsolutions.jts.geom.Point;
+import org.devgateway.geocoder.domain.auto.Extract;
 import org.devgateway.geocoder.domain.auto.Queue;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,6 +33,10 @@ public class Location extends GenericPersistable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "queue_id")
     private Queue queue;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "location")
+    private Set<Extract> extracts = new HashSet<>();
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Narrative> names;
@@ -84,6 +90,14 @@ public class Location extends GenericPersistable {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public Set<Extract> getExtracts() {
+        return extracts;
+    }
+
+    public void setExtracts(Set<Extract> extracts) {
+        this.extracts = extracts;
     }
 
     public Set<Narrative> getNames() {

@@ -28,9 +28,14 @@ import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -40,6 +45,8 @@ import java.util.stream.Collectors;
 @Component("XmlImport")
 @Transactional
 public class XmlImport {
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Autowired
     private ActivityRepository activityRepository;
 
@@ -64,37 +71,88 @@ public class XmlImport {
     @Autowired
     private CacheService cacheService;
 
-
-    public List<String> process(final File in, final Boolean autoGeocode, final Boolean autoGeocodeWithoutLoc) {
+    @Transactional
+    public Map<Boolean, List<String>> process(final File in,
+                                              final Boolean autoGeocode,
+                                              final Boolean autoGeocodeWithoutLoc,
+                                              final Boolean overwriteProjects) {
         final ActivitiesReader reader = new ActivitiesReader(in);
-
-        ArrayList<String> validations = reader.validate();
-
+        final List<String> validations = reader.validate();
+        final List<String> statistics = new ArrayList<>();
 
         if (validations.size() == 0) {
-
             final IatiActivities activities = reader.read();
 
-            activities.getIatiActivity().stream().forEach(iatiActivity -> {
-                final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
-                activityRepository.save(activity);
+            final int statisticCount = activities.getIatiActivity().size();
+            final AtomicInteger statisticSaved = new AtomicInteger();
+            final AtomicInteger statisticIgnored = new AtomicInteger();
+            final AtomicInteger statisticOverwritten = new AtomicInteger();
 
-                if (autoGeocode) {
-                    addQueue(activity);
+            logger.log(Level.WARNING, "-------------------------------------------------------------------------------");
+            logger.log(Level.WARNING, ">>>>> Import started for " + activities.getIatiActivity().size() + " activities >>>>>");
+            logger.log(Level.WARNING, ">>>>> autoGeocode: " + autoGeocode);
+            logger.log(Level.WARNING, ">>>>> autoGeocodeWithoutLoc: " + autoGeocodeWithoutLoc);
+            logger.log(Level.WARNING, ">>>>> overwriteProjects: " + overwriteProjects);
+            long startTime = System.nanoTime();
+
+            activities.getIatiActivity().stream().forEach(iatiActivity -> {
+                boolean activityShouldBeAdded = false;
+                final Activity activity = iatiActivityToActivityEntity(iatiActivity, reader);
+                final boolean activityExists = activityRepository.existsByIdentifier(activity.getIdentifier());
+
+                if (overwriteProjects) {
+                    if (activityExists) {
+                        activityRepository.delete(activityRepository.findByIdentifier(activity.getIdentifier()));
+                        statisticOverwritten.getAndIncrement();
+                    }
+                    activityShouldBeAdded = true;
                 } else {
-                    if (autoGeocodeWithoutLoc && (activity.getLocations() != null && activity.getLocations().isEmpty())) {
-                        addQueue(activity);
+                    if (!activityExists) {
+                        activityShouldBeAdded = true;
                     }
                 }
+
+                if (activityShouldBeAdded) {
+                    activityRepository.save(activity);
+                    statisticSaved.getAndIncrement();
+                    logger.log(Level.WARNING, ">>>>> Activity with identifier: " + activity.getIdentifier() + " was saved");
+
+                    if (autoGeocode) {
+                        addQueue(activity);
+                    } else {
+                        if (autoGeocodeWithoutLoc && (activity.getLocations() != null && activity.getLocations().isEmpty())) {
+                            addQueue(activity);
+                        }
+                    }
+                } else {
+                    statisticIgnored.getAndIncrement();
+                    logger.log(Level.WARNING, ">>>>> Activity with identifier: " + activity.getIdentifier() + " was ignored");
+                }
             });
+
+            long endTime = System.nanoTime();
+            double duration = (endTime - startTime) / 1000000000.0;
+            logger.log(Level.WARNING, ">>>>> Import finished in: " + duration + " seconds >>>>>");
+
             // clear all the caches after we finish the import
             cacheService.clearAllCache();
-            return new ArrayList<>();
-        } else {
-            //if not valid return validation error of most recent version
-            return validations;
-        }
 
+            // create some statistics about this import
+            statistics.add(statisticCount + " Project(s) found in file");
+            statistics.add(statisticSaved.get() + " Project(s) saved");
+            statistics.add(statisticOverwritten.get() + " Project(s) overwritten");
+            statistics.add(statisticIgnored.get() + " Project(s) ignored");
+            statistics.add("Import duration: " + duration + " seconds");
+
+            return new HashMap<Boolean, List<String>>() {{
+                put(Boolean.TRUE, statistics);
+            }};
+        } else {
+            // if not valid return validation error of most recent version
+            return new HashMap<Boolean, List<String>>() {{
+                put(Boolean.FALSE, validations);
+            }};
+        }
     }
 
     /**

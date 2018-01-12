@@ -30,7 +30,7 @@ import java.util.Set;
 @Table(indexes = {@Index(columnList = "date"), @Index(columnList = "identifier")})
 @JsonIgnoreProperties({"parent", "new"})
 public class Activity extends AbstractAuditableEntity {
-    @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private ActivityQueue queue;
 
     private String identifier;
@@ -44,9 +44,9 @@ public class Activity extends AbstractAuditableEntity {
     private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "activity")
-    Set<Location> locations = new HashSet<>();
+    private Set<Location> locations = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Country> countries = new HashSet<>();
 
     @JsonIgnore

@@ -6,6 +6,7 @@ package org.devgateway.geocoder.domain.auto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -16,8 +17,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -30,6 +34,10 @@ public class Queue {
     @javax.persistence.Id
     private Long id;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "queue")
+    private Set<Geocoding> geocodings = new HashSet<>();
+
     private String state;
 
     private Date createDate;
@@ -39,6 +47,14 @@ public class Queue {
     @JsonIgnore
     @Column(length = 500)
     private String message;
+
+    public Set<Geocoding> getGeocodings() {
+        return geocodings;
+    }
+
+    public void setGeocodings(Set<Geocoding> geocodings) {
+        this.geocodings = geocodings;
+    }
 
     public String getMessage() {
         return message;

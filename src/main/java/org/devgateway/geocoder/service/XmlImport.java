@@ -25,7 +25,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -156,14 +155,14 @@ public class XmlImport {
 
             location.setNames(narrativeToSet(extractors.getTexts(iatiLocation.getName())));
 
-            final List<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
+            final Set<LocationIdentifier> identifiers = extractors.getIdentifier(iatiLocation.getLocationId());
 
             if (identifiers != null) {
                 identifiers.forEach(locationIdentifier -> locationIdentifier.setLocation(location));
                 location.setLocationIdentifiers(identifiers);
             }
 
-            final List<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
+            final Set<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
             if (administratives != null) {
                 administratives.forEach(administrative -> administrative.setLocation(location));
                 location.setAdministratives(administratives);

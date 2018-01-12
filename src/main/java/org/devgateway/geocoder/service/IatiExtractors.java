@@ -5,7 +5,6 @@ import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.iati.model.ActivityDate;
 import org.devgateway.geocoder.iati.model.IatiActivity;
-import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -100,11 +99,11 @@ public class IatiExtractors {
     /**
      * Extracts all location identifier
      */
-    public List<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
-        List<LocationIdentifier> list = null;
+    public Set<LocationIdentifier> getIdentifier(List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers) {
+        Set<LocationIdentifier> list = null;
         if (iatiIdentifiers != null && iatiIdentifiers.size() > 0) {
             list = iatiIdentifiers.stream().map(locationId -> new LocationIdentifier(geographicVocabularyRepository
-                    .findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toList());
+                    .findOneByCode(locationId.getVocabulary()), locationId.getCode())).collect(Collectors.toSet());
         }
 
         return list;
@@ -128,8 +127,8 @@ public class IatiExtractors {
     /**
      * Extracts all location admin levels
      */
-    public List<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
-        List<Administrative> value = null;
+    public Set<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
+        Set<Administrative> value = null;
 
         WebService.setUserName("sdimunzio"); // add your username here
 
@@ -157,9 +156,9 @@ public class IatiExtractors {
                     }
 
 
-            ).collect(Collectors.toList()).stream().filter(administrative -> {
+            ).collect(Collectors.toSet()).stream().filter(administrative -> {
                 return administrative != null;
-            }).collect(Collectors.toList());
+            }).collect(Collectors.toSet());
         }
 
         return value;

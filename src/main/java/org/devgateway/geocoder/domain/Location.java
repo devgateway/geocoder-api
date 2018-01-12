@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,10 +44,10 @@ public class Location extends GenericPersistable {
     private Point point;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
-    private List<LocationIdentifier> locationIdentifiers;
+    private Set<LocationIdentifier> locationIdentifiers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
-    List<Administrative> administratives;
+    Set<Administrative> administratives;
 
     @ManyToOne(targetEntity = GeographicLocationClass.class)
     GeographicLocationClass locationClass;
@@ -119,19 +118,19 @@ public class Location extends GenericPersistable {
         this.descriptions = descriptions;
     }
 
-    public List<LocationIdentifier> getLocationIdentifiers() {
+    public Set<LocationIdentifier> getLocationIdentifiers() {
         return locationIdentifiers;
     }
 
-    public void setLocationIdentifiers(List<LocationIdentifier> locationIdentifiers) {
+    public void setLocationIdentifiers(Set<LocationIdentifier> locationIdentifiers) {
         this.locationIdentifiers = locationIdentifiers;
     }
 
-    public List<Administrative> getAdministratives() {
+    public Set<Administrative> getAdministratives() {
         return administratives;
     }
 
-    public void setAdministratives(List<Administrative> administratives) {
+    public void setAdministratives(Set<Administrative> administratives) {
         this.administratives = administratives;
     }
 

@@ -26,4 +26,8 @@ public interface ActivityRepository extends BaseJpaRepository<Activity, Long> {
 
     @Query("SELECT DISTINCT EXTRACT(YEAR FROM date) FROM #{#entityName} WHERE date IS NOT NULL")
     List<Integer> findDistinctYears();
+
+    boolean existsByIdentifier(String identifier);
+
+    List<Activity> findByIdentifier(String identifier);
 }

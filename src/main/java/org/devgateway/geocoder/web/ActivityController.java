@@ -17,26 +17,11 @@
 package org.devgateway.geocoder.web;
 
 import org.devgateway.geocoder.domain.Activity;
-import org.devgateway.geocoder.domain.Administrative;
-import org.devgateway.geocoder.domain.GeographicFeatureDesignation;
-import org.devgateway.geocoder.domain.GeographicLocationClass;
-import org.devgateway.geocoder.domain.GeographicVocabulary;
-import org.devgateway.geocoder.domain.Location;
-import org.devgateway.geocoder.domain.LocationIdentifier;
-import org.devgateway.geocoder.domain.LocationStatus;
-import org.devgateway.geocoder.domain.auto.Extract;
 import org.devgateway.geocoder.repositories.ActivityRepository;
-import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
-import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
-import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
-import org.devgateway.geocoder.repositories.LocationRepository;
-import org.devgateway.geocoder.repositories.auto.ExtractRepository;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.devgateway.geocoder.service.ActivityService;
-import org.devgateway.geocoder.service.CacheService;
 import org.devgateway.geocoder.service.XmlImport;
 import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
-import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -57,11 +42,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -81,22 +65,22 @@ public class ActivityController {
     @RequestMapping(value = "/import", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity importXmlFile(@RequestPart("file") final MultipartFile uploadfile,
                                         @RequestPart(name = "autoGeocodeAll", required = false) final String autoGeocodeAll,
-                                        @RequestPart(name = "autoGeocodeAllWithoutLoc", required = false) final String autoGeocodeAllWithoutLoc) {
+                                        @RequestPart(name = "autoGeocodeAllWithoutLoc", required = false) final String autoGeocodeAllWithoutLoc,
+                                        @RequestPart(name = "overwriteProjects", required = false) final String overwriteProjects) {
         final Boolean autoGeocode = Boolean.valueOf(autoGeocodeAll);
         final Boolean autoGeocodeWithoutLoc = Boolean.valueOf(autoGeocodeAllWithoutLoc);
+        final Boolean overwriteProj = Boolean.valueOf(overwriteProjects);
 
         try {
-            File file = File.createTempFile(uploadfile.getName(), "xml");
+            final File file = File.createTempFile(uploadfile.getName(), "xml");
             uploadfile.transferTo(file);
 
-            List<String> errors = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc);
-            if (errors.size() > 0) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+            final Map<Boolean, List<String>> processResults = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc, overwriteProj);
+            if (processResults.containsKey(Boolean.TRUE) ) {
+                return ResponseEntity.status(HttpStatus.OK).body(processResults.get(Boolean.TRUE));
             } else {
-                return new ResponseEntity(HttpStatus.OK);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(processResults.get(Boolean.FALSE));
             }
-
-
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error while importing file", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

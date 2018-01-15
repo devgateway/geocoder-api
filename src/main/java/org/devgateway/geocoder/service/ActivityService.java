@@ -112,4 +112,13 @@ public class ActivityService {
         cacheService.clearAllCache();
     }
 
+
+    @Transactional
+    public void deleteActivity(final Long id){
+        activityRepository.delete(id);
+
+        // clear all the caches after we save the activity
+        cacheService.clearAllCache();
+    }
+
 }

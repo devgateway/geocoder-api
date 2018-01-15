@@ -107,4 +107,10 @@ public class ActivityController {
     public void saveActivity(@PathVariable Long id, @RequestBody Activity activity) {
         activityService.updateActivityLocations(id, activity);
     }
+
+
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+    public void deleteActivity(@PathVariable Long id) {
+        activityService.deleteActivity(id);
+    }
 }

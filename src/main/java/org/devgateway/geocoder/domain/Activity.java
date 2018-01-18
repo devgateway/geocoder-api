@@ -33,6 +33,9 @@ public class Activity extends AbstractAuditableEntity {
     @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private ActivityQueue queue;
 
+    @JsonIgnore
+    private Long fileId;
+
     private String identifier;
 
     @OneToMany(targetEntity = Narrative.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -60,6 +63,14 @@ public class Activity extends AbstractAuditableEntity {
 
     public void setQueue(ActivityQueue queue) {
         this.queue = queue;
+    }
+
+    public Long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
     }
 
     public String getIdentifier() {

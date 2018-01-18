@@ -11,7 +11,6 @@ import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author idobre
@@ -22,7 +21,7 @@ import java.io.Serializable;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(indexes = {@Index(columnList = "name")})
-public class FileMetadata extends AbstractAuditableEntity implements Serializable {
+public class FileMetadata extends GenericPersistable {
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private FileContent content;
@@ -71,11 +70,5 @@ public class FileMetadata extends AbstractAuditableEntity implements Serializabl
     @Override
     public String toString() {
         return name;
-    }
-
-    @Override
-    @JsonIgnore
-    public AbstractAuditableEntity getParent() {
-        return null;
     }
 }

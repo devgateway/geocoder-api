@@ -75,7 +75,8 @@ public class ActivityController {
             final File file = File.createTempFile(uploadfile.getName(), "xml");
             uploadfile.transferTo(file);
 
-            final Map<Boolean, List<String>> processResults = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc, overwriteProj);
+            final Map<Boolean, List<String>> processResults = xmlImport.process(file, uploadfile,
+                    autoGeocode, autoGeocodeWithoutLoc, overwriteProj);
             if (processResults.containsKey(Boolean.TRUE) ) {
                 return ResponseEntity.status(HttpStatus.OK).body(processResults.get(Boolean.TRUE));
             } else {

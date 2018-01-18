@@ -1,11 +1,8 @@
 package org.devgateway.geocoder.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import java.io.Serializable;
 
 /**
  * @author idobre
@@ -15,7 +12,7 @@ import java.io.Serializable;
  */
 
 @Entity
-public class FileContent extends AbstractAuditableEntity implements Serializable {
+public class FileContent extends GenericPersistable {
     private static final int LOB_LENGTH = 10000000;
 
     @Lob
@@ -28,11 +25,5 @@ public class FileContent extends AbstractAuditableEntity implements Serializable
 
     public void setBytes(final byte[] bytes) {
         this.bytes = bytes;
-    }
-
-    @Override
-    @JsonIgnore
-    public AbstractAuditableEntity getParent() {
-        return null;
     }
 }

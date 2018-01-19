@@ -84,24 +84,27 @@ public class ActivitiesReader {
                 String xsdpah = null;
                 if (version == 2.02f) {
                     xsdpah = "xsd202/iati-activities-schema.xsd";
-
-                } else {
+                } else if (version == 2.01f) {
                     xsdpah = "xsd201/iati-activities-schema.xsd";
                 }
-                SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                Schema schema = null;
 
-                schema = sf.newSchema(this.getClass().getClassLoader().getResource(xsdpah));
+                if (xsdpah != null) {
+                    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                    Schema schema = null;
 
-                Validator validator = schema.newValidator();
-                org.devgateway.geocoder.iati.ErrorHandler errorHandler = new org.devgateway.geocoder.iati.ErrorHandler();
-                validator.setErrorHandler(errorHandler);
-                validator.validate(new StreamSource(new FileInputStream(this.in)));
+                    schema = sf.newSchema(this.getClass().getClassLoader().getResource(xsdpah));
 
-                if (errorHandler.getErrors().size() > 0) {
-                    validationErrors.addAll(errorHandler.getErrors());
+                    Validator validator = schema.newValidator();
+                    org.devgateway.geocoder.iati.ErrorHandler errorHandler = new org.devgateway.geocoder.iati.ErrorHandler();
+                    validator.setErrorHandler(errorHandler);
+                    validator.validate(new StreamSource(new FileInputStream(this.in)));
+
+                    if (errorHandler.getErrors().size() > 0) {
+                        validationErrors.addAll(errorHandler.getErrors());
+                    }
+                }else{
+                    validationErrors.add("Can't validate this version");
                 }
-
 
             }
         } catch (SAXException e) {

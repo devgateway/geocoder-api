@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,16 @@ public class ActivityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(CollectionUtils.arrayToList(new String[]{"Error when processing this request"}));
         }
+    }
+
+    // @Cacheable
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void exportXmlFile(SearchRequest searchRequest, final HttpServletResponse response) {
+        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
+        final List<Activity> activities = activityRepository.findAll(activityFilterState.getSpecification());
+
+        final String xml = activityService.generateXML(activities);
+        log.log(Level.SEVERE, ">>>> " + xml);
     }
 
     @Cacheable

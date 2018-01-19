@@ -123,4 +123,14 @@ public class ActivitiesReader {
             e.printStackTrace();
         }
     }
+
+    public void toXML(final IatiActivities iatiActivities, final Writer w) {
+        try {
+            final JAXBContext jaxbContext = JAXBContext.newInstance(IatiActivities.class);
+            final Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.marshal(iatiActivities, w);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -5,6 +5,8 @@ import org.devgateway.geocoder.domain.Country;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.iati.model.ActivityDate;
 import org.devgateway.geocoder.iati.model.IatiActivity;
+import org.devgateway.geocoder.iati.model.Location;
+import org.devgateway.geocoder.iati.model.Narrative;
 import org.devgateway.geocoder.iati.model.TextRequiredType;
 import org.devgateway.geocoder.repositories.CountryRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
@@ -110,6 +112,25 @@ public class IatiExtractors {
     }
 
     /**
+     * Extracts {@link LocationIdentifier} and converts them to {@link Location.LocationId}.
+     */
+    public List<Location.LocationId> extractIdentifier(Set<LocationIdentifier> locationIdentifiers) {
+        List<org.devgateway.geocoder.iati.model.Location.LocationId> iatiIdentifiers = null;
+        if (locationIdentifiers != null && !locationIdentifiers.isEmpty()) {
+            iatiIdentifiers = locationIdentifiers.stream()
+                    .map(locationIdentifier -> {
+                        final Location.LocationId locationId = new Location.LocationId();
+                        locationId.setCode(locationIdentifier.getCode());
+                        locationId.setVocabulary(locationIdentifier.getVocabulary().getCode());
+                        return locationId;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        return iatiIdentifiers;
+    }
+
+    /**
      * Extracts all location names
      */
     public List<org.devgateway.geocoder.domain.Narrative> getTexts(TextRequiredType textRequiredType) {
@@ -125,6 +146,29 @@ public class IatiExtractors {
     }
 
     /**
+     * Extracts {@link org.devgateway.geocoder.domain.Narrative} and converts them to {@link TextRequiredType}.
+     */
+    public TextRequiredType extractTexts(Set<org.devgateway.geocoder.domain.Narrative> narratives) {
+        final TextRequiredType textRequiredType = new TextRequiredType();
+        List<Narrative> value = null;
+        if (narratives != null && !narratives.isEmpty()) {
+            value = narratives.stream()
+                    .map(narrative -> {
+                        final Narrative nar = new Narrative();
+                        nar.setLang(narrative.getLang() != null ? narrative.getLang() : "en");
+                        nar.setValue(narrative.getDescription());
+                        return nar;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        textRequiredType.getNarrative().clear();
+        textRequiredType.getNarrative().addAll(value);
+
+        return textRequiredType;
+    }
+
+    /**
      * Extracts all location admin levels
      */
     public Set<Administrative> getAdministratives(List<org.devgateway.geocoder.iati.model.Location.Administrative> iatiAdministratives) {
@@ -134,7 +178,6 @@ public class IatiExtractors {
 
         if (iatiAdministratives != null && iatiAdministratives.size() > 0) {
             value = iatiAdministratives.stream().map(administrative -> {
-
                         String adminName = "";
                         if (administrative.getCode() != null) {
                             try {
@@ -154,8 +197,6 @@ public class IatiExtractors {
                         }
                         return null;
                     }
-
-
             ).collect(Collectors.toSet()).stream().filter(administrative -> {
                 return administrative != null;
             }).collect(Collectors.toSet());
@@ -163,6 +204,4 @@ public class IatiExtractors {
 
         return value;
     }
-
-
 }

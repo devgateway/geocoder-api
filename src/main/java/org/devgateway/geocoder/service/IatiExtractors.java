@@ -15,6 +15,7 @@ import org.geonames.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -163,7 +164,9 @@ public class IatiExtractors {
         }
 
         textRequiredType.getNarrative().clear();
-        textRequiredType.getNarrative().addAll(value);
+        if (value != null) {
+            textRequiredType.getNarrative().addAll(value);
+        }
 
         return textRequiredType;
     }
@@ -203,5 +206,23 @@ public class IatiExtractors {
         }
 
         return value;
+    }
+
+    public List<Location.Administrative> extractAdministratives(Set<Administrative> administratives) {
+        List<Location.Administrative> iatiAdministratives = null;
+        if (administratives != null && !administratives.isEmpty()) {
+            iatiAdministratives = administratives.stream()
+                    .map(administrative -> {
+                        final Location.Administrative iatiAdministrative = new Location.Administrative();
+                        iatiAdministrative.setCode(administrative.getCode());
+                        iatiAdministrative.setLevel(BigInteger.valueOf(administrative.getLevel()));
+                        iatiAdministrative.setVocabulary(administrative.getVocabulary().getCode());
+
+                        return iatiAdministrative;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        return iatiAdministratives;
     }
 }

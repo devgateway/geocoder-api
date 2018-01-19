@@ -276,8 +276,8 @@ public class XmlImport {
                 location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
             }
 
-            if (iatiLocation.getLocationClass() != null) {
-                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            if (iatiLocation.getLocationReach() != null) {
+                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationReach().getCode()));
             }
 
             location.setLocationStatus(LocationStatus.EXISTING);

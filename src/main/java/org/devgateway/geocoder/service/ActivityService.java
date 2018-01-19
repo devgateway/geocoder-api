@@ -181,48 +181,34 @@ public class ActivityService {
 
         if (location.getPoint() != null) {
             iatiLocation.setName(extractors.extractTexts(location.getNames()));
+            iatiLocation.setDescription(extractors.extractTexts(location.getDescriptions()));
+            iatiLocation.setActivityDescription(extractors.extractTexts(location.getActivityDescriptions()));
 
             iatiLocation.getLocationId().clear();
             iatiLocation.getLocationId().addAll(extractors.extractIdentifier(location.getLocationIdentifiers()));
 
+            iatiLocation.getAdministrative().clear();
+            iatiLocation.getAdministrative().addAll(extractors.extractAdministratives(location.getAdministratives()));
 
-            /*
-            final Set<Administrative> administratives = extractors.getAdministratives(iatiLocation.getAdministrative());
-            if (administratives != null) {
-                administratives.forEach(administrative -> administrative.setLocation(location));
-                location.setAdministratives(administratives);
-            }
-            final String[] latLong = iatiLocation.getPoint().getPos().split(" ");
-            final Point pos = new GeometryFactory(new PrecisionModel(), 4326)
-                    .createPoint(new Coordinate(Double.parseDouble(latLong[1]), Double.parseDouble(latLong[0])));
-            location.setPoint(pos);
+            final org.devgateway.geocoder.iati.model.Location.Point iatiPoint = new org.devgateway.geocoder.iati.model.Location.Point();
+            iatiPoint.setPos(location.getPoint().getY() + " " + location.getPoint().getX());
+            iatiLocation.setPoint(iatiPoint);
 
+            final org.devgateway.geocoder.iati.model.Location.LocationClass iatiLocationClass = new org.devgateway.geocoder.iati.model.Location.LocationClass();
+            iatiLocationClass.setCode(location.getLocationClass().getCode());
+            iatiLocation.setLocationClass(iatiLocationClass);
 
-            location.setActivityDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getActivityDescription())));
-            location.setDescriptions(narrativeToSet(extractors.getTexts(iatiLocation.getDescription())));
-            if (iatiLocation.getLocationClass() != null && iatiLocation.getLocationClass().getCode() != null) {
-                location.setLocationClass(this.geographicLocationClassRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
-            }
+            final org.devgateway.geocoder.iati.model.Location.Exactness iatiExactness = new org.devgateway.geocoder.iati.model.Location.Exactness();
+            iatiExactness.setCode(location.getExactness().getCode());
+            iatiLocation.setExactness(iatiExactness);
 
-            if (iatiLocation.getExactness() != null && iatiLocation.getExactness().getCode() != null) {
-                location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
-            }
+            final org.devgateway.geocoder.iati.model.Location.LocationReach iatiLocationReach = new org.devgateway.geocoder.iati.model.Location.LocationReach();
+            iatiLocationReach.setCode(location.getLocationReach().getCode());
+            iatiLocation.setLocationReach(iatiLocationReach);
 
-            if (iatiLocation.getLocationClass() != null) {
-                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
-            }
-
-            location.setLocationStatus(LocationStatus.EXISTING);
-
-            // In some cases they put the name instead of code
-            if (iatiLocation.getFeatureDesignation() != null && iatiLocation.getFeatureDesignation().getCode() != null) {
-                final String fDesignation = iatiLocation.getFeatureDesignation().getCode();
-                if (fDesignation != null && fDesignation.length() > 6) {
-                    location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByNameIgnoreCase(fDesignation));
-                } else {
-                    location.setFeaturesDesignation(this.geographicFeatureDesignationRepository.findOneByCode(fDesignation));
-                }
-            }*/
+            final org.devgateway.geocoder.iati.model.Location.FeatureDesignation iatiFeatureDesignation = new org.devgateway.geocoder.iati.model.Location.FeatureDesignation();
+            iatiFeatureDesignation.setCode(location.getFeaturesDesignation().getCode());
+            iatiLocation.setFeatureDesignation(iatiFeatureDesignation);
         }
 
         return iatiLocation;

@@ -77,12 +77,12 @@ public class ActivitiesReader {
 
             Float version = this.getVersion();
 
-            if (version < 2.00) {
+            if (version < 2.00f) {
                 validationErrors.add("Version " + version.toString() + " is not supported");
             } else {
 
                 String xsdpah = null;
-                if (version == 2.02) {
+                if (version == 2.02f) {
                     xsdpah = "xsd202/iati-activities-schema.xsd";
 
                 } else {

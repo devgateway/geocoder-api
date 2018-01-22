@@ -96,15 +96,9 @@ public class ActivityController {
 
     @RequestMapping(value = "/export", method = RequestMethod.GET)
     public void exportXmlFile(SearchRequest searchRequest, final HttpServletResponse response) throws IOException {
-        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
-        final List<Activity> activities = activityRepository.findAll(activityFilterState.getSpecification());
+        final String xml = activityService.generateXML(searchRequest);
 
-        final String xml = activityService.generateXML(activities);
-
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "inline; filename=\"XML Export.xml\"");
-        response.setContentLength(xml.length());
-
+        response.setContentType("text/xml");
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         FileCopyUtils.copy(inputStream, response.getOutputStream());
     }

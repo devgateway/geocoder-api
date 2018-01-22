@@ -18,15 +18,17 @@ import org.devgateway.geocoder.repositories.GeographicFeatureDesignationReposito
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.LocationRepository;
+import org.devgateway.geocoder.request.SearchRequest;
+import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +42,7 @@ import java.util.stream.Collectors;
  * @since 11/01/2018
  */
 @Service
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "activityService")
 public class ActivityService {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -147,7 +150,11 @@ public class ActivityService {
     /**
      * Generates a XML String representation of the activities received as parameter.
      */
-    public String generateXML(final List<Activity> activities) {
+    @Cacheable
+    public String generateXML(final SearchRequest searchRequest) {
+        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
+        final List<Activity> activities = activityRepository.findAll(activityFilterState.getSpecification());
+
         final ActivitiesReader activitiesReader = new ActivitiesReader(null);
 
         final IatiActivities iatiActivities = new IatiActivities();
@@ -165,7 +172,9 @@ public class ActivityService {
 
             // replace locations
             final List<org.devgateway.geocoder.iati.model.Location> iatiLocations = activity.getLocations()
-                    .stream().map(location -> toIatiActivityLocation(location))
+                    .stream()
+                    .filter(location -> location.getLocationStatus() != LocationStatus.AUTO_CODED)
+                    .map(location -> toIatiActivityLocation(location))
                     .collect(Collectors.toList());
             iatiActivity.getLocation().clear();
             iatiActivity.getLocation().addAll(iatiLocations);

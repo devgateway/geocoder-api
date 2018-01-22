@@ -199,11 +199,17 @@ public class ActivityService {
             iatiLocation.setDescription(extractors.extractTexts(location.getDescriptions()));
             iatiLocation.setActivityDescription(extractors.extractTexts(location.getActivityDescriptions()));
 
-            iatiLocation.getLocationId().clear();
-            iatiLocation.getLocationId().addAll(extractors.extractIdentifier(location.getLocationIdentifiers()));
+            final List<org.devgateway.geocoder.iati.model.Location.LocationId> identifier = extractors.extractIdentifier(location.getLocationIdentifiers());
+            if (identifier != null) {
+                iatiLocation.getLocationId().clear();
+                iatiLocation.getLocationId().addAll(identifier);
+            }
 
-            iatiLocation.getAdministrative().clear();
-            iatiLocation.getAdministrative().addAll(extractors.extractAdministratives(location.getAdministratives()));
+            final List<org.devgateway.geocoder.iati.model.Location.Administrative> administratives = extractors.extractAdministratives(location.getAdministratives());
+            if (administratives != null) {
+                iatiLocation.getAdministrative().clear();
+                iatiLocation.getAdministrative().addAll(administratives);
+            }
 
             final org.devgateway.geocoder.iati.model.Location.Point iatiPoint =
                     new org.devgateway.geocoder.iati.model.Location.Point();

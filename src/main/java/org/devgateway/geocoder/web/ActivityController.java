@@ -32,6 +32,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -75,7 +80,8 @@ public class ActivityController {
             final File file = File.createTempFile(uploadfile.getName(), "xml");
             uploadfile.transferTo(file);
 
-            final Map<Boolean, List<String>> processResults = xmlImport.process(file, autoGeocode, autoGeocodeWithoutLoc, overwriteProj);
+            final Map<Boolean, List<String>> processResults = xmlImport.process(file, uploadfile,
+                    autoGeocode, autoGeocodeWithoutLoc, overwriteProj);
             if (processResults.containsKey(Boolean.TRUE) ) {
                 return ResponseEntity.status(HttpStatus.OK).body(processResults.get(Boolean.TRUE));
             } else {
@@ -86,6 +92,15 @@ public class ActivityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(CollectionUtils.arrayToList(new String[]{"Error when processing this request"}));
         }
+    }
+
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void exportXmlFile(SearchRequest searchRequest, final HttpServletResponse response) throws IOException {
+        final String xml = activityService.generateXML(searchRequest);
+
+        response.setContentType("text/xml");
+        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
     }
 
     @Cacheable

@@ -15,4 +15,7 @@ public class Constants {
     public static String ST_PENDING = "PENDING";
     public static String ST_ERROR = "ERROR";
 
+    public static class IatiVersion {
+        public static String VERSION_202 = "2.02";
+    }
 }

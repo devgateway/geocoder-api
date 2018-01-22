@@ -4,18 +4,23 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
+import org.apache.commons.io.IOUtils;
 import org.devgateway.geocoder.constants.Constants;
 import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.domain.Administrative;
+import org.devgateway.geocoder.domain.FileContent;
+import org.devgateway.geocoder.domain.FileMetadata;
 import org.devgateway.geocoder.domain.Location;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.domain.LocationStatus;
 import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
+import org.devgateway.geocoder.iati.ActivityReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
 import org.devgateway.geocoder.repositories.ActivityQueueRepository;
 import org.devgateway.geocoder.repositories.ActivityRepository;
+import org.devgateway.geocoder.repositories.FileMetadataRepository;
 import org.devgateway.geocoder.repositories.GeographicExactnessRepository;
 import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
@@ -23,8 +28,11 @@ import org.devgateway.geocoder.repositories.GeographicLocationReachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,14 +77,21 @@ public class XmlImport {
     private ActivityQueueRepository activityQueueRepository;
 
     @Autowired
+    private FileMetadataRepository fileMetadataRepository;
+
+    @Autowired
+    private ActivityReader activityReader;
+
+    @Autowired
     private CacheService cacheService;
 
     @Transactional
-    public Map<Boolean, List<String>> process(final File in,
+    public Map<Boolean, List<String>> process(final File file,
+                                              final MultipartFile uploadFile,
                                               final Boolean autoGeocode,
                                               final Boolean autoGeocodeWithoutLoc,
                                               final Boolean overwriteProjects) {
-        final ActivitiesReader reader = new ActivitiesReader(in);
+        final ActivitiesReader reader = new ActivitiesReader(file);
         final List<String> validations = reader.validate();
         final List<String> statistics = new ArrayList<>();
 
@@ -94,6 +109,8 @@ public class XmlImport {
             logger.log(Level.WARNING, ">>>>> autoGeocodeWithoutLoc: " + autoGeocodeWithoutLoc);
             logger.log(Level.WARNING, ">>>>> overwriteProjects: " + overwriteProjects);
             long startTime = System.nanoTime();
+
+            final FileMetadata fileMetadata = createFileMetadata(file, uploadFile);
 
             activities.getIatiActivity().stream().forEach(iatiActivity -> {
                 boolean activityShouldBeAdded = false;
@@ -113,8 +130,10 @@ public class XmlImport {
                 }
 
                 if (activityShouldBeAdded) {
+                    activity.setFileId(fileMetadata.getId());       // also save the file ID
                     activityRepository.save(activity);
                     statisticSaved.getAndIncrement();
+
                     logger.log(Level.WARNING, ">>>>> Activity with identifier: " + activity.getIdentifier() + " was saved");
 
                     if (autoGeocode) {
@@ -153,6 +172,27 @@ public class XmlImport {
                 put(Boolean.FALSE, validations);
             }};
         }
+    }
+
+    private FileMetadata createFileMetadata(final File file, final MultipartFile uploadFile) {
+        try {
+            final FileMetadata fileMetadata = new FileMetadata();
+            fileMetadata.setName(uploadFile.getOriginalFilename());
+            fileMetadata.setContentType(uploadFile.getContentType());
+            fileMetadata.setSize(uploadFile.getSize());
+
+            final FileContent fileContent = new FileContent();
+            fileContent.setBytes(IOUtils.toByteArray(new FileInputStream(file)));
+            fileMetadata.setContent(fileContent);
+
+            fileMetadataRepository.saveAndFlush(fileMetadata);
+
+            return fileMetadata;
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "Error creating FileMetadata ", e);
+        }
+
+        return null;
     }
 
     /**
@@ -197,7 +237,7 @@ public class XmlImport {
 
         // also keep the original XML
         final StringWriter writer = new StringWriter();
-        reader.toXML(iatiActivity, writer);
+        activityReader.toXML(iatiActivity, writer);
         activity.setXml(writer.toString());
 
         return activity;
@@ -240,8 +280,8 @@ public class XmlImport {
                 location.setExactness(this.geographicExactnessRepository.findOneByCode(iatiLocation.getExactness().getCode()));
             }
 
-            if (iatiLocation.getLocationClass() != null) {
-                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationClass().getCode()));
+            if (iatiLocation.getLocationReach() != null) {
+                location.setLocationReach(this.geographicLocationReachRepository.findOneByCode(iatiLocation.getLocationReach().getCode()));
             }
 
             location.setLocationStatus(LocationStatus.EXISTING);

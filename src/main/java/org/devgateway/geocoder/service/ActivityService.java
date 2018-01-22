@@ -1,5 +1,6 @@
 package org.devgateway.geocoder.service;
 
+import org.devgateway.geocoder.constants.Constants;
 import org.devgateway.geocoder.domain.Activity;
 import org.devgateway.geocoder.domain.Administrative;
 import org.devgateway.geocoder.domain.GeographicFeatureDesignation;
@@ -8,24 +9,43 @@ import org.devgateway.geocoder.domain.GeographicVocabulary;
 import org.devgateway.geocoder.domain.Location;
 import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.domain.LocationStatus;
+import org.devgateway.geocoder.iati.ActivitiesReader;
+import org.devgateway.geocoder.iati.ActivityReader;
+import org.devgateway.geocoder.iati.model.IatiActivities;
+import org.devgateway.geocoder.iati.model.IatiActivity;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.repositories.GeographicFeatureDesignationRepository;
 import org.devgateway.geocoder.repositories.GeographicLocationClassRepository;
 import org.devgateway.geocoder.repositories.GeographicVocabularyRepository;
 import org.devgateway.geocoder.repositories.LocationRepository;
+import org.devgateway.geocoder.request.SearchRequest;
+import org.devgateway.geocoder.web.filterstate.ActivityFilterState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import java.io.StringWriter;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author idobre
  * @since 11/01/2018
  */
 @Service
+@CacheConfig(keyGenerator = "genericKeyGenerator", cacheNames = "activityService")
 public class ActivityService {
+    Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Autowired
     ActivityRepository activityRepository;
 
@@ -40,6 +60,12 @@ public class ActivityService {
 
     @Autowired
     GeographicVocabularyRepository geographicVocabularyRepository;
+
+    @Autowired
+    private IatiExtractors extractors;
+
+    @Autowired
+    private ActivityReader activityReader;
 
     @Autowired
     private CacheService cacheService;
@@ -121,4 +147,98 @@ public class ActivityService {
         cacheService.clearAllCache();
     }
 
+    /**
+     * Generates a XML String representation of the activities received as parameter.
+     */
+    @Cacheable
+    public String generateXML(final SearchRequest searchRequest) {
+        final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
+        final List<Activity> activities = activityRepository.findAll(activityFilterState.getSpecification());
+
+        final ActivitiesReader activitiesReader = new ActivitiesReader(null);
+
+        final IatiActivities iatiActivities = new IatiActivities();
+        iatiActivities.setVersion(Constants.IatiVersion.VERSION_202);
+        try {
+            final GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            final DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+            iatiActivities.setGeneratedDatetime(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
+        } catch (DatatypeConfigurationException e) {
+            logger.log(Level.SEVERE, "Error generating date", e);
+        }
+
+        activities.stream().forEach(activity -> {
+            final IatiActivity iatiActivity = activityReader.read(activity.getXml());
+
+            // replace locations
+            final List<org.devgateway.geocoder.iati.model.Location> iatiLocations = activity.getLocations()
+                    .stream()
+                    .filter(location -> location.getLocationStatus() != LocationStatus.AUTO_CODED)
+                    .map(location -> toIatiActivityLocation(location))
+                    .collect(Collectors.toList());
+            iatiActivity.getLocation().clear();
+            iatiActivity.getLocation().addAll(iatiLocations);
+
+            iatiActivities.getIatiActivity().add(iatiActivity);
+        });
+
+        final StringWriter writer = new StringWriter();
+        activitiesReader.toXML(iatiActivities, writer);
+
+        return writer.toString();
+    }
+
+    /**
+     * Transform an {@link Location} into a {@link org.devgateway.geocoder.iati.model.Location}.
+     */
+    private org.devgateway.geocoder.iati.model.Location toIatiActivityLocation(final Location location) {
+        final org.devgateway.geocoder.iati.model.Location iatiLocation = new org.devgateway.geocoder.iati.model.Location();
+
+        if (location.getPoint() != null) {
+            iatiLocation.setName(extractors.extractTexts(location.getNames()));
+            iatiLocation.setDescription(extractors.extractTexts(location.getDescriptions()));
+            iatiLocation.setActivityDescription(extractors.extractTexts(location.getActivityDescriptions()));
+
+            iatiLocation.getLocationId().clear();
+            iatiLocation.getLocationId().addAll(extractors.extractIdentifier(location.getLocationIdentifiers()));
+
+            iatiLocation.getAdministrative().clear();
+            iatiLocation.getAdministrative().addAll(extractors.extractAdministratives(location.getAdministratives()));
+
+            final org.devgateway.geocoder.iati.model.Location.Point iatiPoint =
+                    new org.devgateway.geocoder.iati.model.Location.Point();
+            iatiPoint.setPos(location.getPoint().getY() + " " + location.getPoint().getX());
+            iatiLocation.setPoint(iatiPoint);
+
+            if (location.getLocationClass() != null) {
+                final org.devgateway.geocoder.iati.model.Location.LocationClass iatiLocationClass =
+                        new org.devgateway.geocoder.iati.model.Location.LocationClass();
+                iatiLocationClass.setCode(location.getLocationClass().getCode());
+                iatiLocation.setLocationClass(iatiLocationClass);
+            }
+
+            if (location.getExactness() != null) {
+                final org.devgateway.geocoder.iati.model.Location.Exactness iatiExactness =
+                        new org.devgateway.geocoder.iati.model.Location.Exactness();
+                iatiExactness.setCode(location.getExactness().getCode());
+                iatiLocation.setExactness(iatiExactness);
+            }
+
+            if (location.getLocationReach() != null) {
+                final org.devgateway.geocoder.iati.model.Location.LocationReach iatiLocationReach =
+                        new org.devgateway.geocoder.iati.model.Location.LocationReach();
+                iatiLocationReach.setCode(location.getLocationReach().getCode());
+                iatiLocation.setLocationReach(iatiLocationReach);
+            }
+
+            if (location.getFeaturesDesignation() != null) {
+                final org.devgateway.geocoder.iati.model.Location.FeatureDesignation iatiFeatureDesignation =
+                        new org.devgateway.geocoder.iati.model.Location.FeatureDesignation();
+                iatiFeatureDesignation.setCode(location.getFeaturesDesignation().getCode());
+                iatiLocation.setFeatureDesignation(iatiFeatureDesignation);
+            }
+        }
+
+        return iatiLocation;
+    }
 }

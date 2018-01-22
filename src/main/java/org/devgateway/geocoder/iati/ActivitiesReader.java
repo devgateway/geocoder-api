@@ -1,7 +1,6 @@
 package org.devgateway.geocoder.iati;
 
 import org.devgateway.geocoder.iati.model.IatiActivities;
-import org.devgateway.geocoder.iati.model.IatiActivity;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -112,16 +111,6 @@ public class ActivitiesReader {
             log.warning("Error when reading activities");
         }
         return null;
-    }
-
-    public void toXML(final IatiActivity iatiActivity, final Writer w) {
-        try {
-            final JAXBContext jaxbContext = JAXBContext.newInstance(IatiActivity.class);
-            final Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.marshal(iatiActivity, w);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
     public void toXML(final IatiActivities iatiActivities, final Writer w) {

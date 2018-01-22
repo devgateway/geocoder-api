@@ -15,6 +15,7 @@ import org.devgateway.geocoder.domain.LocationIdentifier;
 import org.devgateway.geocoder.domain.LocationStatus;
 import org.devgateway.geocoder.domain.auto.ActivityQueue;
 import org.devgateway.geocoder.iati.ActivitiesReader;
+import org.devgateway.geocoder.iati.ActivityReader;
 import org.devgateway.geocoder.iati.model.IatiActivities;
 import org.devgateway.geocoder.iati.model.IatiActivity;
 import org.devgateway.geocoder.repositories.ActivityQueueRepository;
@@ -77,6 +78,9 @@ public class XmlImport {
 
     @Autowired
     private FileMetadataRepository fileMetadataRepository;
+
+    @Autowired
+    private ActivityReader activityReader;
 
     @Autowired
     private CacheService cacheService;
@@ -233,7 +237,7 @@ public class XmlImport {
 
         // also keep the original XML
         final StringWriter writer = new StringWriter();
-        reader.toXML(iatiActivity, writer);
+        activityReader.toXML(iatiActivity, writer);
         activity.setXml(writer.toString());
 
         return activity;

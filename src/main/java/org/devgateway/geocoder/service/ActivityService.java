@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -58,6 +60,9 @@ public class ActivityService {
 
     @Autowired
     private IatiExtractors extractors;
+
+    @Autowired
+    private ActivityReader activityReader;
 
     @Autowired
     private CacheService cacheService;
@@ -139,25 +144,14 @@ public class ActivityService {
         cacheService.clearAllCache();
     }
 
+    /**
+     * Generates a XML String representation of the activities received as parameter.
+     */
     public String generateXML(final List<Activity> activities) {
-        final Activity activity = activityRepository.findByIdentifier("46002-P-SS-AA0-002").get(0);
-
-        final ActivityReader activityReader = new ActivityReader(activity.getXml());
         final ActivitiesReader activitiesReader = new ActivitiesReader(null);
 
         final IatiActivities iatiActivities = new IatiActivities();
         iatiActivities.setVersion(Constants.IatiVersion.VERSION_202);
-
-        final IatiActivity iatiActivity = activityReader.read();
-        // replace locations
-        final List<org.devgateway.geocoder.iati.model.Location> iatiLocations = activity.getLocations()
-                .stream().map(location -> toIatiActivityLocation(location))
-                .collect(Collectors.toList());
-        iatiActivity.getLocation().clear();
-        iatiActivity.getLocation().addAll(iatiLocations);
-
-        iatiActivities.getIatiActivity().add(iatiActivity);
-
         try {
             final GregorianCalendar gregorianCalendar = new GregorianCalendar();
             final DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
@@ -166,6 +160,18 @@ public class ActivityService {
             logger.log(Level.SEVERE, "Error generating date", e);
         }
 
+        activities.stream().forEach(activity -> {
+            final IatiActivity iatiActivity = activityReader.read(activity.getXml());
+
+            // replace locations
+            final List<org.devgateway.geocoder.iati.model.Location> iatiLocations = activity.getLocations()
+                    .stream().map(location -> toIatiActivityLocation(location))
+                    .collect(Collectors.toList());
+            iatiActivity.getLocation().clear();
+            iatiActivity.getLocation().addAll(iatiLocations);
+
+            iatiActivities.getIatiActivity().add(iatiActivity);
+        });
 
         final StringWriter writer = new StringWriter();
         activitiesReader.toXML(iatiActivities, writer);
@@ -190,25 +196,38 @@ public class ActivityService {
             iatiLocation.getAdministrative().clear();
             iatiLocation.getAdministrative().addAll(extractors.extractAdministratives(location.getAdministratives()));
 
-            final org.devgateway.geocoder.iati.model.Location.Point iatiPoint = new org.devgateway.geocoder.iati.model.Location.Point();
+            final org.devgateway.geocoder.iati.model.Location.Point iatiPoint =
+                    new org.devgateway.geocoder.iati.model.Location.Point();
             iatiPoint.setPos(location.getPoint().getY() + " " + location.getPoint().getX());
             iatiLocation.setPoint(iatiPoint);
 
-            final org.devgateway.geocoder.iati.model.Location.LocationClass iatiLocationClass = new org.devgateway.geocoder.iati.model.Location.LocationClass();
-            iatiLocationClass.setCode(location.getLocationClass().getCode());
-            iatiLocation.setLocationClass(iatiLocationClass);
+            if (location.getLocationClass() != null) {
+                final org.devgateway.geocoder.iati.model.Location.LocationClass iatiLocationClass =
+                        new org.devgateway.geocoder.iati.model.Location.LocationClass();
+                iatiLocationClass.setCode(location.getLocationClass().getCode());
+                iatiLocation.setLocationClass(iatiLocationClass);
+            }
 
-            final org.devgateway.geocoder.iati.model.Location.Exactness iatiExactness = new org.devgateway.geocoder.iati.model.Location.Exactness();
-            iatiExactness.setCode(location.getExactness().getCode());
-            iatiLocation.setExactness(iatiExactness);
+            if (location.getExactness() != null) {
+                final org.devgateway.geocoder.iati.model.Location.Exactness iatiExactness =
+                        new org.devgateway.geocoder.iati.model.Location.Exactness();
+                iatiExactness.setCode(location.getExactness().getCode());
+                iatiLocation.setExactness(iatiExactness);
+            }
 
-            final org.devgateway.geocoder.iati.model.Location.LocationReach iatiLocationReach = new org.devgateway.geocoder.iati.model.Location.LocationReach();
-            iatiLocationReach.setCode(location.getLocationReach().getCode());
-            iatiLocation.setLocationReach(iatiLocationReach);
+            if (location.getLocationReach() != null) {
+                final org.devgateway.geocoder.iati.model.Location.LocationReach iatiLocationReach =
+                        new org.devgateway.geocoder.iati.model.Location.LocationReach();
+                iatiLocationReach.setCode(location.getLocationReach().getCode());
+                iatiLocation.setLocationReach(iatiLocationReach);
+            }
 
-            final org.devgateway.geocoder.iati.model.Location.FeatureDesignation iatiFeatureDesignation = new org.devgateway.geocoder.iati.model.Location.FeatureDesignation();
-            iatiFeatureDesignation.setCode(location.getFeaturesDesignation().getCode());
-            iatiLocation.setFeatureDesignation(iatiFeatureDesignation);
+            if (location.getFeaturesDesignation() != null) {
+                final org.devgateway.geocoder.iati.model.Location.FeatureDesignation iatiFeatureDesignation =
+                        new org.devgateway.geocoder.iati.model.Location.FeatureDesignation();
+                iatiFeatureDesignation.setCode(location.getFeaturesDesignation().getCode());
+                iatiLocation.setFeatureDesignation(iatiFeatureDesignation);
+            }
         }
 
         return iatiLocation;

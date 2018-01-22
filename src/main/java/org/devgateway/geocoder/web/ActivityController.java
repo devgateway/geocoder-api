@@ -32,6 +32,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +43,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -90,14 +94,19 @@ public class ActivityController {
         }
     }
 
-    // @Cacheable
     @RequestMapping(value = "/export", method = RequestMethod.GET)
-    public void exportXmlFile(SearchRequest searchRequest, final HttpServletResponse response) {
+    public void exportXmlFile(SearchRequest searchRequest, final HttpServletResponse response) throws IOException {
         final ActivityFilterState activityFilterState = new ActivityFilterState(activityRepository, searchRequest);
         final List<Activity> activities = activityRepository.findAll(activityFilterState.getSpecification());
 
         final String xml = activityService.generateXML(activities);
-        log.log(Level.SEVERE, ">>>> " + xml);
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "inline; filename=\"XML Export.xml\"");
+        response.setContentLength(xml.length());
+
+        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
     }
 
     @Cacheable

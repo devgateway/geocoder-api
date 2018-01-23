@@ -46,6 +46,8 @@ import java.util.stream.Collectors;
 public class ActivityService {
     Logger logger = Logger.getLogger(this.getClass().getName());
 
+    private static final String SRSNAME = "http://www.opengis.net/def/crs/EPSG/0/4326";
+
     @Autowired
     ActivityRepository activityRepository;
 
@@ -214,6 +216,7 @@ public class ActivityService {
             final org.devgateway.geocoder.iati.model.Location.Point iatiPoint =
                     new org.devgateway.geocoder.iati.model.Location.Point();
             iatiPoint.setPos(location.getPoint().getY() + " " + location.getPoint().getX());
+            iatiPoint.setSrsName(SRSNAME);
             iatiLocation.setPoint(iatiPoint);
 
             if (location.getLocationClass() != null) {

@@ -150,7 +150,7 @@ public class IatiExtractors {
      * Extracts {@link org.devgateway.geocoder.domain.Narrative} and converts them to {@link TextRequiredType}.
      */
     public TextRequiredType extractTexts(Set<org.devgateway.geocoder.domain.Narrative> narratives) {
-        final TextRequiredType textRequiredType = new TextRequiredType();
+        TextRequiredType textRequiredType = null;
         List<Narrative> value = null;
         if (narratives != null && !narratives.isEmpty()) {
             value = narratives.stream()
@@ -163,8 +163,9 @@ public class IatiExtractors {
                     .collect(Collectors.toList());
         }
 
-        textRequiredType.getNarrative().clear();
         if (value != null) {
+            textRequiredType = new TextRequiredType();
+            textRequiredType.getNarrative().clear();
             textRequiredType.getNarrative().addAll(value);
         }
 

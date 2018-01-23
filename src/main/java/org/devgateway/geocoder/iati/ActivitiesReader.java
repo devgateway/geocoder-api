@@ -120,6 +120,7 @@ public class ActivitiesReader {
         try {
             final JAXBContext jaxbContext = JAXBContext.newInstance(IatiActivities.class);
             final Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(iatiActivities, w);
         } catch (JAXBException e) {
             e.printStackTrace();

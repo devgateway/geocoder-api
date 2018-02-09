@@ -156,7 +156,7 @@ CREATE INDEX idxni8emsl1bxauvyrc1ikb5pm5a
 -- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE hibernate_sequence
+CREATE SEQUENCE IF NOT EXISTS hibernate_sequence
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE

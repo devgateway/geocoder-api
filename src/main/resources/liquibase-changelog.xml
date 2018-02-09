@@ -18,5 +18,9 @@
        </sql>
     </changeSet>
 
+    <changeSet id="add_initial_data" author="sdimunzio">
+        <sqlFile path="sql/initial_data.sql"></sqlFile>
+    </changeSet>
+
 
 </databaseChangeLog>

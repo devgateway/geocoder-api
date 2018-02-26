@@ -145,3 +145,6 @@ We have tested the suite in the following environments
     * CPU: Intel® Core™ i7-3632QM CPU @ 2.20GHz × 8
     * Memory: 16GB
 
+
+## Geocoder Suite Technical Guide
+For detailed installation instructions please look at the technical guide https://drive.google.com/file/d/1QhGoI_syJq3FqO0lm3Zc7j5ziuWro5TK/view

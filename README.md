@@ -57,14 +57,14 @@ You can switch application properties file by setting --spring.config.name=prop_
     $ java -server -Xms1G -Xmx2G  -jar target/geocoder-1.0.jar --spring.config.name=prod
 
 
-####First time execution
+#### First time execution
 During the first execution, **Open Aid Geocoder API** creates new tables and inserts required system  data such as countries and IATI codes etc.
 
 order to integrate both systems, you can plug **Open Aid Geocoder** and **AutoGeocoder** sharing the same database. 
 During the first execution Manual Coder API will update some of the AutoGeocoder tables and creates additional system tables.
 
 
-##Importing Country Boundaries 
+## Importing Country Boundaries 
 
 Country boundaries are an important piece on the manual coding process. We recommend to use Global Administrative Areas 
 http://www.gadm.org/ as country boundaries source. 
@@ -83,7 +83,7 @@ Opening the Open Aid Geocoder UI
 Once API is running, if geocoder.ui.path has been properly set to geocoder-ui dist folder, you should be able to load the Open Aid Geocoder by opening http://localhost:{API_PORT}.
 
 
-###API Endpoints
+### API Endpoints
 
 * /filters/all -
     Shows all apps filters in objects like ‘countries’ and ‘years’. 

@@ -120,8 +120,7 @@ Activity activity
 
 * /boundaries/list - exports a full list of all countries boundaries
 
-* /boundary - exports a FeatureCollection of the country received as parameter. Example:
-http://geocoder-afdb.developmentgateway.org/boundary?codes=AFG
+* /boundary - exports a FeatureCollection of the country received as parameter.
 
 * /documentref/{locationId} - gets all the documents references that are used to autogeocode a particular location.
 

@@ -88,21 +88,17 @@ Once API is running, if geocoder.ui.path has been properly set to geocoder-ui di
 * /filters/all -
     Shows all apps filters in objects like ‘countries’ and ‘years’. 
     Countries/Years represent all the unique countries/years that we have projects for.
-
 * /import: Import a valid IATI XML file. Beside the XML file this endpoint supports parameters such as: 
     * _autoGeocodeAll_ - Indicates if all the projects will be checked by the auto-geocoder tool. 
     * _autoGeocodeAllWithoutLoc_ - Indicates that ONLY projects without a location will be checked by the auto-geocoder tool_
     * _overwriteProjects_  - If the IATI file contains projects that are already in the system (based on the project identifier) then this parameter indicates if we will ignore those projects or if we want to overwrite them.
-
 * /export  Exports a valid IATI XML file with all the projects in the system. If we need to filter the export then we can pass an object including:
-	
 	* text - free text that is searched in all Project’s Narratives.
 	* countries - a list of ISO2 countries
 	* years - a list of years
 	* withNoLocation - Boolean that gets only projects with no location
 	* pendingVerification - Boolean that gets only projects with pending verification locations
 	* verifiedLocation - Boolean that gets only projects that have all the locations verified
-
 * /projects - exports in JSON format all the projects that matched the received search criteria.
     * text - free text that is searched in all Project’s Narratives.
     * countries - a list of ISO2 countries
@@ -110,18 +106,12 @@ Once API is running, if geocoder.ui.path has been properly set to geocoder-ui di
     * withNoLocation - Boolean that gets only projects with no location
     * pendingVerification - Boolean that gets only projects with pending verification locations
     * verifiedLocation - Boolean that gets only projects that have all the locations verif
-
 * /project/{id} - Request Method GET - This method will return a JSON export with all the critical fields of a Project. The projects is identified by the id received as a parameter
-
 * /project/{id} - Request Method PUT - this method will update a Project. All the new fields are received in the following parameter:
 Activity activity
-
 * /project/{id} - Request Method DELETE - this method will delete a particular project received as a parameter
-
 * /boundaries/list - exports a full list of all countries boundaries
-
 * /boundary - exports a FeatureCollection of the country received as parameter.
-
 * /documentref/{locationId} - gets all the documents references that are used to autogeocode a particular location.
 
 

@@ -86,11 +86,11 @@ public class XmlImport {
     private CacheService cacheService;
 
     @Transactional
-    public Map<Boolean, List<String>> process(final File file,
-                                              final MultipartFile uploadFile,
-                                              final Boolean autoGeocode,
-                                              final Boolean autoGeocodeWithoutLoc,
-                                              final Boolean overwriteProjects) {
+    public synchronized Map<Boolean, List<String>> process(final File file,
+                                                           final MultipartFile uploadFile,
+                                                           final Boolean autoGeocode,
+                                                           final Boolean autoGeocodeWithoutLoc,
+                                                           final Boolean overwriteProjects) {
         final ActivitiesReader reader = new ActivitiesReader(file);
         final List<String> validations = reader.validate();
         final List<String> statistics = new ArrayList<>();

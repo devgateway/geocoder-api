@@ -9,7 +9,9 @@ import org.devgateway.geocoder.domain.Narrative_;
 import org.devgateway.geocoder.repositories.ActivityRepository;
 import org.devgateway.geocoder.request.SearchRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,8 +48,24 @@ public class ActivityFilterState implements Serializable {
             }
 
             if (searchRequest.getCountries() != null && !searchRequest.getCountries().isEmpty()) {
-                predicates.add(root.join(Activity_.countries).get(Country_.iso2).in(searchRequest.getCountries()));
+
+                if (searchRequest.getCountries().contains("-1")) {
+                    if(searchRequest.getCountries().size()> 1){
+                        predicates.add(cb.or(root.join(Activity_.countries, JoinType.LEFT).get(Country_.id).isNull(),
+                                root.join(Activity_.countries,JoinType.LEFT).get(Country_.iso2).in(searchRequest.getCountries())));
+
+                    }else{
+                        //only activities without countries => left join where country is null
+                        predicates.add(root.join(Activity_.countries, JoinType.LEFT).get(Country_.id).isNull());
+
+                    }
+
+                } else {
+                    predicates.add(root.join(Activity_.countries).get(Country_.iso2).in(searchRequest.getCountries()));
+
+                }
             }
+
 
             if (searchRequest.getYears() != null && !searchRequest.getYears().isEmpty()) {
                 List<Predicate> yearPredicates = new ArrayList<>();
